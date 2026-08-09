@@ -1,0 +1,2234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quantitative Collatz Descent to Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization — full text</title>
+<meta name="description" content="Full text of the public Zenodo v2.0.2 article: for every fixed 0 &lt; delta &lt; delta_0 = 0.251245530155874..., the shortcut Collatz orbit minimum satisfies T_min(n) &lt;= exp((log n)^(1-delta)) on a set of natural density one, with an explicit exceptional count and a 6.953 log n witness.">
+<link rel="canonical" href="https://shaikidris.github.io/paper/">
+
+<meta name="citation_title" content="Quantitative Collatz Descent to Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization">
+<meta name="citation_author" content="Shaik, Idris Ali">
+<meta name="citation_author_orcid" content="https://orcid.org/0009-0009-9699-9712">
+<meta name="citation_publication_date" content="2026/08/08">
+<meta name="citation_doi" content="10.5281/zenodo.21851173">
+<meta name="citation_abstract_html_url" content="https://shaikidris.github.io/">
+<meta name="citation_fulltext_html_url" content="https://shaikidris.github.io/paper/">
+<meta name="citation_pdf_url" content="https://shaikidris.github.io/paper/collatz-endpoint-transport.pdf">
+<meta name="citation_language" content="en">
+<meta name="citation_keywords" content="Collatz map; natural density; Renyi moment; endpoint transport; parity vector; quantitative descent; Lean 4">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quantitative Collatz Descent to Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization">
+<meta property="og:description" content="Full text of the public Zenodo v2.0.2 article: for every fixed 0 &lt; delta &lt; delta_0 = 0.251245530155874..., the shortcut Collatz orbit minimum satisfies T_min(n) &lt;= exp((log n)^(1-delta)) on a set of natural density one, with an explicit exceptional count and a 6.953 log n witness.">
+<meta property="og:url" content="https://shaikidris.github.io/paper/">
+<meta property="og:image" content="https://shaikidris.github.io/assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="author" content="Idris Ali Shaik">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/paper.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Quantitative Collatz Descent to Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization",
+  "author": { "@type": "Person", "name": "Idris Ali Shaik",
+               "identifier": "https://orcid.org/0009-0009-9699-9712" },
+  "datePublished": "2026-08-08",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.21851173" },
+  "url": "https://shaikidris.github.io/paper/",
+  "isPartOf": { "@type": "WebSite", "name": "Quantitative Collatz Descent",
+                 "url": "https://shaikidris.github.io/" }
+}
+</script>
+
+<script>
+  (function () { var t = localStorage.getItem("theme");
+    if (t) document.documentElement.setAttribute("data-theme", t); })();
+</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]],
+          processEscapes: true, tags: "none" },
+  options: { skipHtmlTags: ["script","noscript","style","textarea","pre","code"] },
+  chtml: { scale: 0.97 }
+};
+</script>
+<script defer src="../assets/mathjax/tex-chtml.js"></script>
+</head>
+<body class="paperpage">
+<a class="skip" href="#doc">Skip to the paper</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="../">Quantitative Collatz Descent</a>
+    <nav>
+      <a href="../">Overview</a>
+      <a href="./" aria-current="page">Paper</a>
+      <a href="../code/">Lean code</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme">◐</button>
+    </nav>
+  </div>
+</header>
+
+<div class="paperbar">
+  <div class="wrap">
+    <span>Preprint · v2.0.2 · CC BY 4.0</span>
+    <a href="collatz-endpoint-transport.pdf">Download PDF</a>
+    <a href="https://doi.org/10.5281/zenodo.21851173" rel="noopener">doi:10.5281/zenodo.21851173</a>
+  </div>
+</div>
+
+<div class="paperlayout wrap">
+
+  <article id="doc" class="doc">
+    <p><strong>Idris Ali Shaik</strong></p>
+<p>Independent researcher</p>
+<p>Correspondence: shaikidris@apache.org</p>
+<p>ORCID: 0009-0009-9699-9712</p>
+<p><strong>Keywords:</strong> Collatz map, natural density, Rényi
+moment, parity word, endpoint fiber, quantitative descent.</p>
+<p><strong>MSC 2020:</strong> Primary 11B83; Secondary 60F10.</p>
+<section id="abstract" class="level2">
+<h2>Abstract</h2>
+<p>Let <span class="math display">\[
+T(n)=
+\begin{cases}
+n/2,&amp;n\text{ even},\\
+(3n+1)/2,&amp;n\text{ odd},
+\end{cases}
+\qquad
+T_{\min}(n)=\min_{k\geq0}T^k(n).
+\]</span> Put <span class="math inline">\(a_0=(\log_2 3)/2\)</span> and
+<span class="math display">\[
+\delta_0=\frac{\log(1/a_0)}{\log(2/a_0)}
+=0.251245530155874\ldots.
+\]</span> For every <span
+class="math inline">\(0&lt;\delta&lt;\delta_0\)</span>, we prove that
+<span class="math display">\[
+T_{\min}(n)\leq \exp((\log n)^{1-\delta})
+\]</span> for a set of positive integers of natural density one. We also
+give a stretched-exponential bound for the exceptional count and locate
+a descent witness before <span class="math inline">\(6.953\log
+n\)</span> iterations of <span class="math inline">\(T\)</span>. The
+proof conditions a dyadic parity word on its total number of odd steps,
+applies a Rényi estimate to the resulting composition fibers when the
+number of parts is near its mean, and iterates only the endpoints of
+logarithmic-length blocks. The result is an almost-all statement and
+does not prove the Collatz conjecture.</p>
+</section>
+<section id="introduction" class="level2">
+<h2>1. Introduction</h2>
+<p>The Collatz conjecture asks whether every positive integer eventually
+reaches <span class="math inline">\(1\)</span> under the map <span
+class="math inline">\(T\)</span> above. This paper addresses a different
+and weaker question: how small a value can be proved to occur for almost
+every initial integer, when “almost every” means ordinary natural
+density?</p>
+<p>Natural-density descent separates two questions that the full
+conjecture combines: how deeply a typical orbit can be forced to
+descend, and whether every orbit terminates. Replacing a known threshold
+by a smaller one measures deeper certified descent while retaining
+ordinary counting density. It does not, by itself, say anything about
+every individual orbit.</p>
+<p>Throughout, <span class="math inline">\(\log\)</span> denotes the
+natural logarithm; logarithms to another base carry a subscript.</p>
+<p>For <span class="math inline">\(S\subseteq\mathbb N_{\geq1}\)</span>,
+write <span class="math display">\[
+B_S(X)=\#\{1\leq n\leq X:n\notin S\}.
+\]</span> The set <span class="math inline">\(S\)</span> has natural
+density one when <span class="math inline">\(B_S(X)=o(X)\)</span>.
+Earlier natural-density results gave fixed-power descent. Allouche [2]
+proved <span class="math inline">\(T_{\min}(n)\leq n^\theta\)</span> for
+every fixed <span
+class="math inline">\(\theta&gt;3/2-(\log2)/(\log3)\)</span>; Korec [5]
+improved the range to <span class="math inline">\(\theta&gt;\log_4
+3\)</span>; and Inselmann [4] obtained every fixed exponent <span
+class="math inline">\(\theta&gt;0\)</span>. At a different density
+level, Tao [7] proved descent below every function tending to infinity
+in logarithmic density. Concurrent preprints of Allikvere [1] and Mazur
+[6] obtain natural-density conclusions with arbitrary diverging
+thresholds through bridges built on Tao’s framework. Their
+terminal-threshold class is more general than the theorem below. The
+threshold proved here is nevertheless eventually smaller than <span
+class="math inline">\(n^\theta\)</span> for every fixed <span
+class="math inline">\(\theta&gt;0\)</span>.</p>
+<p>Set <span class="math display">\[
+a_0=\frac{\log_2 3}{2},
+\qquad
+\delta_0=
+\frac{\log(1/a_0)}{\log(2/a_0)}
+=0.251245530155874\ldots.
+\tag{1.1}
+\]</span> The endpoint <span class="math inline">\(\delta_0\)</span> is
+a supremum of the strict parameter ranges used in the proof; equality is
+not asserted.</p>
+<section id="theorem-1.1" class="level3">
+<h3>Theorem 1.1</h3>
+<p>Fix <span class="math inline">\(0&lt;\delta&lt;\delta_0\)</span>.</p>
+<ol type="1">
+<li><p>The set of <span class="math inline">\(n\)</span> satisfying
+<span class="math display">\[
+T_{\min}(n)\leq\exp((\log n)^{1-\delta})
+\tag{1.2}
+\]</span> has natural density one. More quantitatively, for every <span
+class="math display">\[
+0&lt;\sigma&lt;1-\frac{\delta}{\delta_0},
+\]</span> there are constants <span
+class="math inline">\(c_{\delta,\sigma}&gt;0\)</span> and <span
+class="math inline">\(X_{\delta,\sigma}\)</span> such that, for every
+<span class="math inline">\(X\geq X_{\delta,\sigma}\)</span>, <span
+class="math display">\[
+\#\left\{1\leq n\leq X:
+T_{\min}(n)&gt;\exp((\log n)^{1-\delta})\right\}
+\leq
+5X\exp\!\left(-c_{\delta,\sigma}(\log X)^\sigma\right).
+\tag{1.3}
+\]</span></p></li>
+<li><p>There is a set <span class="math inline">\(A_\delta\)</span> of
+natural density one such that every sufficiently large <span
+class="math inline">\(n\in A_\delta\)</span> has an integer <span
+class="math inline">\(0\leq k&lt;6.953\log n\)</span> for which <span
+class="math display">\[
+T^k(n)\leq\exp((\log n)^{1-\delta}).
+\tag{1.4}
+\]</span></p></li>
+</ol>
+<p>The constants in (1.3) are effective in the sense that they are
+obtained from the fixed parameters and finite maxima in the proof. They
+are not optimized, and no practical numerical value of <span
+class="math inline">\(X_{\delta,\sigma}\)</span> is claimed.</p>
+<p>The restriction on <span class="math inline">\(\sigma\)</span> comes
+from the shell exponent <span class="math inline">\(1-\gamma\)</span>,
+where <span class="math inline">\(\gamma=\omega\log(1/\chi)\)</span> in
+(6.17); the corresponding parameter choice is made in (7.11)–(7.12).</p>
+<p>Theorem 1.1 is an almost-all theorem. It neither proves descent for
+every initial value nor excludes exceptional cycles or divergent
+trajectories. Section 8.1 records the precise scope of the
+conclusion.</p>
+</section>
+<section id="why-logarithmic-blocks-appear" class="level3">
+<h3>1.1. Why logarithmic blocks appear</h3>
+<p>Suppose a block contains <span class="math inline">\(M\)</span>
+half-Collatz steps and <span class="math inline">\(s\)</span> odd steps.
+If the additive terms are temporarily ignored, its multiplicative factor
+is <span class="math display">\[
+\frac{3^s}{2^M}.
+\]</span> For a typical parity word <span class="math inline">\(s\approx
+M/2\)</span>, so this factor is approximately <span
+class="math display">\[
+\left(\frac{\sqrt3}{2}\right)^M.
+\]</span> Taking <span class="math inline">\(M\approx\log_2 n\)</span>
+therefore sends the scale <span class="math inline">\(n\)</span> to
+approximately <span class="math inline">\(n^{a_0}\)</span>, where <span
+class="math inline">\(a_0=(\log_2 3)/2&lt;1\)</span>. One logarithmic
+block gives a fixed-power contraction. Repeating such blocks is what
+converts that contraction into the stretched-logarithmic threshold in
+(1.2).</p>
+<p>The choice of exactly <span class="math inline">\(M\)</span> steps
+also matches the arithmetic of the shell: its <span
+class="math inline">\(2^M\)</span> starting values form a complete
+residue system modulo <span class="math inline">\(2^M\)</span>, so
+Proposition 2.3 identifies them with all length-<span
+class="math inline">\(M\)</span> parity words exactly once. Shorter
+blocks retain exact uniformity but give less contraction, while longer
+blocks no longer sample every parity word from one shell.</p>
+<p>The difficulty is not the heuristic contraction. It is preserving a
+quantitative natural-density estimate when the endpoint of one block
+becomes the starting value of the next. The proof isolates this as a
+pullback problem. For a set <span class="math inline">\(S\)</span>,
+define <span class="math display">\[
+\operatorname{Pull}(S)
+=
+\{n\geq1:T^{\lfloor\log_2 n\rfloor}(n)\in S\}.
+\tag{1.5}
+\]</span> The central technical result shows that a power-saving bound
+for the complement of <span class="math inline">\(S\)</span> survives
+this operation with an asymptotically linear loss in its exponent.</p>
+</section>
+<section id="proof-outline" class="level3">
+<h3>1.2. Proof outline</h3>
+<p>The proof has six steps.</p>
+<ol type="1">
+<li><p><strong>One block in parity coordinates.</strong> Parity words of
+length <span class="math inline">\(M\)</span> are in bijection with the
+integers in a dyadic shell. The exact affine iterate expresses the block
+endpoint in terms of the parity word.</p></li>
+<li><p><strong>Condition on the odd count.</strong> After fixing the
+number <span class="math inline">\(s\)</span> of odd steps, a parity
+word becomes a positive composition of a fixed total. Equality of block
+endpoints is reduced to a congruence modulo <span
+class="math inline">\(3^s\)</span>.</p></li>
+<li><p><strong>Control endpoint multiplicities.</strong> Words sharing
+one block endpoint form an endpoint fiber. Integer-lift injectivity and
+a quotient-order estimate convert congestion in its congruence class
+into a random variable measuring how much of the composition total is
+spent in its final parts. A Rényi bound at each fixed total controls its
+<span class="math inline">\((1+\theta)\)</span>-moment when the number
+of parts is near its mean, for every fixed <span
+class="math inline">\(1/2&lt;\theta&lt;1\)</span>.</p></li>
+<li><p><strong>Pull back a dense target.</strong> Split endpoint fibers
+according to whether their normalized multiplicity exceeds a chosen
+exponential threshold; call those above it heavy. The target-density
+bound controls the ordinary part, and the Rényi estimate controls the
+heavy part. Balancing the two errors gives the small-<span
+class="math inline">\(D\)</span> transport slope <span
+class="math display">\[
+\Lambda(\theta)=a_0\frac{\theta}{1+\theta}.
+\tag{1.6}
+\]</span> Concretely, the ordinary and heavy contributions decay at
+rates <span class="math inline">\(\psi(D)-v\)</span> and <span
+class="math inline">\(\theta v\)</span>; equating them gives the factor
+<span class="math inline">\(\theta/(1+\theta)\)</span>, and the
+remaining factor <span class="math inline">\(a_0\)</span> is the
+small-<span class="math inline">\(D\)</span> slope of <span
+class="math inline">\(\psi(D)/\log2\)</span>.</p></li>
+<li><p><strong>Iterate endpoints only.</strong> A terminal binomial-tail
+estimate supplies a fixed dense set on which one logarithmic block
+contracts <span class="math inline">\(n\)</span> to at most <span
+class="math inline">\(3n^r\)</span>, for any fixed <span
+class="math inline">\(r&gt;a_0\)</span>. The proof recursively pulls
+back this fixed contraction set; it does not track intermediate iterates
+inside a block. Requiring a shrinking envelope at every intermediate
+time would impose a stronger pathwise event not supplied by the endpoint
+pullback in Step 4. For an orbit-minimum theorem, endpoint iteration is
+the minimal recursion matching the conclusion.</p></li>
+<li><p><strong>Choose the number of blocks.</strong> Using <span
+class="math inline">\(R\asymp\log\log n\)</span> blocks gives endpoint
+size <span class="math inline">\(n^{r^R}\)</span>. The density
+recurrence remains summable exactly when the block-growth parameter lies
+between two explicit scalar bounds. Letting <span
+class="math inline">\(r\downarrow a_0\)</span> and <span
+class="math inline">\(\theta\uparrow1\)</span> gives (1.1).</p></li>
+</ol>
+<p>This organization separates the two genuinely different tasks:
+proving a one-block transport theorem and iterating its endpoint map.
+Every estimate is stated in the form required by the next step.</p>
+</section>
+<section id="relation-to-other-density-results" class="level3">
+<h3>1.3. Relation to other density results</h3>
+<p>Relative to the results above, the proof is independent of Tao’s
+first-passage framework and uses no Diophantine approximation input. It
+trades the arbitrary diverging thresholds available through the
+concurrent bridge approaches for a prescribed stretched-logarithmic
+threshold, the counting-cutoff estimate (1.3), and the logarithmic-time
+witness (1.4). Its inputs are finite parity coding, compositions
+conditioned on their total, congruence-fiber injectivity, one Rényi
+estimate near the mean composition length, and a binomial tail
+bound.</p>
+<p>The new quantitative mechanism is Theorem 5.3. Once its moment
+parameters are fixed, the pullback constants remain fixed while the
+recursively generated density exponent tends to zero.</p>
+</section>
+<section id="organization" class="level3">
+<h3>1.4. Organization</h3>
+<p>Section 2 gives the density calculus and exact one-block coordinates.
+Sections 3 and 4 prove the Rényi estimate for compositions conditioned
+on their total and with part count near its mean. Section 5 turns that
+estimate into a quantitative pullback theorem. Section 6 proves the
+one-block contraction and endpoint bootstrap. Section 7 optimizes the
+parameters and proves Theorem 1.1. Section 8 records scope, formal
+verification supplementary to the manuscript proof, and
+declarations.</p>
+</section>
+<section id="terminology-and-recurring-notation" class="level3">
+<h3>1.5. Terminology and recurring notation</h3>
+<p>We use the following terms throughout. A dyadic shell is an interval
+<span class="math inline">\([2^M,2^{M+1})\)</span>; a logarithmic block
+starting there consists of <span class="math inline">\(M\)</span>
+iterations, and its endpoint is the terminal value <span
+class="math inline">\(T^M(n)\)</span>. A cohort is a set of parity words
+with a specified odd count and, when stated, a specified first odd
+position. <em>Fixed-total</em> means that the composition total <span
+class="math inline">\(N\)</span> is held fixed, while <em>central</em>
+means that its number of parts lies within <span
+class="math inline">\(\varepsilon N\)</span> of the mean <span
+class="math inline">\((N+1)/2\)</span>, for the fixed <span
+class="math inline">\(\varepsilon\)</span> in (4.6). An endpoint fiber
+consists of starts sharing one endpoint; in Section 5 a fiber is
+<em>heavy</em> precisely when it satisfies the threshold inequality
+(5.13), and is ordinary otherwise. <em>Transport</em> refers to passing
+a quantitative density estimate from a target set to its pullback under
+the block endpoint map.</p>
+<p>For reference, the recurring notation is grouped by its role in the
+proof. The last column points to the defining display; symbols omitted
+from the table are local to a single argument.</p>
+<p>After <span class="math inline">\(\delta\)</span>, and also <span
+class="math inline">\(\sigma\)</span> for the quantitative assertion,
+are fixed, the auxiliary parameters <span
+class="math inline">\(\theta,\varepsilon,r,\chi,\zeta,\omega\)</span>
+are chosen once and remain fixed across shells. Only the recursively
+propagated density parameters <span
+class="math inline">\(C_j,D_j\)</span> and the shell-dependent block
+count <span class="math inline">\(R_M\)</span> vary during the
+iteration.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Recurring notation and role</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Density and headline constants</td>
+<td><span class="math inline">\(T_{\min}(n)\)</span>, least orbit value;
+<span class="math inline">\(B_S(X)\)</span>, exceptional count; <span
+class="math inline">\(a_0\)</span>, one-block exponent; <span
+class="math inline">\(\delta_0\)</span>, theorem endpoint</td>
+<td>Abstract; Introduction; (1.1)</td>
+</tr>
+<tr>
+<td>Fixed-total fibers</td>
+<td><span class="math inline">\(\mathscr A_{\mathbf k}\)</span>,
+composition correction; <span class="math inline">\(L_{s,N}\)</span>,
+composition count; <span class="math inline">\(\nu_{s,N}\)</span>,
+residue law; <span class="math inline">\(\mathcal
+A_{s,N}(\theta)\)</span>, normalized Rényi functional</td>
+<td>(3.4), (3.6)–(3.7)</td>
+</tr>
+<tr>
+<td>Central composition law</td>
+<td><span class="math inline">\(J_N\)</span>, random number of parts;
+<span class="math inline">\(p_{N,s}\)</span>, its mass function; <span
+class="math inline">\(\varepsilon_0(\theta)\)</span>, admissible
+half-width; <span class="math inline">\(\mathcal
+I_{N,\varepsilon}\)</span>, central index set</td>
+<td>(4.1), (4.5)–(4.6)</td>
+</tr>
+<tr>
+<td>Shell transport</td>
+<td><span class="math inline">\(G_M^{\rm cen}\)</span>, central shell
+moment; <span class="math inline">\(\psi(D)\)</span>, ordinary-fiber
+exponent; <span class="math inline">\(r_\theta(D)\)</span>, balanced
+transport rate; <span class="math inline">\(\Lambda(\theta)\)</span>,
+limiting transport slope</td>
+<td>(5.3), (5.8), (5.12)</td>
+</tr>
+<tr>
+<td>Endpoint iteration</td>
+<td><span class="math inline">\(F\)</span>, logarithmic-block endpoint;
+<span class="math inline">\(\eta_r\)</span>, odd-count margin; <span
+class="math inline">\(\mathcal E_r\)</span>, contraction set; <span
+class="math inline">\(K_{\rm blk}\)</span>, block constant; <span
+class="math inline">\(\mathcal S_j\)</span>, recursive good sets</td>
+<td>(6.1)–(6.2), (6.7)</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="one-logarithmic-block" class="level2">
+<h2>2. One logarithmic block</h2>
+<p>The proof begins on one dyadic shell, where a logarithmic block has a
+fixed length. Two translations are needed before its endpoints can be
+counted. First, shell estimates must be converted into estimates for all
+initial intervals. Second, a starting integer must be replaced by its
+finite parity word and the endpoint written exactly in those
+coordinates. Lemmas 2.1–2.2 handle the density and concentration
+estimates; Propositions 2.3–2.4 and Corollary 2.5 provide the endpoint
+coordinates used in Section 3.</p>
+<section id="from-dyadic-shells-to-initial-intervals" class="level3">
+<h3>2.1. From dyadic shells to initial intervals</h3>
+<p>For <span class="math inline">\(C&gt;0\)</span> and <span
+class="math inline">\(0&lt;D\leq1\)</span>, call a set <span
+class="math inline">\(S\subseteq\mathbb N_{\geq1}\)</span> <strong><span
+class="math inline">\((C,D)\)</span>-dense</strong> if <span
+class="math display">\[
+B_S(X)\leq C X^{1-D}
+\qquad(X\geq1).
+\tag{2.1}
+\]</span> Every such set has natural density one.</p>
+<p>We need two elementary ways to pass from dyadic-shell estimates to
+(2.1).</p>
+</section>
+<section id="lemma-2.1-dyadic-summation" class="level3">
+<h3>Lemma 2.1 (dyadic summation)</h3>
+<ol type="1">
+<li><p>Suppose <span class="math inline">\(K&gt;0\)</span>, <span
+class="math inline">\(0&lt;\gamma&lt;\log2\)</span>, and <span
+class="math display">\[
+\#\bigl(S^c\cap[2^M,2^{M+1})\bigr)
+\leq K e^{-\gamma M}2^M
+\qquad(M\geq0).
+\tag{2.2}
+\]</span> Then <span class="math inline">\(S\)</span> is <span
+class="math display">\[
+\left(
+\frac{2K}{2e^{-\gamma}-1},
+\frac{\gamma}{\log2}
+\right)\text{-dense}.
+\tag{2.3}
+\]</span></p></li>
+<li><p>Suppose <span class="math inline">\(0&lt;\sigma\leq1\)</span>,
+<span class="math inline">\(A,\gamma&gt;0\)</span>, and, for all
+sufficiently large <span class="math inline">\(M\)</span>, <span
+class="math display">\[
+\#\bigl(E\cap[2^M,2^{M+1})\bigr)
+\leq A e^{-\gamma(M+4)^\sigma}2^M.
+\tag{2.4}
+\]</span> Then there are <span
+class="math inline">\(A&#39;,\gamma&#39;&gt;0\)</span> and <span
+class="math inline">\(X_0\)</span> such that <span
+class="math display">\[
+\#(E\cap[1,X])
+\leq A&#39;X\exp\left(-\gamma&#39;(\log X)^\sigma\right)
+\qquad(X\geq X_0).
+\tag{2.5}
+\]</span> One may take <span class="math display">\[
+A&#39;=2A+1,
+\qquad
+\gamma&#39;=
+\min\left\{\frac{\gamma}{(4\log2)^\sigma},\frac12\right\}.
+\tag{2.6}
+\]</span></p></li>
+</ol>
+<section id="proof" class="level4">
+<h4>Proof</h4>
+<p>For the first assertion, let <span class="math inline">\(2^J\leq
+X&lt;2^{J+1}\)</span>. Summing (2.2) over <span
+class="math inline">\(0\leq M\leq J\)</span> gives <span
+class="math display">\[
+\begin{aligned}
+B_S(X)
+&amp;\leq
+K\sum_{M=0}^J(2e^{-\gamma})^M\\
+&amp;\leq
+\frac{K(2e^{-\gamma})^{J+1}}{2e^{-\gamma}-1}
+\leq
+\frac{2K}{2e^{-\gamma}-1}
+X^{1-\gamma/\log2},
+\end{aligned}
+\]</span> which is (2.3).</p>
+<p>For the second assertion, choose <span
+class="math inline">\(M_*\)</span> so that (2.4) holds for <span
+class="math inline">\(M\geq M_*\)</span>, and take <span
+class="math display">\[
+X_0\geq\max\{4,2^{2M_*}\}.
+\]</span> When <span class="math inline">\(0&lt;\sigma&lt;1\)</span>,
+enlarge <span class="math inline">\(X_0\)</span> so that <span
+class="math display">\[
+\log X_0\geq(2\gamma&#39;)^{1/(1-\sigma)}.
+\]</span> Again write <span class="math inline">\(2^J\leq
+X&lt;2^{J+1}\)</span>. The shells with <span
+class="math inline">\(M&lt;\lfloor J/2\rfloor\)</span> contain fewer
+than <span class="math display">\[
+\sum_{M&lt;\lfloor J/2\rfloor}2^M
+&lt;2^{\lfloor J/2\rfloor}\leq X^{1/2}
+\tag{2.7}
+\]</span> integers. On each remaining shell, <span
+class="math display">\[
+M+4\geq\frac J2\geq\frac{\log X}{4\log2},
+\]</span> so their total contribution is at most <span
+class="math display">\[
+2AX\exp\left(-\gamma&#39;(\log X)^\sigma\right).
+\tag{2.8}
+\]</span> The definition of <span class="math inline">\(X_0\)</span>
+gives <span class="math inline">\(\gamma&#39;(\log
+X)^\sigma\leq\frac12\log X\)</span>; for <span
+class="math inline">\(\sigma=1\)</span>, this follows from <span
+class="math inline">\(\gamma&#39;\leq1/2\)</span>. Thus the right side
+of (2.7) is at most <span class="math display">\[
+X\exp\left(-\gamma&#39;(\log X)^\sigma\right).
+\]</span> Adding (2.7) and (2.8) proves (2.5). <span
+class="math inline">\(\square\)</span></p>
+<p>We shall repeatedly use three immediate consequences of (2.1):</p>
+<ul>
+<li>the intersection of <span
+class="math inline">\((C_i,D_i)\)</span>-dense sets, <span
+class="math inline">\(i=1,2\)</span>, is <span
+class="math inline">\((C_1+C_2,\min(D_1,D_2))\)</span>-dense;</li>
+<li>adding or deleting finitely many integers changes only the constant
+<span class="math inline">\(C\)</span>;</li>
+<li>if <span class="math inline">\(0&lt;D&#39;\leq D\)</span>, then
+every <span class="math inline">\((C,D)\)</span>-dense set is also <span
+class="math inline">\((C,D&#39;)\)</span>-dense.</li>
+</ul>
+<p>The central-window argument also uses the following
+symmetric-binomial estimate.</p>
+</section>
+</section>
+<section id="lemma-2.2-symmetric-binomial-tail" class="level3">
+<h3>Lemma 2.2 (symmetric-binomial tail)</h3>
+<p>If <span
+class="math inline">\(X\sim\operatorname{Bin}(n,1/2)\)</span>, <span
+class="math inline">\(n\geq1\)</span>, and <span
+class="math inline">\(y\geq0\)</span>, then <span
+class="math display">\[
+\Pr\left(\left|X-\frac n2\right|\geq y\right)
+\leq
+2\exp\left(-\frac{2y^2}{n}\right).
+\tag{2.9}
+\]</span></p>
+<section id="proof-1" class="level4">
+<h4>Proof</h4>
+<p>For <span class="math inline">\(\lambda&gt;0\)</span>, <span
+class="math display">\[
+\mathbb E e^{\lambda(X-n/2)}
+=
+\left(\cosh\frac\lambda2\right)^n
+\leq e^{n\lambda^2/8}.
+\]</span> The last inequality follows from <span
+class="math inline">\(\cosh u\leq e^{u^2/2}\)</span>: on <span
+class="math inline">\([0,\infty)\)</span>, the derivative of <span
+class="math inline">\(u^2/2-\log\cosh u\)</span> is <span
+class="math inline">\(u-\tanh u\)</span>, whose derivative is <span
+class="math inline">\(\tanh^2u\geq0\)</span>. Markov’s inequality with
+<span class="math inline">\(\lambda=4y/n\)</span> gives the upper tail.
+Applying the same argument to <span class="math inline">\(-X\)</span>
+gives the lower tail. <span class="math inline">\(\square\)</span></p>
+</section>
+</section>
+<section id="parity-words-and-exact-endpoints" class="level3">
+<h3>2.2. Parity words and exact endpoints</h3>
+<p>The finite parity-word coordinates are classical; see Terras [8] and
+Everett [3]. We include the short proofs needed here.</p>
+<p>For <span class="math inline">\(n\geq1\)</span>, define the parity
+bits and their prefix sums by <span class="math display">\[
+p_i(n)=\mathbf 1_{\{T^i(n)\ {\rm odd}\}},
+\qquad
+s_k(n)=\sum_{i=0}^{k-1}p_i(n).
+\tag{2.10}
+\]</span></p>
+<p>Binomial concentration is useful only if parity words occur with
+exact, not heuristic, uniformity among shell starts. The next
+proposition supplies that identification.</p>
+</section>
+<section id="proposition-2.3-parity-word-bijection" class="level3">
+<h3>Proposition 2.3 (parity-word bijection)</h3>
+<p>For every <span class="math inline">\(M\geq0\)</span>, the map <span
+class="math display">\[
+n\bmod 2^M
+\longmapsto
+\bigl(p_0(n),\ldots,p_{M-1}(n)\bigr)
+\tag{2.11}
+\]</span> is a bijection from <span class="math inline">\(\mathbb
+Z/2^M\mathbb Z\)</span> to <span
+class="math inline">\(\{0,1\}^M\)</span>. Consequently, <span
+class="math display">\[
+\#\{n\in[2^M,2^{M+1}):s_M(n)=s\}
+=\binom Ms.
+\tag{2.12}
+\]</span></p>
+<section id="proof-2" class="level4">
+<h4>Proof</h4>
+<p>The first <span class="math inline">\(M\)</span> parity bits depend
+only on <span class="math inline">\(n\bmod2^M\)</span>, because <span
+class="math display">\[
+n\equiv n&#39;\pmod{2^{k+1}}
+\quad\Longrightarrow\quad
+T(n)\equiv T(n&#39;)\pmod{2^k}.
+\]</span> Conversely, the parity bit at time zero and the residue of
+<span class="math inline">\(T(n)\)</span> determine <span
+class="math inline">\(n\)</span> one power of two more precisely. On the
+even branch, <span class="math display">\[
+n=2T(n)\pmod{2^{k+1}},
+\]</span> while on the odd branch, <span class="math display">\[
+n=(2T(n)-1)3^{-1}\pmod{2^{k+1}},
+\]</span> where <span class="math inline">\(3\)</span> is a unit modulo
+<span class="math inline">\(2^{k+1}\)</span>. Induction recovers <span
+class="math inline">\(n\bmod2^M\)</span> from the parity word. The two
+finite sets have the same cardinality, so the map is bijective. Each
+residue modulo <span class="math inline">\(2^M\)</span> occurs once in
+<span class="math inline">\([2^M,2^{M+1})\)</span>, and (2.12) follows.
+<span class="math inline">\(\square\)</span></p>
+<p>Define an integer correction by <span class="math display">\[
+c_0(n)=0,
+\qquad
+c_{k+1}(n)=
+\begin{cases}
+c_k(n),&amp;p_k(n)=0,\\
+3c_k(n)+2^k,&amp;p_k(n)=1.
+\end{cases}
+\tag{2.13}
+\]</span></p>
+<p>The parity word specifies the multiplicative factor <span
+class="math inline">\(3^{s_k}/2^k\)</span>, but the additive <span
+class="math inline">\(+1\)</span> terms still have to be retained. The
+next identity keeps that correction exact rather than replacing the
+Collatz block by its multiplicative heuristic.</p>
+</section>
+</section>
+<section id="proposition-2.4-affine-iterate" class="level3">
+<h3>Proposition 2.4 (affine iterate)</h3>
+<p>For every <span class="math inline">\(n\geq1\)</span> and <span
+class="math inline">\(k\geq0\)</span>, <span class="math display">\[
+2^kT^k(n)=3^{s_k(n)}n+c_k(n),
+\tag{2.14}
+\]</span> and <span class="math display">\[
+0\leq c_k(n)&lt;3^{s_k(n)}2^k.
+\tag{2.15}
+\]</span></p>
+<section id="proof-3" class="level4">
+<h4>Proof</h4>
+<p>Both statements follow by induction on <span
+class="math inline">\(k\)</span>. An even step leaves the correction
+unchanged. At an odd step, <span class="math display">\[
+c_{k+1}=3c_k+2^k,
+\qquad
+s_{k+1}=s_k+1.
+\]</span> If (2.15) holds at time <span
+class="math inline">\(k\)</span>, then <span class="math display">\[
+c_{k+1}
+&lt;3^{s_k+1}2^k+2^k
+&lt;3^{s_k+1}2^{k+1},
+\]</span> because <span class="math inline">\(1&lt;3^{s_k+1}\)</span>.
+This proves (2.14)–(2.15) simultaneously. <span
+class="math inline">\(\square\)</span></p>
+<p>For the fiber argument we shall not need a sharp bound on every
+correction. The affine identity already gives the following uniform
+endpoint range on a fixed shell and odd-count cohort.</p>
+</section>
+</section>
+<section id="corollary-2.5-endpoint-range" class="level3">
+<h3>Corollary 2.5 (endpoint range)</h3>
+<p>If <span class="math inline">\(n\in[2^M,2^{M+1})\)</span> and <span
+class="math inline">\(s_M(n)=s\)</span>, then <span
+class="math display">\[
+0&lt;T^M(n)&lt;3^{s+1}.
+\tag{2.16}
+\]</span></p>
+<section id="proof-4" class="level4">
+<h4>Proof</h4>
+<p>Equations (2.14)–(2.15) and <span
+class="math inline">\(n&lt;2^{M+1}\)</span> give <span
+class="math display">\[
+2^MT^M(n)
+&lt;
+3^s2^{M+1}+3^s2^M
+=3^{s+1}2^M.
+\]</span> <span class="math inline">\(\square\)</span></p>
+</section>
+</section>
+</section>
+<section id="fixed-total-endpoint-fibers" class="level2">
+<h2>3. Fixed-total endpoint fibers</h2>
+<p>Section 2 replaces every shell start by a parity word and expresses
+its block endpoint through an integer correction. Pulling back a target
+set requires a bound on how many words can share one endpoint. We
+condition on the number <span class="math inline">\(s\)</span> of odd
+letters, separate the first odd position, and encode the remaining gaps
+by a positive composition of a fixed total. This turns the
+endpoint-collision problem into a congruence-fiber problem modulo <span
+class="math inline">\(3^s\)</span>.</p>
+<p>Fix a parity word <span class="math inline">\(w\in\{0,1\}^M\)</span>
+with <span class="math inline">\(s\geq1\)</span> odd letters. The first
+lemma gives the exact dictionary between the word and its
+composition.</p>
+<section id="lemma-3.1-parity-words-and-compositions" class="level3">
+<h3>Lemma 3.1 (parity words and compositions)</h3>
+<p>Let <span class="math display">\[
+0\leq i_1&lt;i_2&lt;\cdots&lt;i_s&lt;M
+\]</span> be the odd positions of <span
+class="math inline">\(w\)</span>. Put <span class="math display">\[
+u=i_1,
+\qquad
+k_j=i_{j+1}-i_j\quad(1\leq j&lt;s),
+\qquad
+k_s=M-i_s.
+\tag{3.1}
+\]</span> Then <span class="math inline">\(\mathbf
+k=(k_1,\ldots,k_s)\)</span> is a positive composition of <span
+class="math inline">\(N=M-u\)</span>. Conversely, <span
+class="math inline">\(u\geq0\)</span> and a positive composition of
+<span class="math inline">\(M-u\)</span> into <span
+class="math inline">\(s\)</span> parts recover a unique parity word
+through <span class="math display">\[
+i_m=u+k_1+\cdots+k_{m-1}.
+\tag{3.2}
+\]</span> If <span class="math inline">\(c_w\)</span> is the correction
+in (2.13), then <span class="math display">\[
+c_w
+=
+2^u\sum_{m=1}^s
+3^{s-m}2^{k_1+\cdots+k_{m-1}}.
+\tag{3.3}
+\]</span></p>
+<section id="proof-5" class="level4">
+<h4>Proof</h4>
+<p>The gaps in (3.1) are positive and sum to <span
+class="math inline">\(M-u\)</span>. Formula (3.2) proves the inverse
+correspondence. Each odd step at position <span
+class="math inline">\(i_m\)</span> contributes <span
+class="math inline">\(2^{i_m}\)</span> to the correction and is
+multiplied by <span class="math inline">\(3\)</span> at each of the
+<span class="math inline">\(s-m\)</span> later odd steps. Hence <span
+class="math display">\[
+c_w=\sum_{m=1}^s3^{s-m}2^{i_m},
+\]</span> which becomes (3.3) after substituting (3.2). <span
+class="math inline">\(\square\)</span></p>
+<p>For a positive composition <span class="math display">\[
+\mathbf k=(k_1,\ldots,k_s),
+\qquad
+k_1+\cdots+k_s=N,
+\]</span> put <span class="math inline">\(K_0=0\)</span>, <span
+class="math inline">\(K_j=k_1+\cdots+k_j\)</span>, and define <span
+class="math display">\[
+\mathscr A_{\mathbf k}
+=
+\sum_{j=0}^{s-1}3^{s-1-j}2^{K_j}.
+\tag{3.4}
+\]</span> Thus (3.3) says <span class="math inline">\(c_w=2^u\mathscr
+A_{\mathbf k}\)</span>. Since <span
+class="math inline">\(M=u+N\)</span>, with <span
+class="math inline">\(2^{-N}\)</span> in the following congruence
+denoting the inverse of <span class="math inline">\(2^N\)</span> in
+<span class="math inline">\(\mathbb Z/3^s\mathbb Z\)</span>, <span
+class="math display">\[
+2^{-M}c_w
+=2^{-N}\mathscr A_{\mathbf k}\pmod{3^s}.
+\tag{3.5}
+\]</span></p>
+<p>There are <span class="math display">\[
+L_{s,N}=\binom{N-1}{s-1}
+\tag{3.6}
+\]</span> positive compositions of <span
+class="math inline">\(N\)</span> into <span
+class="math inline">\(s\)</span> parts. Let <span
+class="math inline">\(\nu_{s,N}\)</span> be the probability law of <span
+class="math display">\[
+2^{-N}\mathscr A_{\mathbf k}\pmod{3^s}
+\]</span> when <span class="math inline">\(\mathbf k\)</span> is chosen
+uniformly from these compositions. For <span
+class="math inline">\(\theta&gt;0\)</span>, define <span
+class="math display">\[
+\mathcal A_{s,N}(\theta)
+=
+3^{s\theta}
+\sum_{a\bmod3^s}\nu_{s,N}(a)^{1+\theta}.
+\tag{3.7}
+\]</span> Because <span class="math inline">\(2^{-N}\)</span> is a unit
+modulo <span class="math inline">\(3^s\)</span>, multiplication by it
+only permutes residue classes. The same functional is therefore obtained
+from the fibers of <span class="math inline">\(\mathscr A_{\mathbf
+k}\bmod3^s\)</span>.</p>
+<p>The Rényi functional in (3.7) measures congestion in these residue
+fibers. To control it by ordering integer representatives, we first need
+to know that two different compositions never give the same integer
+correction.</p>
+</section>
+</section>
+<section id="lemma-3.2-integer-lift-injectivity" class="level3">
+<h3>Lemma 3.2 (integer-lift injectivity)</h3>
+<p>For fixed <span class="math inline">\(s,N\)</span>, the map <span
+class="math display">\[
+\mathbf k\longmapsto\mathscr A_{\mathbf k}\in\mathbb N
+\]</span> is injective.</p>
+<section id="proof-6" class="level4">
+<h4>Proof</h4>
+<p>Dividing (3.4) by <span class="math inline">\(2^N\)</span> gives
+<span class="math display">\[
+2^{-N}\mathscr A_{\mathbf k}
+=
+3^{s-1}2^{-N}
++3^{s-2}2^{-(N-k_1)}
++\cdots
++2^{-k_s}.
+\tag{3.8}
+\]</span> Taking valuations in <span class="math inline">\(\mathbb
+Q_2\)</span>, the summands have valuations <span class="math display">\[
+K_0-N&lt;K_1-N&lt;\cdots&lt;K_{s-1}-N.
+\]</span> Suppose two compositions give the same value in (3.8). Their
+first summands are identical, so cancel them. The <span
+class="math inline">\(2\)</span>-adic valuation of the remaining sum is
+<span class="math inline">\(K_1-N\)</span>: its first coefficient is
+odd, and every later summand has strictly larger valuation. Equality of
+the two remaining sums therefore forces the two values of <span
+class="math inline">\(K_1\)</span>, and hence of <span
+class="math inline">\(k_1\)</span>, to agree. Cancel the now identical
+next summands and repeat. This recovers <span
+class="math inline">\(k_2,\ldots,k_{s-1}\)</span>; the common total
+<span class="math inline">\(N\)</span> then recovers <span
+class="math inline">\(k_s\)</span>. <span
+class="math inline">\(\square\)</span></p>
+<p>Injectivity allows the values in each residue class to be ordered by
+their quotients after division by <span
+class="math inline">\(3^s\)</span>. Distinct quotients must spread out,
+which converts a large fiber into a large average correction.</p>
+</section>
+</section>
+<section id="lemma-3.3-quotient-order-estimate" class="level3">
+<h3>Lemma 3.3 (quotient-order estimate)</h3>
+<p>For every <span class="math inline">\(\theta&gt;0\)</span>, <span
+class="math display">\[
+\mathcal A_{s,N}(\theta)
+\leq
+(1+\theta)\,
+\mathbb E_{s,N}
+\left[
+\left(
+\frac{3^s+\mathscr A_{\mathbf k}}{L_{s,N}}
+\right)^\theta
+\right],
+\tag{3.9}
+\]</span> where <span class="math inline">\(\mathbb E_{s,N}\)</span>
+denotes expectation under the uniform law on positive compositions of
+<span class="math inline">\(N\)</span> into <span
+class="math inline">\(s\)</span> parts.</p>
+<section id="proof-7" class="level4">
+<h4>Proof</h4>
+<p>For <span class="math inline">\(a\in\{0,\ldots,3^s-1\}\)</span>, let
+<span class="math inline">\(f_a\)</span> be the number of compositions
+with <span class="math inline">\(\mathscr A_{\mathbf k}\equiv
+a\pmod{3^s}\)</span>. By Lemma 3.2, the integer values in this fiber are
+distinct. Write them in increasing quotient order as <span
+class="math display">\[
+\mathscr A_i=a+3^sq_i,
+\qquad
+0\leq q_1&lt;\cdots&lt;q_{f_a}.
+\]</span> Then <span class="math inline">\(q_i\geq i-1\)</span>, so
+<span class="math display">\[
+\begin{aligned}
+\frac{f_a^{1+\theta}}{1+\theta}
+&amp;=\int_0^{f_a}x^\theta\,dx\\
+&amp;\leq\sum_{i=1}^{f_a}i^\theta\\
+&amp;\leq\sum_{i=1}^{f_a}(1+q_i)^\theta\\
+&amp;\leq
+3^{-s\theta}\sum_{i=1}^{f_a}(3^s+\mathscr A_i)^\theta.
+\end{aligned}
+\]</span> The last inequality uses <span
+class="math inline">\(3^{-s}(3^s+\mathscr
+A_i)=1+q_i+a/3^s\geq1+q_i\)</span>. Multiply by <span
+class="math inline">\(3^{s\theta}\)</span>, sum over <span
+class="math inline">\(a\)</span>, and divide by <span
+class="math inline">\(L_{s,N}^{1+\theta}\)</span>. This is (3.9). <span
+class="math inline">\(\square\)</span></p>
+<p>Thus the arithmetic collision moment has been reduced to the
+expectation on the right of (3.9). Section 4 estimates that expectation
+when the composition length lies in the central range relevant to
+typical parity words.</p>
+</section>
+</section>
+</section>
+<section id="the-central-fixed-total-rényi-estimate" class="level2">
+<h2>4. The central fixed-total Rényi estimate</h2>
+<p>The quotient-order estimate leaves one probabilistic task: average
+the size of the correction over compositions whose number of parts is
+close to half the total. Independent separators provide the natural
+model for this average. They also make terminal composition blocks
+explicit, which is what permits the estimate for terminal composition
+parts below. The resulting moment is subcritical for <span
+class="math inline">\(\theta&lt;1\)</span> in a fixed central
+window.</p>
+<p>Choose each of the <span class="math inline">\(N-1\)</span> possible
+separators independently with probability <span
+class="math inline">\(1/2\)</span>. This produces a uniform random
+positive composition of <span class="math inline">\(N\)</span>. Its
+number of parts is <span class="math display">\[
+J_N=1+\operatorname{Bin}(N-1,\tfrac12),
+\qquad
+p_{N,s}:=\Pr(J_N=s)
+=\frac{L_{s,N}}{2^{N-1}}.
+\tag{4.1}
+\]</span></p>
+<p>For <span class="math inline">\(0&lt;\theta&lt;1\)</span>, put <span
+class="math display">\[
+\alpha_\theta=\frac{2^\theta-1}{3^\theta-1}.
+\tag{4.2}
+\]</span> Strict concavity of <span
+class="math inline">\(x^\theta\)</span> at the midpoint <span
+class="math inline">\(2=(1+3)/2\)</span> gives <span
+class="math display">\[
+\frac12&lt;\alpha_\theta.
+\tag{4.3}
+\]</span> We shall also need <span class="math display">\[
+\alpha_\theta&lt;\frac{\log2}{\log3}.
+\tag{4.4}
+\]</span> Indeed, the function <span class="math display">\[
+x\longmapsto\frac{x^\theta-1}{\log x}
+\]</span> is strictly increasing on <span
+class="math inline">\((1,\infty)\)</span>. After writing <span
+class="math inline">\(z=\theta\log x\)</span>, its derivative has the
+sign of <span class="math inline">\(e^z(z-1)+1\)</span>, whose
+derivative is <span class="math inline">\(ze^z&gt;0\)</span> and whose
+value at zero is zero. Comparing <span
+class="math inline">\(x=2\)</span> and <span
+class="math inline">\(x=3\)</span> proves (4.4).</p>
+<p>For <span class="math inline">\(1/2&lt;\theta&lt;1\)</span>, define
+the available central half-width <span class="math display">\[
+\varepsilon_0(\theta)
+=
+\alpha_\theta-\frac12
+=
+\frac{2^\theta-1}{3^\theta-1}-\frac12&gt;0
+\tag{4.5}
+\]</span> and, for <span
+class="math inline">\(0&lt;\varepsilon&lt;\varepsilon_0(\theta)\)</span>,
+set <span class="math display">\[
+\mathcal I_{N,\varepsilon}
+=
+\left\{
+s:\left|s-\frac{N+1}{2}\right|\leq\varepsilon N
+\right\}.
+\tag{4.6}
+\]</span></p>
+<p>The central half-width in (4.5) is chosen precisely so that the
+geometric series over terminal composition parts used in the proof has
+ratio below one. The next theorem is the only higher-moment input needed
+later.</p>
+<section id="theorem-4.1-central-fixed-total-estimate" class="level3">
+<h3>Theorem 4.1 (central fixed-total estimate)</h3>
+<p>Fix <span class="math inline">\(1/2&lt;\theta&lt;1\)</span> and <span
+class="math inline">\(0&lt;\varepsilon&lt;\varepsilon_0(\theta)\)</span>.
+There is a constant <span
+class="math inline">\(C_{\theta,\varepsilon}&lt;\infty\)</span> such
+that, for every <span class="math inline">\(N\geq1\)</span>, <span
+class="math display">\[
+\sum_{s\in\mathcal I_{N,\varepsilon}}
+p_{N,s}\mathcal A_{s,N}(\theta)
+\leq
+C_{\theta,\varepsilon}N^{1+\theta}.
+\tag{4.7}
+\]</span></p>
+<section id="proof-8" class="level4">
+<h4>Proof</h4>
+<p>Fix <span class="math inline">\(N\geq2\)</span>, <span
+class="math inline">\(1\leq s\leq N\)</span>, and put <span
+class="math display">\[
+\pi=\frac{s-1}{N-1}.
+\]</span> We first assume <span
+class="math inline">\(1&lt;s&lt;N\)</span>. The extreme cases are
+deterministic and will be absorbed into the finite set of small pairs at
+the end of the proof. Under the uniform law on positive compositions of
+<span class="math inline">\(N\)</span> into <span
+class="math inline">\(s\)</span> parts, prescribe final parts <span
+class="math inline">\(d_1,\ldots,d_r\)</span>, with <span
+class="math display">\[
+D=d_1+\cdots+d_r&lt;N,
+\]</span> and require another part before them. The exact probability is
+<span class="math display">\[
+\frac{\binom{N-1-D}{s-1-r}}
+{\binom{N-1}{s-1}}.
+\tag{4.8}
+\]</span> Bound it by viewing the separators as independent
+Bernoulli<span class="math inline">\((\pi)\)</span> bits conditioned on
+having exactly <span class="math inline">\(s-1\)</span> successes. The
+prescribed terminal block requires <span
+class="math inline">\(r\)</span> successes and <span
+class="math inline">\(D-r\)</span> failures, so its unconditioned
+probability is <span
+class="math inline">\(\pi^r(1-\pi)^{D-r}\)</span>.</p>
+<p>The conditioning event has probability at least <span
+class="math inline">\(1/N\)</span>. To see this, let <span
+class="math inline">\(X\sim\operatorname{Bin}(N-1,\pi)\)</span>. Its
+mean <span class="math inline">\(s-1\)</span> is an integer, and <span
+class="math display">\[
+\frac{\Pr(X=j+1)}{\Pr(X=j)}
+=
+\frac{N-1-j}{j+1}\frac{\pi}{1-\pi}.
+\]</span> This ratio is greater than one at <span
+class="math inline">\(j=s-2\)</span>, less than one at <span
+class="math inline">\(j=s-1\)</span>, and monotone in <span
+class="math inline">\(j\)</span>. Thus <span
+class="math inline">\(s-1\)</span> is a mode. Since <span
+class="math inline">\(X\)</span> has <span
+class="math inline">\(N\)</span> possible values, its largest mass is at
+least <span class="math inline">\(1/N\)</span>. If <span
+class="math inline">\(A\)</span> is the event prescribing the terminal
+block, then <span class="math inline">\(\Pr(A\mid
+X=s-1)\leq\Pr(A)/\Pr(X=s-1)\leq N\Pr(A)\)</span>. Consequently, <span
+class="math display">\[
+\Pr_{s,N}(d_1,\ldots,d_r\text{ terminal})
+\leq
+N\pi^r(1-\pi)^{D-r}.
+\tag{4.9}
+\]</span> For a fixed composition, reverse its parts and put <span
+class="math display">\[
+U_r=k_{s-r+1}+\cdots+k_s,
+\qquad
+Z_{s,N}
+=
+\frac{3^s+\mathscr A_{\mathbf k}}{2^N}.
+\tag{4.10}
+\]</span> Reindexing (3.4) gives the exact identity <span
+class="math display">\[
+Z_{s,N}
+=
+\sum_{r=1}^{s-1}3^{r-1}2^{-U_r}
++4\cdot3^{s-1}2^{-N}.
+\tag{4.11}
+\]</span></p>
+<p>Choose a number <span class="math inline">\(\pi_*\)</span> satisfying
+<span class="math display">\[
+\frac12+\varepsilon&lt;\pi_*&lt;\alpha_\theta.
+\tag{4.12}
+\]</span> For all sufficiently large <span
+class="math inline">\(N\)</span>, every <span
+class="math inline">\(s\in\mathcal I_{N,\varepsilon}\)</span> satisfies
+<span class="math inline">\(1&lt;s&lt;N\)</span> and <span
+class="math inline">\(\pi\leq\pi_*\)</span>. Define <span
+class="math display">\[
+R_*=
+\frac{3^\theta\pi_*}{2^\theta-1+\pi_*}.
+\tag{4.13}
+\]</span> The inequality <span
+class="math inline">\(\pi_*&lt;\alpha_\theta\)</span> is equivalent to
+<span class="math inline">\(R_*&lt;1\)</span>.</p>
+<p>Because <span class="math inline">\(0&lt;\theta&lt;1\)</span>,
+subadditivity of <span class="math inline">\(x^\theta\)</span>, followed
+by (4.9), gives <span class="math display">\[
+\begin{aligned}
+\mathbb E_{s,N}
+\sum_{r=1}^{s-1}(3^{r-1}2^{-U_r})^\theta
+&amp;\leq
+N3^{-\theta}
+\sum_{r\geq1}
+\left[
+3^\theta\pi
+\sum_{d\geq1}
+2^{-\theta d}(1-\pi)^{d-1}
+\right]^r\\
+&amp;\leq
+N3^{-\theta}\frac{R_*}{1-R_*}.
+\end{aligned}
+\tag{4.14}
+\]</span> Indeed, the expression in square brackets is <span
+class="math display">\[
+\frac{3^\theta\pi}{2^\theta-1+\pi},
+\]</span> which is increasing in <span
+class="math inline">\(\pi\)</span> and is therefore at most <span
+class="math inline">\(R_*\)</span>. For the actual term indexed by <span
+class="math inline">\(r\)</span>, the terminal total satisfies <span
+class="math inline">\(U_r&lt;N\)</span>; extending the sum in (4.14) to
+all positive <span class="math inline">\(d_1,\ldots,d_r\)</span> only
+enlarges its right-hand side.</p>
+<p>By (4.4) and (4.12), there is <span
+class="math inline">\(N_0=N_0(\theta,\varepsilon)\)</span> such that
+<span class="math display">\[
+\frac{s}{N}\leq\frac{\log2}{\log3}
+\]</span> whenever <span class="math inline">\(N\geq N_0\)</span> and
+<span class="math inline">\(s\in\mathcal I_{N,\varepsilon}\)</span>. The
+final term in (4.11) is then at most <span
+class="math inline">\(4/3\)</span>. Equations (4.11) and (4.14)
+consequently give <span class="math display">\[
+\mathbb E_{s,N}Z_{s,N}^\theta
+\leq K_{\theta,\varepsilon}N
+\qquad
+(N\geq N_0,\ s\in\mathcal I_{N,\varepsilon})
+\tag{4.15}
+\]</span> for a fixed constant <span
+class="math inline">\(K_{\theta,\varepsilon}\)</span>. Enlarge this
+constant by the maximum of <span class="math display">\[
+N^{-1}\mathbb E_{s,N}Z_{s,N}^\theta
+\]</span> over the finite set <span class="math display">\[
+\{(s,N):1\leq N&lt;N_0,\ s\in\mathcal I_{N,\varepsilon}\}.
+\]</span> If this set is empty, take the maximum to be zero. Then (4.15)
+holds for every <span class="math inline">\(N\geq1\)</span> and every
+central <span class="math inline">\(s\)</span>.</p>
+<p>Since <span class="math inline">\(L_{s,N}=2^{N-1}p_{N,s}\)</span>,
+one has <span class="math display">\[
+\left(
+\frac{3^s+\mathscr A_{\mathbf k}}{L_{s,N}}
+\right)^\theta
+=
+2^\theta p_{N,s}^{-\theta}Z_{s,N}^\theta.
+\tag{4.16}
+\]</span> Lemma 3.3 and (4.15) imply <span class="math display">\[
+\mathcal A_{s,N}(\theta)
+\leq
+(1+\theta)2^\theta
+K_{\theta,\varepsilon}
+N p_{N,s}^{-\theta}.
+\tag{4.17}
+\]</span> Multiplying by <span class="math inline">\(p_{N,s}\)</span>,
+summing over the central window, and using Jensen’s inequality gives
+<span class="math display">\[
+\begin{aligned}
+\sum_{s\in\mathcal I_{N,\varepsilon}}
+p_{N,s}\mathcal A_{s,N}(\theta)
+&amp;\leq
+(1+\theta)2^\theta K_{\theta,\varepsilon}N
+\sum_{s=1}^Np_{N,s}^{1-\theta}\\
+&amp;\leq
+(1+\theta)2^\theta K_{\theta,\varepsilon}N^{1+\theta}.
+\end{aligned}
+\tag{4.18}
+\]</span> For the last step, <span class="math display">\[
+\frac1N\sum_{s=1}^Np_{N,s}^{1-\theta}
+\leq
+\left(\frac1N\sum_{s=1}^Np_{N,s}\right)^{1-\theta}
+=N^{\theta-1}.
+\]</span> Thus (4.7) holds with <span class="math display">\[
+C_{\theta,\varepsilon}
+=(1+\theta)2^\theta K_{\theta,\varepsilon}.
+\]</span> <span class="math inline">\(\square\)</span></p>
+<p>Theorem 4.1 completes the fixed-total part of the argument. Its bound
+concerns one composition total <span class="math inline">\(N\)</span>;
+the next section must transfer it back to all Collatz endpoint fibers in
+a shell and then use it against an arbitrary dense target.</p>
+</section>
+</section>
+</section>
+<section id="from-endpoint-moments-to-density-transport" class="level2">
+<h2>5. From endpoint moments to density transport</h2>
+<p>Theorem 4.1 controls a fixed total and a central range of composition
+lengths. A Collatz shell mixes the possible first odd positions and also
+contains noncentral cohorts. Section 5.1 recombines the central cohorts
+and proves that the discarded source mass is exponentially small.
+Section 5.2 then splits the resulting endpoint fibers into ordinary and
+heavy parts. The output is a one-block theorem describing exactly how a
+quantitative density exponent changes under pullback.</p>
+<p>The central half-width <span
+class="math inline">\(\varepsilon\)</span> is fixed before the
+target-density exponent <span class="math inline">\(D\)</span>. This
+order matters because the pullback will be iterated at exponents tending
+to zero. If the window changed with <span
+class="math inline">\(D\)</span>, both the discarded-cohort rate and the
+moment constant would vary from stage to stage; the theorem below would
+no longer provide one uniform recurrence. With <span
+class="math inline">\(\varepsilon\)</span> fixed, those constants remain
+fixed and the small-<span class="math inline">\(D\)</span> transport
+rate can be absorbed uniformly.</p>
+<section id="the-central-endpoint-fibers" class="level3">
+<h3>5.1. The central endpoint fibers</h3>
+<p>Fix <span class="math inline">\(M\)</span> and <span
+class="math inline">\(1\leq s\leq M\)</span>. For a first-odd position
+<span class="math inline">\(u\)</span>, put <span
+class="math inline">\(N=M-u\)</span>, and let <span
+class="math inline">\(f_{M,s,u}(y)\)</span> be the number of starts in
+<span class="math inline">\([2^M,2^{M+1})\)</span> whose parity word has
+weight <span class="math inline">\(s\)</span>, first odd position <span
+class="math inline">\(u\)</span>, and endpoint <span
+class="math inline">\(T^M(n)=y\)</span>.</p>
+<p>If two starts in this cohort have the same endpoint, (2.14) implies
+that their corrections are congruent modulo <span
+class="math inline">\(3^s\)</span>. By (3.5), every endpoint fiber
+therefore lies inside one residue fiber counted by <span
+class="math inline">\(\nu_{s,N}\)</span>. If <span
+class="math inline">\(c_{s,N}(a)=L_{s,N}\nu_{s,N}(a)\)</span>, then, for
+every <span class="math inline">\(q\geq1\)</span>, <span
+class="math display">\[
+\sum_y f_{M,s,u}(y)^q
+\leq
+\sum_{a\bmod3^s}c_{s,N}(a)^q.
+\tag{5.1}
+\]</span> Indeed, inside one correction class the sum of the endpoint
+multiplicities is at most <span
+class="math inline">\(c_{s,N}(a)\)</span>, and the <span
+class="math inline">\(q\)</span>-th power of that sum dominates the sum
+of the <span class="math inline">\(q\)</span>-th powers.</p>
+<p>Fix <span class="math inline">\(1/2&lt;\theta&lt;1\)</span> and <span
+class="math inline">\(0&lt;\varepsilon&lt;\varepsilon_0(\theta)\)</span>.
+Retain a cohort <span class="math inline">\(u\)</span> only when <span
+class="math display">\[
+s\in\mathcal I_{M-u,\varepsilon},
+\tag{5.2}
+\]</span> and let <span class="math inline">\(f^{\rm
+cen}_{M,s}(y)\)</span> be the sum of <span
+class="math inline">\(f_{M,s,u}(y)\)</span> over the retained cohorts.
+Set <span class="math inline">\(f^{\rm cen}_{M,0}(y)=0\)</span>, and
+define <span class="math display">\[
+G_M^{\rm cen}(\theta,\varepsilon)
+=
+2^{-M}\sum_{s,y}f^{\rm cen}_{M,s}(y)
+\left(
+\frac{3^{s+1}f^{\rm cen}_{M,s}(y)}{\binom Ms}
+\right)^\theta.
+\tag{5.3}
+\]</span></p>
+<p>The first transfer step is to show that the fixed-total moment
+remains polynomial after the retained first-odd-position cohorts are
+recombined.</p>
+</section>
+<section id="lemma-5.1-central-endpoint-moment" class="level3">
+<h3>Lemma 5.1 (central endpoint moment)</h3>
+<p>There is <span
+class="math inline">\(C&#39;_{\theta,\varepsilon}&lt;\infty\)</span>
+such that <span class="math display">\[
+G_M^{\rm cen}(\theta,\varepsilon)
+\leq
+C&#39;_{\theta,\varepsilon}(M+1)^{1+\theta}
+\qquad(M\geq1).
+\tag{5.4}
+\]</span></p>
+<section id="proof-9" class="level4">
+<h4>Proof</h4>
+<p>For fixed <span class="math inline">\(M,s\)</span>, put <span
+class="math display">\[
+\lambda_u=\frac{L_{s,M-u}}{\binom Ms}.
+\]</span> The first-odd-position cohorts partition the weight-<span
+class="math inline">\(s\)</span> words, so the <span
+class="math inline">\(\lambda_u\)</span> sum to one over all possible
+<span class="math inline">\(u\)</span>, and to at most one over the
+retained <span class="math inline">\(u\)</span>. Adjoin a zero cohort
+carrying the missing weight. The weights then sum to one, so weighted
+convexity and (5.1) give <span class="math display">\[
+\left(\sum_{u\ {\rm retained}} f_{M,s,u}(y)\right)^{1+\theta}
+\leq
+\sum_{u\ {\rm retained}}
+\lambda_u^{-\theta}f_{M,s,u}(y)^{1+\theta}.
+\]</span> After summing over <span class="math inline">\(y\)</span>,
+(5.1) gives <span class="math display">\[
+\sum_y f^{\rm cen}_{M,s}(y)^{1+\theta}
+\leq
+\binom Ms^\theta 3^{-s\theta}
+\sum_{\substack{u\ {\rm retained}\\N=M-u}}
+L_{s,N}\mathcal A_{s,N}(\theta).
+\tag{5.5}
+\]</span> Substitute this into (5.3). Since <span
+class="math display">\[
+2^{-M}L_{s,M-u}
+=
+2^{-u-1}p_{M-u,s},
+\]</span> Theorem 4.1 yields <span class="math display">\[
+\begin{aligned}
+G_M^{\rm cen}(\theta,\varepsilon)
+&amp;\leq
+3^\theta
+\sum_{u=0}^{M-1}2^{-u-1}
+\sum_{s\in\mathcal I_{M-u,\varepsilon}}
+p_{M-u,s}\mathcal A_{s,M-u}(\theta)\\
+&amp;\leq
+3^\theta C_{\theta,\varepsilon}
+\sum_{u=0}^{M-1}2^{-u-1}(M-u)^{1+\theta}\\
+&amp;\leq
+3^\theta C_{\theta,\varepsilon}(M+1)^{1+\theta}.
+\end{aligned}
+\]</span> This is (5.4). <span
+class="math inline">\(\square\)</span></p>
+<p>The moment estimate applies only to the central cohorts retained in
+(5.2). The next lemma shows that their complement is too small to affect
+the eventual pullback exponent.</p>
+</section>
+</section>
+<section id="lemma-5.2-discarded-cohorts" class="level3">
+<h3>Lemma 5.2 (discarded cohorts)</h3>
+<p>There are <span
+class="math inline">\(C_\varepsilon,c_\varepsilon&gt;0\)</span>,
+depending only on <span class="math inline">\(\varepsilon\)</span>, such
+that the normalized source mass outside the retained cohorts is at most
+<span class="math display">\[
+C_\varepsilon e^{-c_\varepsilon M}.
+\tag{5.6}
+\]</span></p>
+<section id="proof-10" class="level4">
+<h4>Proof</h4>
+<p>At fixed <span class="math inline">\(u\)</span>, with <span
+class="math inline">\(N=M-u\)</span>, the normalized mass of all
+compositions is <span class="math inline">\(2^{-u-1}\)</span>, and their
+number of parts has law <span class="math inline">\(J_N\)</span> from
+(4.1). For <span class="math inline">\(N\geq2\)</span>, Lemma 2.2 gives
+<span class="math display">\[
+\Pr\left(
+\left|J_N-\frac{N+1}{2}\right|&gt;\varepsilon N
+\right)
+\leq
+2e^{-2\varepsilon^2N}.
+\tag{5.7}
+\]</span> The all-even word has mass <span
+class="math inline">\(2^{-M}\)</span>. Hence the discarded mass is at
+most <span class="math display">\[
+2^{-M}
++
+\sum_{u=0}^{M-2}
+2^{-u}e^{-2\varepsilon^2(M-u)}.
+\]</span> Choose <span class="math display">\[
+0&lt;c_\varepsilon&lt;\min(2\varepsilon^2,\log2).
+\]</span> Each summand is bounded by <span class="math display">\[
+e^{-c_\varepsilon M}
+e^{-(\log2-c_\varepsilon)u},
+\]</span> whose sum over <span class="math inline">\(u\)</span> is a
+fixed geometric series. Also <span class="math inline">\(2^{-M}\leq
+e^{-c_\varepsilon M}\)</span>. This proves (5.6). <span
+class="math inline">\(\square\)</span></p>
+</section>
+</section>
+<section id="pulling-back-a-dense-target" class="level3">
+<h3>5.2. Pulling back a dense target</h3>
+<p>Define <span class="math display">\[
+\psi(D)
+=
+-\log\left(\frac{1+3^{-D}}2\right),
+\qquad
+r_\theta(D)
+=
+\frac{\theta}{1+\theta}\psi(D).
+\tag{5.8}
+\]</span> Direct differentiation gives <span class="math display">\[
+\psi&#39;(D)=\frac{\log3}{3^D+1},
+\qquad
+\psi&#39;&#39;(D)=
+-\frac{(\log3)^2\,3^D}{(3^D+1)^2}&lt;0.
+\tag{5.9}
+\]</span> Thus <span class="math inline">\(\psi\)</span> is increasing
+and concave on <span class="math inline">\([0,1]\)</span>, with <span
+class="math display">\[
+\psi(0)=0,
+\qquad
+\psi(D)\geq D\log(3/2)
+\quad(0\leq D\leq1).
+\tag{5.10}
+\]</span></p>
+<p>There are now three errors to balance. Target density controls
+ordinary endpoint fibers, Lemma 5.1 controls heavy fibers, and Lemma 5.2
+controls the discarded cohorts. Choosing the heavy-fiber threshold so
+that the first two errors match produces the rate <span
+class="math inline">\(r_\theta(D)\)</span>.</p>
+</section>
+<section id="theorem-5.3-central-endpoint-pullback" class="level3">
+<h3>Theorem 5.3 (central endpoint pullback)</h3>
+<p>Fix <span class="math inline">\(1/2&lt;\theta&lt;1\)</span> and <span
+class="math inline">\(0&lt;\varepsilon&lt;\varepsilon_0(\theta)\)</span>.
+There is <span
+class="math inline">\(D_{\theta,\varepsilon}&gt;0\)</span> such that,
+for every <span class="math inline">\(0&lt;\zeta&lt;1\)</span>, there is
+<span class="math inline">\(K_{\theta,\varepsilon,\zeta}&gt;0\)</span>
+with the following property: whenever <span
+class="math inline">\(0&lt;D\leq D_{\theta,\varepsilon}\)</span> and
+<span class="math inline">\(S\)</span> is <span
+class="math inline">\((C,D)\)</span>-dense, <span
+class="math inline">\(\operatorname{Pull}(S)\)</span> is <span
+class="math display">\[
+\left(
+K_{\theta,\varepsilon,\zeta}(C+1)D^{-(1+\theta)},
+\frac{\zeta r_\theta(D)}{\log2}
+\right)\text{-dense}.
+\tag{5.11}
+\]</span> All constants in (5.11) are independent of <span
+class="math inline">\(C,D,S\)</span>, the dyadic shell, and every later
+use of the theorem.</p>
+<p>Consequently, if <span class="math display">\[
+0&lt;\chi&lt;
+\Lambda(\theta)
+:=
+a_0\frac{\theta}{1+\theta},
+\tag{5.12}
+\]</span> then one may choose <span
+class="math inline">\(0&lt;\zeta&lt;1\)</span> and a further cutoff
+<span class="math inline">\(D_{\rm lin}=D_{\rm
+lin}(\theta,\varepsilon,\zeta,\chi)&gt;0\)</span> so that the density
+exponent in (5.11) is at least <span class="math inline">\(\chi
+D\)</span> whenever <span class="math inline">\(0&lt;D\leq D_{\rm
+lin}\)</span>.</p>
+<p>Thus, after <span
+class="math inline">\(\theta,\varepsilon,\chi\)</span> and a compatible
+<span class="math inline">\(\zeta\)</span> are fixed, <span
+class="math inline">\(K_{\theta,\varepsilon,\zeta}\)</span> and <span
+class="math inline">\(D_{\rm lin}\)</span> do not change when later
+iterations send <span class="math inline">\(D\)</span> to zero.</p>
+<section id="proof-11" class="level4">
+<h4>Proof</h4>
+<p>Let <span class="math inline">\(S\)</span> be <span
+class="math inline">\((C,D)\)</span>-dense, and fix a shell <span
+class="math inline">\([2^M,2^{M+1})\)</span>. The shell <span
+class="math inline">\(M=0\)</span> contains one integer and is absorbed
+by the final density constant, so assume <span
+class="math inline">\(M\geq1\)</span>. For <span
+class="math inline">\(v&gt;0\)</span>, call a retained central endpoint
+fiber heavy when <span class="math display">\[
+\frac{3^{s+1}f^{\rm cen}_{M,s}(y)}{\binom Ms}
+&gt;e^{vM}.
+\tag{5.13}
+\]</span> Lemma 5.1 and Markov’s inequality bound the normalized source
+mass in heavy fibers by <span class="math display">\[
+C&#39;_{\theta,\varepsilon}(M+1)^{1+\theta}e^{-\theta vM}.
+\tag{5.14}
+\]</span></p>
+<p>On every remaining central fiber, <span class="math display">\[
+f^{\rm cen}_{M,s}(y)
+\leq
+e^{vM}\binom Ms3^{-(s+1)}.
+\tag{5.15}
+\]</span> Corollary 2.5 shows that every endpoint at parity level <span
+class="math inline">\(s\)</span> lies below <span
+class="math inline">\(3^{s+1}\)</span>. Since <span
+class="math inline">\(S\)</span> is <span
+class="math inline">\((C,D)\)</span>-dense, there are at most <span
+class="math inline">\(C3^{(s+1)(1-D)}\)</span> bad possible endpoints at
+this level. Therefore the ordinary-fiber contribution is at most <span
+class="math display">\[
+C e^{vM}2^{-M}
+\sum_{s=0}^M\binom Ms3^{-D(s+1)}.
+\]</span> The sum is exact: <span class="math display">\[
+2^{-M}
+\sum_{s=0}^M\binom Ms3^{-D(s+1)}
+=
+3^{-D}
+\left(\frac{1+3^{-D}}2\right)^M
+=
+3^{-D}e^{-\psi(D)M}.
+\tag{5.16}
+\]</span> Hence the ordinary contribution is <span
+class="math display">\[
+C3^{-D}e^{-(\psi(D)-v)M}.
+\tag{5.17}
+\]</span></p>
+<p>Choose <span class="math display">\[
+v=\frac{\psi(D)}{1+\theta}.
+\tag{5.18}
+\]</span> Then <span class="math display">\[
+\theta v=\psi(D)-v=r_\theta(D).
+\]</span> Combining (5.6), (5.14), and (5.17), and using <span
+class="math inline">\(3^{-D}\leq1\)</span>, gives <span
+class="math display">\[
+\frac{
+\#\{n\in[2^M,2^{M+1}):T^M(n)\notin S\}
+}{2^M}
+\leq
+C_\varepsilon e^{-c_\varepsilon M}
++
+K_{\theta,\varepsilon}(C+1)
+(M+1)^{1+\theta}e^{-r_\theta(D)M}.
+\tag{5.19}
+\]</span></p>
+<p>Choose <span
+class="math inline">\(D_{\theta,\varepsilon}\in(0,1]\)</span> so that
+<span class="math display">\[
+r_\theta(D_{\theta,\varepsilon})
+\leq
+\min\{c_\varepsilon,\log(4/3)\}.
+\tag{5.20}
+\]</span> This choice is possible because <span
+class="math inline">\(r_\theta\)</span> is continuous, increasing, and
+vanishes at zero. It depends only on <span
+class="math inline">\(\theta,\varepsilon\)</span>. For <span
+class="math inline">\(0&lt;D\leq D_{\theta,\varepsilon}\)</span>, the
+first term in (5.19) is bounded by a constant multiple of <span
+class="math inline">\(e^{-r_\theta(D)M}\)</span>. Since <span
+class="math inline">\(C+1\geq1\)</span> and <span
+class="math inline">\(D^{-(1+\theta)}\geq1\)</span>, this term can be
+absorbed into the same final constant as the central-fiber
+contribution.</p>
+<p>We next absorb the polynomial factor without changing its dependence
+on <span class="math inline">\(D\)</span>. For <span
+class="math inline">\(B\geq0\)</span>, <span
+class="math inline">\(0&lt;u\leq1\)</span>, and <span
+class="math inline">\(M\geq1\)</span>, <span class="math display">\[
+(M+1)^B e^{-uM}
+\leq
+K_{B,\zeta}u^{-B}e^{-\zeta uM},
+\tag{5.21}
+\]</span> where <span class="math inline">\(K_{B,\zeta}\)</span> is
+independent of <span class="math inline">\(u,M\)</span>. Indeed, <span
+class="math display">\[
+(M+1)^Bu^Be^{-(1-\zeta)uM}
+\leq
+(2uM)^Be^{-(1-\zeta)uM},
+\]</span> and the right side has a finite supremum as a function of
+<span class="math inline">\(uM\geq0\)</span>. Apply (5.21) with <span
+class="math inline">\(B=1+\theta\)</span> and <span
+class="math inline">\(u=r_\theta(D)\)</span>. By (5.10), <span
+class="math display">\[
+r_\theta(D)
+\geq
+\frac{\theta\log(3/2)}{1+\theta}D.
+\tag{5.22}
+\]</span> Thus (5.19) becomes <span class="math display">\[
+\frac{
+\#\{n\in[2^M,2^{M+1}):T^M(n)\notin S\}
+}{2^M}
+\leq
+K_{\theta,\varepsilon,\zeta}
+(C+1)D^{-(1+\theta)}
+e^{-\zeta r_\theta(D)M}.
+\tag{5.23}
+\]</span></p>
+<p>The fixed-rate part of Lemma 2.1 applies because, by (5.20), <span
+class="math inline">\(\zeta r_\theta(D)&lt;\log2\)</span>. Its
+geometric-series factor is at most <span class="math display">\[
+\frac{2}{2e^{-\zeta r_\theta(D)}-1}
+\leq4.
+\]</span> This proves (5.11), after enlarging <span
+class="math inline">\(K_{\theta,\varepsilon,\zeta}\)</span>.</p>
+<p>Finally fix <span
+class="math inline">\(\chi&lt;\Lambda(\theta)\)</span> and choose <span
+class="math inline">\(\zeta&lt;1\)</span> so that <span
+class="math inline">\(\chi&lt;\zeta\Lambda(\theta)\)</span>. Since <span
+class="math inline">\(\psi&#39;\)</span> is decreasing and <span
+class="math inline">\(\psi(0)=0\)</span>, concavity gives <span
+class="math inline">\(\psi(D)\geq D\psi&#39;(D)\)</span>. Hence (5.9)
+gives <span class="math display">\[
+\frac{\zeta r_\theta(D)}{D\log2}
+\geq
+\frac{\zeta\theta\log3}
+{(1+\theta)\log2\,(3^D+1)}.
+\tag{5.24}
+\]</span> The right side tends to <span
+class="math inline">\(\zeta\Lambda(\theta)&gt;\chi\)</span> as <span
+class="math inline">\(D\downarrow0\)</span>. More explicitly, (5.24) is
+at least <span class="math inline">\(\chi\)</span> whenever <span
+class="math display">\[
+0&lt;D\leq
+\frac{
+\log\left(
+\dfrac{\zeta\theta\log3}
+{(1+\theta)\chi\log2}
+-1
+\right)
+}{\log3}.
+\tag{5.25}
+\]</span> The quantity inside the logarithm is greater than one by the
+choice of <span class="math inline">\(\zeta\)</span>. Define <span
+class="math inline">\(D_{\rm lin}\)</span> to be the minimum of this
+bound, <span class="math inline">\(1\)</span>, and <span
+class="math inline">\(D_{\theta,\varepsilon}\)</span>. This proves
+(5.12). <span class="math inline">\(\square\)</span></p>
+<p>This is the interface needed for iteration: for sufficiently small
+<span class="math inline">\(D\)</span>, a pullback multiplies the
+density exponent by any fixed <span
+class="math inline">\(\chi&lt;\Lambda(\theta)\)</span>, while its
+density constant grows only polynomially in <span
+class="math inline">\(D^{-1}\)</span>.</p>
+</section>
+</section>
+</section>
+<section id="endpoint-iteration" class="level2">
+<h2>6. Endpoint iteration</h2>
+<p>The pullback theorem controls density from one block to the next, but
+it does not itself say that a block contracts. We therefore need a fixed
+dense seed set on which the endpoint map decreases scale. Intersecting
+that seed with successive pullbacks ensures both that the current block
+contracts and that its endpoint remains eligible for the remaining
+blocks. Lemma 6.1 constructs the seed set; Proposition 6.2 combines the
+resulting orbit recursion with the density recursion.</p>
+<section id="a-dense-one-block-contraction" class="level3">
+<h3>6.1. A dense one-block contraction</h3>
+<p>Define <span class="math display">\[
+F(n)=T^{\lfloor\log_2n\rfloor}(n).
+\tag{6.1}
+\]</span> Fix <span class="math inline">\(a_0&lt;r&lt;1\)</span>, and
+put <span class="math display">\[
+\eta_r=\frac{r-a_0}{\log_2 3},
+\qquad
+\mathcal E_r=\{n\geq1:F(n)\leq3n^r\}.
+\tag{6.2}
+\]</span></p>
+<p>The heuristic <span class="math inline">\(s\approx M/2\)</span> is
+not enough for recursion: we need one fixed contraction set whose
+complement has a quantitative shell bound. Exact parity uniformity from
+Proposition 2.3 and the binomial tail in Lemma 2.2 provide it for every
+fixed <span class="math inline">\(r&gt;a_0\)</span>.</p>
+</section>
+<section id="lemma-6.1-fixed-contraction-set" class="level3">
+<h3>Lemma 6.1 (fixed contraction set)</h3>
+<p>There are constants <span class="math inline">\(C_r,D_r&gt;0\)</span>
+such that <span class="math inline">\(\mathcal E_r\)</span> is <span
+class="math inline">\((C_r,D_r)\)</span>-dense.</p>
+<section id="proof-12" class="level4">
+<h4>Proof</h4>
+<p>Fix a shell <span class="math inline">\([2^M,2^{M+1})\)</span>, and
+let <span class="math inline">\(s\)</span> be the number of odd steps
+among the first <span class="math inline">\(M\)</span> iterates. The
+case <span class="math inline">\(M=0\)</span> is immediate. For <span
+class="math inline">\(M\geq1\)</span>, if <span class="math display">\[
+s\leq\frac M2+\eta_rM,
+\tag{6.3}
+\]</span> then Corollary 2.5 gives <span class="math display">\[
+F(n)&lt;3^{s+1}
+\leq
+3\cdot2^{(a_0+\eta_r\log_2 3)M}
+=3\cdot2^{rM}
+\leq3n^r.
+\tag{6.4}
+\]</span> By Proposition 2.3, the parity words are uniform on <span
+class="math inline">\(\{0,1\}^M\)</span>. Lemma 2.2 therefore gives
+<span class="math display">\[
+\frac{\#(\mathcal E_r^c\cap[2^M,2^{M+1}))}{2^M}
+\leq
+2e^{-2\eta_r^2M}.
+\tag{6.5}
+\]</span> Choose <span class="math display">\[
+0&lt;\gamma_r&lt;\min\{2\eta_r^2,\log2\}.
+\]</span> Then (6.5) implies (2.2) with <span
+class="math inline">\(K=2\)</span> and <span
+class="math inline">\(\gamma=\gamma_r\)</span>. Lemma 2.1 proves the
+claim, for example with <span class="math display">\[
+C_r=\frac4{2e^{-\gamma_r}-1},
+\qquad
+D_r=\frac{\gamma_r}{\log2}.
+\tag{6.6}
+\]</span> <span class="math inline">\(\square\)</span></p>
+<p>Only the terminal odd count is used here. No control of intermediate
+iterates inside a block is needed for an orbit-minimum theorem.</p>
+</section>
+</section>
+<section id="the-recursive-endpoint-sets" class="level3">
+<h3>6.2. The recursive endpoint sets</h3>
+<p>Set <span class="math inline">\(K_{\rm blk}=3\)</span>. With <span
+class="math inline">\(r\)</span> fixed as above, define <span
+class="math display">\[
+\mathcal S_1=\mathcal E_r,
+\qquad
+\mathcal S_{j+1}
+=
+\mathcal E_r\cap\operatorname{Pull}(\mathcal S_j).
+\tag{6.7}
+\]</span> If <span class="math inline">\(n\in\mathcal S_R\)</span>, put
+<span class="math display">\[
+n_0=n,
+\qquad
+n_{i+1}=F(n_i)
+\quad(0\leq i&lt;R).
+\tag{6.8}
+\]</span> Induction in (6.7) gives <span
+class="math inline">\(n_i\in\mathcal E_r\)</span> for <span
+class="math inline">\(0\leq i&lt;R\)</span>. Consequently <span
+class="math display">\[
+n_i
+\leq
+K_{\rm blk}^{1+r+\cdots+r^{i-1}}n^{r^i}
+\leq
+K_{\rm blk}^{1/(1-r)}n^{r^i}.
+\tag{6.9}
+\]</span> Each <span class="math inline">\(n_i\)</span> is an actual
+Collatz iterate of <span class="math inline">\(n\)</span>. More
+precisely, if <span class="math display">\[
+\tau_R
+=
+\sum_{i=0}^{R-1}\lfloor\log_2n_i\rfloor,
+\tag{6.10}
+\]</span> then <span class="math inline">\(n_R=T^{\tau_R}(n)\)</span>,
+and (6.9) gives <span class="math display">\[
+\tau_R
+\leq
+\frac{\log n}{(1-r)\log2}
++
+\frac{R\log K_{\rm blk}}{(1-r)\log2}.
+\tag{6.11}
+\]</span></p>
+<p>Equations (6.7)–(6.11) settle the deterministic part: membership in
+<span class="math inline">\(\mathcal S_R\)</span> gives an actual
+Collatz iterate with the required size and clock. It remains to show
+that <span class="math inline">\(R\)</span> may grow like <span
+class="math inline">\(\log\log n\)</span> without the exceptional set
+becoming too large. The next proposition isolates that calculation from
+the specific pullback theorem.</p>
+</section>
+<section id="proposition-6.2-endpoint-bootstrap" class="level3">
+<h3>Proposition 6.2 (endpoint bootstrap)</h3>
+<p>Fix <span class="math inline">\(a_0&lt;r&lt;1\)</span>. Suppose there
+are constants <span class="math display">\[
+0&lt;\chi&lt;a_0,
+\qquad
+B\geq0,
+\qquad
+K_{\rm L},D_c&gt;0
+\tag{6.12}
+\]</span> such that, whenever <span class="math inline">\(0&lt;D\leq
+D_c\)</span>, pullback sends every <span
+class="math inline">\((C,D)\)</span>-dense set to a set with density
+parameters <span class="math display">\[
+(C,D)
+\longmapsto
+\bigl(K_{\rm L}(C+1)D^{-B},\chi D\bigr).
+\tag{6.13}
+\]</span> For every <span class="math inline">\(\omega&gt;0\)</span>
+satisfying <span class="math display">\[
+\omega\log(1/\chi)&lt;1,
+\tag{6.14}
+\]</span> define, on the shell <span
+class="math inline">\([2^M,2^{M+1})\)</span>, <span
+class="math display">\[
+R_M=\left\lceil\omega\log(M+4)\right\rceil.
+\tag{6.15}
+\]</span> Put <span class="math display">\[
+\mathcal S^{(\omega)}
+=
+\bigcup_{M\geq0}
+\left(\mathcal S_{R_M}\cap[2^M,2^{M+1})\right).
+\]</span> Then the shell exceptional proportion outside <span
+class="math inline">\(\mathcal S_{R_M}\)</span> is at most <span
+class="math display">\[
+2\exp\left(-c(M+4)^{1-\gamma}\right)
+\tag{6.16}
+\]</span> for all sufficiently large <span
+class="math inline">\(M\)</span>, where <span
+class="math inline">\(c&gt;0\)</span> and <span class="math display">\[
+\gamma=\omega\log(1/\chi)&lt;1.
+\tag{6.17}
+\]</span> The set <span class="math inline">\(\mathcal
+S^{(\omega)}\)</span> has natural density one. On this set, <span
+class="math display">\[
+\log n_{R_M}
+\leq
+\frac{\log K_{\rm blk}}{1-r}
++
+(M+1)\log2\,(M+4)^{-\omega\log(1/r)},
+\tag{6.18}
+\]</span> and the witnessing time satisfies (6.11) with <span
+class="math inline">\(R=R_M\)</span>.</p>
+<p>In particular, every <span class="math display">\[
+0&lt;\delta&lt;
+\frac{\log(1/r)}{\log(1/\chi)}
+\tag{6.19}
+\]</span> can be realized by a choice of <span
+class="math inline">\(\omega\)</span> for which <span
+class="math display">\[
+n_{R_M}
+\leq
+\exp((\log n)^{1-\delta})
+\tag{6.20}
+\]</span> on all sufficiently large retained shells.</p>
+<section id="proof-13" class="level4">
+<h4>Proof</h4>
+<p>Choose <span class="math display">\[
+0&lt;D_1\leq\min\{D_r,D_c,1\}.
+\]</span> After weakening the exponent in Lemma 6.1 to <span
+class="math inline">\(D_1\)</span>, put <span
+class="math inline">\(C_1=C_r\)</span>. Then <span
+class="math inline">\(\mathcal E_r\)</span> is <span
+class="math inline">\((C_1,D_1)\)</span>-dense. Inductively, the sets in
+(6.7) are <span class="math inline">\((C_j,D_j)\)</span>-dense with
+<span class="math display">\[
+D_{j+1}=\chi D_j,
+\qquad
+C_{j+1}
+\leq
+K_{\rm L}(C_j+1)D_j^{-B}+C_r.
+\tag{6.21}
+\]</span> Indeed, <span class="math inline">\(D_j\leq D_1\leq
+D_c\)</span>, so pullback is applicable, and <span
+class="math inline">\(\chi D_j\leq D_1\leq D_r\)</span>, so intersection
+with <span class="math inline">\(\mathcal E_r\)</span> preserves the
+exponent <span class="math inline">\(\chi D_j\)</span>. Thus <span
+class="math display">\[
+D_j=D_1\chi^{j-1}.
+\tag{6.22}
+\]</span></p>
+<p>Let <span class="math display">\[
+A=\max\{1,K_{\rm L}+C_r+2\}.
+\]</span> Since <span class="math inline">\(D_j\leq1\)</span>, (6.21)
+gives <span class="math display">\[
+C_{j+1}+2\leq A(C_j+2)D_j^{-B}.
+\]</span> Taking logarithms and using (6.22), <span
+class="math display">\[
+\begin{aligned}
+\log(C_R+2)
+&amp;\leq
+\log(C_1+2)
++(R-1)\bigl(\log A+B\log D_1^{-1}\bigr)\\
+&amp;\qquad
++\frac B2(R-1)(R-2)\log(\chi^{-1}).
+\end{aligned}
+\tag{6.23}
+\]</span> In particular, <span class="math display">\[
+\log(C_R+2)=O(R^2).
+\tag{6.24}
+\]</span></p>
+<p>From (6.15) and (6.22), <span class="math display">\[
+D_{R_M}
+\geq
+D_1(M+4)^{-\omega\log(1/\chi)}.
+\tag{6.25}
+\]</span> The <span
+class="math inline">\((C_{R_M},D_{R_M})\)</span>-density bound implies
+that the exceptional proportion on shell <span
+class="math inline">\(M\)</span> is at most <span
+class="math display">\[
+2C_{R_M}e^{-(\log2)D_{R_M}M}.
+\tag{6.26}
+\]</span> Equations (6.14), (6.24), and (6.25) give <span
+class="math display">\[
+\log(2C_{R_M})-(\log2)D_{R_M}M
+\leq
+O((\log M)^2)-c_1M^{1-\gamma}.
+\tag{6.27}
+\]</span> After decreasing the positive constant and increasing the
+fixed starting shell, this proves (6.16). Lemma 2.1, part 2, then shows
+that the union of the retained shell sets has natural density one.</p>
+<p>Equation (6.18) follows from (6.9), because <span
+class="math display">\[
+r^{R_M}
+\leq
+(M+4)^{-\omega\log(1/r)}
+\quad\text{and}\quad
+\log n&lt;(M+1)\log2.
+\]</span> If <span class="math display">\[
+\delta&lt;\omega\log(1/r),
+\tag{6.28}
+\]</span> then the right side of (6.18) is eventually at most <span
+class="math inline">\((\log n)^{1-\delta}\)</span>. Indeed, after
+division by that quantity, its second term is <span
+class="math display">\[
+O\left(M^{\delta-\omega\log(1/r)}\right)=o(1),
+\]</span> and its fixed first term also tends to zero. Thus (6.20)
+holds. Conditions (6.14) and (6.28) admit a common <span
+class="math inline">\(\omega\)</span> exactly when (6.19) holds. <span
+class="math inline">\(\square\)</span></p>
+<p>Proposition 6.2 reduces the final theorem to a scalar compatibility
+condition: the endpoint must contract at rate <span
+class="math inline">\(r\)</span>, while the density exponent survives
+each pullback at rate <span class="math inline">\(\chi\)</span>. Section
+7 chooses these parameters using the slope supplied by Theorem 5.3.</p>
+</section>
+</section>
+</section>
+<section id="proof-of-theorem-1.1" class="level2">
+<h2>7. Proof of Theorem 1.1</h2>
+<p>The arithmetic and iteration arguments are now complete. Theorem 5.3
+permits every pullback slope below <span
+class="math inline">\(\Lambda(\theta)\)</span>, while Proposition 6.2
+converts such a slope and a contraction exponent <span
+class="math inline">\(r\)</span> into a stretched-logarithmic descent
+exponent. What remains is to choose the parameters with strict margins,
+pass to the limiting endpoint, and retain the exceptional-count and time
+bounds.</p>
+<p>For <span class="math inline">\(1/2&lt;\theta&lt;1\)</span>, define
+<span class="math display">\[
+\Lambda(\theta)
+=a_0\frac{\theta}{1+\theta},
+\qquad
+\delta_*(\theta)
+=
+\frac{\log(1/a_0)}{\log(1/\Lambda(\theta))}.
+\tag{7.1}
+\]</span> The first number is the limiting transport slope from Theorem
+5.3; the second is the endpoint exponent supplied by Proposition 6.2 at
+that slope.</p>
+<p>The limiting value of this scalar expression determines the range
+stated in Theorem 1.1.</p>
+<section id="lemma-7.1-endpoint-limit" class="level3">
+<h3>Lemma 7.1 (endpoint limit)</h3>
+<p>The function <span class="math inline">\(\delta_*\)</span> is
+strictly increasing on <span class="math inline">\((1/2,1)\)</span>, and
+<span class="math display">\[
+\lim_{\theta\uparrow1}\delta_*(\theta)
+=
+\frac{\log(1/a_0)}{\log(2/a_0)}
+=\delta_0.
+\tag{7.2}
+\]</span></p>
+<section id="proof-14" class="level4">
+<h4>Proof</h4>
+<p>The function <span
+class="math inline">\(\theta\mapsto\theta/(1+\theta)\)</span> is
+strictly increasing. Hence <span
+class="math inline">\(\Lambda(\theta)\)</span> is strictly increasing
+and lies in <span class="math inline">\((0,1)\)</span>; therefore <span
+class="math inline">\(\log(1/\Lambda(\theta))\)</span> is positive and
+strictly decreasing. This proves the monotonicity of <span
+class="math inline">\(\delta_*\)</span>. Since <span
+class="math inline">\(\Lambda(\theta)\to a_0/2\)</span> as <span
+class="math inline">\(\theta\uparrow1\)</span>, continuity gives (7.2).
+<span class="math inline">\(\square\)</span></p>
+<p>The strict endpoint reflects a boundary of the present moment
+argument. As <span class="math inline">\(\theta\uparrow1\)</span>, the
+admissible half-width <span
+class="math inline">\(\varepsilon_0(\theta)\)</span> in (4.5) tends to
+zero, and at <span class="math inline">\(\theta=1\)</span> the geometric
+ratio in (4.14) reaches one at the central value <span
+class="math inline">\(\pi=1/2\)</span>. Thus Theorem 4.1 supplies
+neither a fixed central window nor a subcritical estimate at the
+endpoint. This does not rule out attaining or exceeding <span
+class="math inline">\(\delta_0\)</span> by a different estimate.</p>
+<p>We now choose the parameters in the order required by their
+dependencies: first the moment order and central window, then the
+contraction and pullback rates, and finally the number of blocks.</p>
+</section>
+</section>
+<section id="proof-of-theorem-1.1-1" class="level3">
+<h3>Proof of Theorem 1.1</h3>
+<p>Fix <span class="math inline">\(0&lt;\delta&lt;\delta_0\)</span>. By
+Lemma 7.1, choose <span class="math display">\[
+\frac12&lt;\theta&lt;1
+\quad\text{such that}\quad
+\delta&lt;\delta_*(\theta).
+\tag{7.3}
+\]</span> Equation (4.5) gives <span
+class="math inline">\(\varepsilon_0(\theta)&gt;0\)</span>, so choose
+once and for all <span class="math display">\[
+0&lt;\varepsilon&lt;\varepsilon_0(\theta).
+\tag{7.4}
+\]</span> By continuity, there are strict interior values <span
+class="math display">\[
+a_0&lt;r&lt;1,
+\qquad
+0&lt;\chi&lt;\Lambda(\theta)
+\tag{7.5}
+\]</span> such that <span class="math display">\[
+\delta&lt;
+\frac{\log(1/r)}{\log(1/\chi)}.
+\tag{7.6}
+\]</span></p>
+<p>Choose <span class="math inline">\(\zeta\)</span> and the cutoff
+<span class="math inline">\(D_{\rm lin}\)</span> from the consequence of
+Theorem 5.3. After weakening the resulting pullback exponent to <span
+class="math inline">\(\chi D\)</span>, that theorem supplies (6.13) with
+<span class="math display">\[
+B=1+\theta,
+\qquad
+K_{\rm L}=K_{\theta,\varepsilon,\zeta},
+\qquad
+D_c=D_{\rm lin}.
+\tag{7.7}
+\]</span> Choose <span class="math display">\[
+\frac{\delta}{\log(1/r)}
+&lt;
+\omega
+&lt;
+\frac1{\log(1/\chi)}.
+\tag{7.8}
+\]</span> Proposition 6.2 now gives a natural-density-one union of shell
+sets on which (6.20) holds. Since <span
+class="math inline">\(n_{R_M}=T^{\tau_{R_M}}(n)\)</span>, this proves
+(1.2).</p>
+<p>We next prove the quantitative assertion. Fix <span
+class="math display">\[
+0&lt;\sigma&lt;1-\frac{\delta}{\delta_0}.
+\tag{7.9}
+\]</span> Equivalently, <span
+class="math inline">\(\delta/(1-\sigma)&lt;\delta_0\)</span>. Repeat the
+choices (7.3)–(7.7), now taking the strict interior values <span
+class="math inline">\(r,\chi\)</span> so that <span
+class="math display">\[
+\frac{\delta}{1-\sigma}
+&lt;
+\frac{\log(1/r)}{\log(1/\chi)}.
+\tag{7.10}
+\]</span> Set <span class="math display">\[
+\omega=\frac{1-\sigma}{\log(1/\chi)}.
+\tag{7.11}
+\]</span> Then <span class="math display">\[
+\omega\log(1/\chi)=1-\sigma&lt;1,
+\qquad
+\delta&lt;\omega\log(1/r).
+\tag{7.12}
+\]</span> Thus (6.16) bounds the shell exceptional proportion by <span
+class="math display">\[
+2\exp(-c_0(M+4)^\sigma)
+\tag{7.13}
+\]</span> for some <span class="math inline">\(c_0&gt;0\)</span> and all
+sufficiently large <span class="math inline">\(M\)</span>. Apply the
+second part of Lemma 2.1 with <span class="math inline">\(A=2\)</span>.
+Its explicit value <span class="math inline">\(A&#39;=2A+1\)</span> is
+<span class="math inline">\(5\)</span>, so, after increasing only <span
+class="math inline">\(X_{\delta,\sigma}\)</span> past the finitely many
+startup shells, there is <span
+class="math inline">\(c_{\delta,\sigma}&gt;0\)</span> for which <span
+class="math display">\[
+\#\left\{1\leq n\leq X:
+T_{\min}(n)&gt;\exp((\log n)^{1-\delta})\right\}
+\leq
+5X\exp\left(-c_{\delta,\sigma}(\log X)^\sigma\right)
+\tag{7.14}
+\]</span> for every <span class="math inline">\(X\geq
+X_{\delta,\sigma}\)</span>. This is (1.3).</p>
+<p>It remains to prove the advertised clock. First, <span
+class="math display">\[
+\frac1{(1-a_0)\log2}
+=
+\frac2{\log(4/3)}
+&lt;
+\frac{6953}{1000}.
+\tag{7.15}
+\]</span> For a rational certificate of the strict inequality, put <span
+class="math inline">\(x=1/7\)</span> in <span class="math display">\[
+\log\frac{1+x}{1-x}
+=
+2\sum_{j\geq0}\frac{x^{2j+1}}{2j+1}.
+\]</span> The first two positive terms give <span
+class="math display">\[
+\log\frac43&gt;\frac{296}{1029},
+\]</span> and <span class="math display">\[
+\frac{1029}{148}&lt;\frac{6953}{1000}
+\]</span> because <span
+class="math inline">\(1{,}029{,}000&lt;1{,}029{,}044\)</span>.</p>
+<p>Choose <span class="math inline">\(\theta,\chi\)</span> so that <span
+class="math display">\[
+\delta&lt;
+\frac{\log(1/a_0)}{\log(1/\chi)},
+\]</span> with <span class="math inline">\(1/2&lt;\theta&lt;1\)</span>
+and <span class="math inline">\(0&lt;\chi&lt;\Lambda(\theta)\)</span>.
+Choose <span class="math inline">\(\varepsilon,\zeta,D_{\rm
+lin}\)</span> as in (7.4) and (7.7), so that the pullback hypothesis of
+Proposition 6.2 holds. Then take <span
+class="math inline">\(r&gt;a_0\)</span> sufficiently close to <span
+class="math inline">\(a_0\)</span> that both (7.6) and <span
+class="math display">\[
+\frac1{(1-r)\log2}&lt;6.953
+\tag{7.16}
+\]</span> hold. With <span class="math inline">\(\omega\)</span> chosen
+as in (7.8), one has <span class="math inline">\(R_M=O(\log
+M)=O(\log\log n)\)</span>. Equation (6.11) therefore gives <span
+class="math display">\[
+\tau_{R_M}
+\leq
+\frac{\log n}{(1-r)\log2}
++O_r(\log\log n)
+&lt;
+6.953\log n
+\tag{7.17}
+\]</span> for all sufficiently large retained <span
+class="math inline">\(n\)</span>. Together with (6.20), this proves
+(1.4). The retained shell union has density one by Proposition 6.2,
+through Lemma 2.1, part 2, and is the required set <span
+class="math inline">\(A_\delta\)</span>. <span
+class="math inline">\(\square\)</span></p>
+</section>
+</section>
+<section id="scope-and-reproducibility" class="level2">
+<h2>8. Scope and reproducibility</h2>
+<p>The proof is complete at this point. We finish by separating the
+theorem from stronger Collatz conclusions that it does not imply and by
+recording the formal artifact independently of the manuscript proof.</p>
+<section id="scope-and-comparison" class="level3">
+<h3>8.1. Scope and comparison</h3>
+<p>Theorem 1.1 is compatible with exceptional divergent trajectories and
+with hypothetical nontrivial cycles. If an orbit enters a fixed cycle
+with minimum <span class="math inline">\(m\)</span>, then its orbit
+minimum is at most <span class="math inline">\(m\)</span>, so all
+sufficiently large points in that basin already satisfy (1.2). The
+theorem therefore gives no cycle exclusion and no density estimate for
+such basins.</p>
+<p>Tao [7] proves the stronger terminal-threshold statement with an
+arbitrary function tending to infinity in logarithmic density. The
+concurrent preprints [1, 6] obtain arbitrary-diverging-threshold
+statements in natural density through bridges built on Tao’s framework.
+Theorem 1.1 has a less general terminal threshold; its separate features
+are the self-contained fixed-total endpoint argument, the prescribed
+stretched-logarithmic family, the counting-cutoff estimate (1.3), and
+the explicit half-map clock.</p>
+<p>The fixed-power statements preceding this paper do not by themselves
+give the prescribed rate in (1.2). A density-one diagonalization over
+all fixed powers can produce some unspecified exponent <span
+class="math inline">\(\varepsilon(n)\to0\)</span>, but its decay depends
+on untracked onset thresholds. It does not imply <span
+class="math inline">\(\varepsilon(n)=(\log n)^{-\delta}\)</span>, nor
+does it give (1.3).</p>
+</section>
+<section id="formal-verification" class="level3">
+<h3>8.2. Formal verification</h3>
+<p>The principal theorem chain has a supplementary Lean 4 formalization
+at <span class="math display">\[
+\texttt{https://github.com/shaikidris/CET/tree/v2.0.1},
+\]</span> with software DOI <code>10.5281/zenodo.21797535</code>. The
+frozen development uses Lean <code>v4.15.0</code> and Mathlib commit
+<code>9837ca9d65d9de6fad1ef4381750ca688774e608</code>. Its
+referee-facing Main Theorem, exceptional-count theorem, and timed
+theorem are respectively</p>
+<pre class="text"><code>collatz_central_renyi_endpoint_natural_density_descent
+collatz_central_renyi_endpoint_exceptional_count_at_exponent
+collatz_central_renyi_endpoint_natural_density_descent_timed</code></pre>
+<p>in namespace
+<code>CollatzEndpointTransport.QuantitativeCollatzMain</code>. The
+formal proof uses the stronger all-prefix initial-window estimate at its
+one-block seed; Lemma 6.1 uses only the terminal consequence needed by
+the endpoint theorem. The three declarations state exactly the
+conclusions (1.2), (1.3), and (1.4); only the intermediate route at the
+seed differs.</p>
+<p>From the release’s <code>lean</code> directory, the principal replay
+commands are</p>
+<pre class="text"><code>lake build
+lake build CollatzEndpointTransport.Linear.PaperDependencyAudit
+lake build CollatzEndpointTransport.Linear.PaperAudit</code></pre>
+<p>The first command reconstructs the retained source. The second
+reports transitive theorem dependencies. The third executes
+<code>#print axioms</code> on the paper-facing declarations; it reports
+only <code>propext</code>, <code>Classical.choice</code>, and
+<code>Quot.sound</code>. These checks supplement the written proof and
+are not used to discharge any step of it.</p>
+</section>
+</section>
+<section id="acknowledgements" class="level2">
+<h2>Acknowledgements</h2>
+<p>The author thanks the contributors to Lean and Mathlib for the formal
+tools used in the supplementary verification.</p>
+</section>
+<section id="use-of-generative-ai" class="level2">
+<h2>Use of generative AI</h2>
+<p>The author used OpenAI ChatGPT and Codex for exploratory proof
+discussion, Lean assistance, literature-search assistance, and editorial
+review. Model outputs were treated as suggestions rather than
+mathematical evidence. The author checked every retained proof,
+computation, citation, and formal declaration and assumes full
+responsibility for the manuscript.</p>
+</section>
+<section id="funding" class="level2">
+<h2>Funding</h2>
+<p>The author received no specific funding for this work.</p>
+</section>
+<section id="competing-interests" class="level2">
+<h2>Competing interests</h2>
+<p>The author declares no competing interests.</p>
+</section>
+<section id="references" class="level2">
+<h2>References</h2>
+<ol type="1">
+<li>J. Allikvere, “Almost all Collatz orbits attain almost bounded
+values in natural density,” preprint, version 2, 22 July 2026,
+doi:10.5281/zenodo.21499244.</li>
+<li>J.-P. Allouche, “Sur la conjecture de Syracuse–Kakutani–Collatz,”
+<em>Séminaire de Théorie des Nombres</em>, 1978–1979, Exp. No. 9, 15
+pp., CNRS, Talence, 1979.</li>
+<li>C. J. Everett, “Iteration of the number-theoretic function <span
+class="math inline">\(f(2n)=n,\ f(2n+1)=3n+2\)</span>,” <em>Adv.
+Math.</em> 25 (1977), 42–45.</li>
+<li>M. Inselmann, “An approximation of the Collatz map and a lower bound
+for the average total stopping time,” arXiv:2402.03276v3.</li>
+<li>I. Korec, “A density estimate for the <span
+class="math inline">\(3x+1\)</span> problem,” <em>Math. Slovaca</em> 44
+(1994), 85–89.</li>
+<li>L. Mazur, “Natural-density almost-bounded Collatz orbits in
+logarithmic time,” preprint, version 2, 21 July 2026,
+<code>https://www.proofatlas.ai/papers/natural-density-log-time-collatz/Mazur_Natural_Density_Collatz_Orbits_in_Logarithmic_Time_v2.pdf</code>.</li>
+<li>T. Tao, “Almost all orbits of the Collatz map attain almost bounded
+values,” <em>Forum Math. Pi</em> 10 (2022), e12,
+doi:10.1017/fmp.2022.8.</li>
+<li>R. Terras, “A stopping time problem on the positive integers,”
+<em>Acta Arith.</em> 30 (1976), 241–252.</li>
+</ol>
+</section>
+
+  </article>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p style="margin:0">
+      © 2026 Idris Ali Shaik · licensed
+      <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a> ·
+      <a href="../">site overview</a> ·
+      <a href="../code/">theorem → Lean map</a>
+      <br>An almost-all result in natural density; not a proof of the Collatz conjecture.
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById("theme-toggle");
+    btn && btn.addEventListener("click", function () {
+      var root = document.documentElement, cur = root.getAttribute("data-theme");
+      if (!cur) cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      var next = cur === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+    // highlight the section currently in view
+    var links = [].slice.call(document.querySelectorAll(".toc a"));
+    var map = {};
+    links.forEach(function (a) {
+      var el = document.getElementById(a.getAttribute("href").slice(1));
+      if (el) map[a.getAttribute("href").slice(1)] = a;
+    });
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          var a = map[e.target.id];
+          if (a && e.isIntersecting) {
+            links.forEach(function (l) { l.classList.remove("active"); });
+            a.classList.add("active");
+            a.scrollIntoView({ block: "nearest" });
+          }
+        });
+      }, { rootMargin: "0px 0px -80% 0px" });
+      Object.keys(map).forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) io.observe(el);
+      });
+    }
+  })();
+</script>
+</body>
+</html>

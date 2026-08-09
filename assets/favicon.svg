@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="A descending Collatz orbit">
+  <rect width="64" height="64" rx="13" fill="#4c3bcf"/>
+  <!-- a descending, wobbling orbit -->
+  <path d="M8 15 L14 24 L20 12 L26 22 L32 31 L38 21 L44 36 L50 45 L56 40"
+        fill="none" stroke="#fff" stroke-width="3.4"
+        stroke-linecap="round" stroke-linejoin="round" opacity=".95"/>
+  <!-- the threshold it lands under -->
+  <path d="M8 52 L56 52" stroke="#fff" stroke-width="2.6"
+        stroke-linecap="round" stroke-dasharray="5 4" opacity=".55"/>
+</svg>

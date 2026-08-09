@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Scholarly indexers
+User-agent: Googlebot
+Allow: /
+User-agent: Googlebot-Scholar
+Allow: /
+User-agent: bingbot
+Allow: /
+
+Sitemap: https://shaikidris.github.io/sitemap.xml

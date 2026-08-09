@@ -1,0 +1,109 @@
+/* ==========================================================================
+   Full-text paper view: sticky sidebar contents + a readable measure.
+   ========================================================================== */
+
+.paperbar {
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper-sunk);
+  font-family: var(--sans);
+  font-size: .8125rem;
+}
+.paperbar .wrap {
+  display: flex; flex-wrap: wrap; gap: .6rem 1.5rem; align-items: center;
+  padding-block: .7rem;
+}
+.paperbar span { color: var(--ink-faint); margin-right: auto; }
+.paperbar a { color: var(--accent); text-decoration: none; font-weight: 550; }
+.paperbar a:hover { text-decoration: underline; }
+
+.paperlayout {
+  display: grid;
+  grid-template-columns: 15rem minmax(0, 1fr);
+  gap: 3rem;
+  align-items: start;
+  padding-block: 3rem;
+  --measure: 40rem;
+}
+@media (max-width: 60rem) {
+  .paperlayout { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+/* ---------- table of contents ---------- */
+
+.toc {
+  position: sticky; top: 4.5rem;
+  max-height: calc(100vh - 6.5rem);
+  overflow-y: auto;
+  font-family: var(--sans); font-size: .8125rem;
+  border-right: 1px solid var(--rule);
+  padding-right: 1rem;
+  scrollbar-width: thin;
+}
+@media (max-width: 60rem) {
+  .toc {
+    position: static; max-height: 18rem; border-right: 0;
+    border: 1px solid var(--rule); border-radius: var(--radius);
+    padding: 1rem 1.15rem; background: var(--paper-raised);
+  }
+}
+.toc h5 {
+  font-size: .7rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink-faint); margin: 0 0 .8rem; font-weight: 650;
+}
+.toc ul { list-style: none; padding: 0; margin: 0; }
+.toc li { margin: 0; }
+.toc a {
+  display: block; padding: .28rem .5rem; border-radius: 5px;
+  color: var(--ink-soft); text-decoration: none; line-height: 1.45;
+  border-left: 2px solid transparent;
+}
+.toc a:hover { color: var(--accent); background: var(--paper-sunk); }
+.toc a.active {
+  color: var(--accent); border-left-color: var(--accent);
+  background: var(--accent-soft); font-weight: 600;
+}
+.toc li.lvl3 a { padding-left: 1.25rem; font-size: .78125rem; color: var(--ink-faint); }
+
+/* ---------- the document ---------- */
+
+.doc { width: min(100%, var(--measure)); font-size: 1.0625rem; }
+.doc > section { scroll-margin-top: 5rem; }
+.doc h2 {
+  font-size: 1.6rem; margin-top: 3rem; padding-top: 1.5rem;
+  border-top: 1px solid var(--rule); max-width: none;
+}
+.doc > section:first-child h2 { margin-top: 0; padding-top: 0; border-top: 0; }
+.doc h3 { font-size: 1.15rem; margin-top: 2.25rem; }
+.doc h4 { font-family: var(--serif); font-size: 1.02rem; font-style: italic; font-weight: 600; }
+
+/* Theorem-like environments: pandoc emits these as h3 with the kind in the text. */
+.doc h3[id^="theorem"], .doc h3[id^="lemma"], .doc h3[id^="corollary"],
+.doc h3[id^="proposition"], .doc h3[id^="definition"] {
+  color: var(--accent);
+}
+.doc h3[id^="proof"] { color: var(--ink-faint); font-weight: 600; font-size: 1rem; }
+
+.doc blockquote {
+  margin: 1.5rem 0; padding: .2rem 0 .2rem 1.15rem;
+  border-left: 3px solid var(--rule-strong); color: var(--ink-soft);
+}
+.doc table { font-family: var(--sans); font-size: .8125rem; }
+.doc > table, .doc section > table { display: block; overflow-x: auto; white-space: nowrap; }
+.doc img, .doc svg { max-width: 100%; height: auto; }
+.doc figure { margin: 2rem 0; }
+.doc figcaption { font-size: .8125rem; }
+
+.doc mjx-container[display="true"] {
+  overflow-x: auto; overflow-y: hidden;
+  padding-block: .35rem;
+}
+
+/* Numbered display equations keep their tags visible on narrow screens */
+.doc mjx-container[display="true"] mjx-mtable { max-width: 100%; }
+
+@media print {
+  .toc, .paperbar { display: none; }
+  .paperlayout { grid-template-columns: 1fr; }
+  .doc { width: 100%; font-size: 10.5pt; }
+  .doc h2 { break-after: avoid; }
+}
