@@ -647,6 +647,56 @@
     if (med) med.textContent = w.sample.medianRatio.toFixed(2);
   }
 
+  /* ---------- in-page section navigation ---------- */
+
+  function sectionNavigation() {
+    const links = Array.from(document.querySelectorAll('.section-links a[href^="#"]'));
+    if (!links.length) return;
+
+    const sections = [];
+    const seen = new Set();
+    links.forEach(link => {
+      const id = link.getAttribute("href").slice(1);
+      const section = document.getElementById(id);
+      if (section && !seen.has(id)) {
+        seen.add(id);
+        sections.push(section);
+      }
+      link.addEventListener("click", () => {
+        const menu = link.closest(".section-menu");
+        if (menu) menu.removeAttribute("open");
+      });
+    });
+
+    let scheduled = false;
+    function update() {
+      scheduled = false;
+      const marker = Math.min(220, window.innerHeight * 0.3);
+      let current = sections[0];
+      sections.forEach(section => {
+        if (section.getBoundingClientRect().top <= marker) current = section;
+      });
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+        current = sections[sections.length - 1];
+      }
+      links.forEach(link => {
+        const active = current && link.getAttribute("href") === "#" + current.id;
+        if (active) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+    }
+    function schedule() {
+      if (!scheduled) {
+        scheduled = true;
+        requestAnimationFrame(update);
+      }
+    }
+
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    update();
+  }
+
   /* ---------- reveal ---------- */
 
   function reveal() {
@@ -663,6 +713,7 @@
   /* ---------- boot ---------- */
 
   function boot() {
+    sectionNavigation();
     reveal();
     fetch("assets/figure-data.json")
       .then(r => r.json())
