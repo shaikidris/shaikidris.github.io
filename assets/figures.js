@@ -647,6 +647,70 @@
     if (med) med.textContent = w.sample.medianRatio.toFixed(2);
   }
 
+  /* ---------- guided proof architecture ---------- */
+
+  function proofFlowLab() {
+    const panels = Array.from(document.querySelectorAll("[data-proof-panel]"));
+    const triggers = Array.from(document.querySelectorAll("[data-proof-step]"));
+    const previous = document.getElementById("proof-prev");
+    const next = document.getElementById("proof-next");
+    const progress = document.getElementById("proof-lab-progress");
+    if (!panels.length) return;
+
+    let current = Math.max(0, panels.findIndex(panel => panel.open));
+
+    function sync(index) {
+      current = Math.max(0, Math.min(panels.length - 1, index));
+      const id = panels[current].id;
+      triggers.forEach(trigger => {
+        if (trigger.dataset.proofStep === id) {
+          trigger.setAttribute("aria-current", "step");
+        } else {
+          trigger.removeAttribute("aria-current");
+        }
+      });
+      if (progress) {
+        const title = panels[current].querySelector("summary").textContent.trim();
+        progress.textContent = "Stage " + (current + 1) + " of " + panels.length + " · " + title;
+      }
+      if (previous) previous.disabled = current === 0;
+      if (next) next.disabled = current === panels.length - 1;
+    }
+
+    function openStage(index, scroll) {
+      index = Math.max(0, Math.min(panels.length - 1, index));
+      panels.forEach((panel, i) => { panel.open = i === index; });
+      sync(index);
+      if (scroll) {
+        panels[index].scrollIntoView({
+          behavior: reduceMotion ? "auto" : "smooth",
+          block: "start"
+        });
+      }
+    }
+
+    triggers.forEach(trigger => {
+      trigger.addEventListener("click", () => {
+        const index = panels.findIndex(panel => panel.id === trigger.dataset.proofStep);
+        if (index >= 0) openStage(index, false);
+      });
+    });
+    panels.forEach((panel, index) => {
+      panel.addEventListener("toggle", () => {
+        if (!panel.open) return;
+        panels.forEach((other, i) => {
+          if (i !== index) other.open = false;
+        });
+        sync(index);
+      });
+    });
+    if (previous) previous.addEventListener("click", () => openStage(current - 1, true));
+    if (next) next.addEventListener("click", () => openStage(current + 1, true));
+
+    const hashIndex = panels.findIndex(panel => "#" + panel.id === window.location.hash);
+    openStage(hashIndex >= 0 ? hashIndex : current, false);
+  }
+
   /* ---------- in-page section navigation ---------- */
 
   function sectionNavigation() {
@@ -713,6 +777,7 @@
   /* ---------- boot ---------- */
 
   function boot() {
+    proofFlowLab();
     sectionNavigation();
     reveal();
     fetch("assets/figure-data.json")

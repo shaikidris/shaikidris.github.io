@@ -11,7 +11,7 @@ JavaScript, designed for `https://shaikidris.github.io/`.
 ## Layout
 
 ```
-index.html              theorem, quantifier/scale labs, 4 figures, proof map
+index.html              theorem, fundamentals/literature, proof/parameter labs, 4 figures
 paper/index.html        full manuscript rendered to HTML (generated, see below)
 paper/collatz-endpoint-transport.pdf   exact public Zenodo v2.0.2 PDF
 code/index.html         theorem -> Lean declaration cross-reference table
