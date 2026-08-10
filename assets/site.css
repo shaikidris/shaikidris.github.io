@@ -302,6 +302,118 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
 .note.caution strong { color: var(--warn); }
 .note p:last-child { margin-bottom: 0; }
 
+/* ---------- fundamentals + proof architecture ---------- */
+
+.fundamentals-grid {
+  width: min(100%, var(--wide)); margin: 2rem auto 1.5rem;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem;
+}
+.fundamental-card {
+  position: relative; min-width: 0; padding: 1.35rem 1.5rem 1.25rem;
+  background: var(--paper-raised); border: 1px solid var(--rule);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.fundamental-card h3 { margin: .15rem 0 .7rem; }
+.fundamental-card p { font-size: .96rem; color: var(--ink-soft); }
+.fundamental-card mjx-container[display="true"] { margin: .85rem 0 !important; }
+.concept-number {
+  display: block; color: var(--accent); font: 650 .68rem var(--mono);
+  letter-spacing: .06em;
+}
+.fundamental-card .concept-use {
+  margin: .9rem 0 0; padding-top: .75rem; border-top: 1px solid var(--rule);
+  color: var(--ink-faint); font: .78rem/1.55 var(--sans);
+}
+.concept-use strong { color: var(--ink-soft); }
+
+.literature-table {
+  width: min(100%, var(--wide)); margin: 2rem auto 1.5rem;
+  background: var(--paper-raised); box-shadow: var(--shadow);
+}
+.literature-table table { min-width: 48rem; table-layout: fixed; }
+.literature-table caption {
+  padding: .75rem .85rem; text-align: left; color: var(--ink-faint);
+  background: var(--paper-sunk); border-bottom: 1px solid var(--rule);
+  font: 550 .72rem/1.4 var(--sans);
+}
+.literature-table th,
+.literature-table td {
+  padding: .9rem 1rem; vertical-align: top; white-space: normal; line-height: 1.55;
+}
+.literature-table thead th:nth-child(1) { width: 19%; }
+.literature-table thead th:nth-child(2) { width: 38%; }
+.literature-table tbody th {
+  color: var(--ink); font: 650 .8rem/1.5 var(--sans);
+}
+.literature-table tbody td { color: var(--ink-soft); }
+.literature-table .literature-outcome th,
+.literature-table .literature-outcome td {
+  background: var(--accent-soft); border-bottom-color: transparent;
+}
+.literature-takeaway { border-left-color: var(--accent); }
+.comparison-scope {
+  color: var(--ink-faint); font: .8rem/1.6 var(--sans);
+}
+
+.anchor-alias {
+  display: block; position: relative; top: -4.5rem; visibility: hidden;
+}
+.architecture-map {
+  width: min(100%, var(--wide)); margin: 2rem auto 1.5rem; padding: .2rem 0 .8rem;
+  display: grid; grid-template-columns: repeat(6, minmax(8.6rem, 1fr));
+  gap: .7rem; overflow-x: auto; scroll-snap-type: x proximity;
+}
+.architecture-map a {
+  position: relative; display: grid; align-content: start; gap: .35rem;
+  min-height: 9rem; padding: .9rem; scroll-snap-align: start;
+  color: var(--ink-soft); text-decoration: none;
+  background: var(--paper-raised); border: 1px solid var(--rule);
+  border-radius: 9px; box-shadow: var(--shadow);
+  transition: transform .15s, border-color .15s, background .15s;
+}
+.architecture-map a:hover,
+.architecture-map a[aria-current="step"] {
+  transform: translateY(-2px); border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.architecture-map a > span {
+  width: 1.7rem; height: 1.7rem; display: grid; place-items: center;
+  border-radius: 50%; color: var(--accent); background: var(--accent-soft);
+  font: 650 .72rem var(--sans);
+}
+.architecture-map a[aria-current="step"] > span {
+  color: var(--paper-raised); background: var(--accent);
+}
+.architecture-map strong { color: var(--ink); font: 650 .82rem/1.25 var(--sans); }
+.architecture-map small { color: var(--ink-faint); font: .7rem/1.4 var(--sans); }
+
+.proof-lab-toolbar {
+  position: sticky; top: 4.1rem; z-index: 20;
+  display: flex; align-items: center; justify-content: space-between; gap: .65rem;
+  margin: 1.4rem 0 1rem; padding: .6rem;
+  background: color-mix(in srgb, var(--paper-raised) 94%, transparent);
+  backdrop-filter: blur(9px); border: 1px solid var(--rule);
+  border-radius: 8px; box-shadow: var(--shadow);
+  font-family: var(--sans);
+}
+.proof-lab-toolbar button {
+  cursor: pointer; padding: .38rem .7rem; border-radius: 6px;
+  border: 1px solid var(--rule-strong); color: var(--ink-soft);
+  background: var(--paper-sunk); font: 550 .75rem var(--sans);
+}
+.proof-lab-toolbar button:hover:not(:disabled) {
+  border-color: var(--accent); color: var(--accent);
+}
+.proof-lab-toolbar button:disabled { cursor: default; opacity: .42; }
+.proof-lab-toolbar span {
+  color: var(--accent); font: 650 .75rem var(--mono);
+}
+.proof-steps details { scroll-margin-top: 8rem; }
+
+@media (max-width: 44rem) {
+  .fundamentals-grid { grid-template-columns: 1fr; }
+}
+
 /* ---------- graduate study lab ---------- */
 
 .lab-grid {
@@ -552,6 +664,7 @@ mjx-container[display="true"] { margin: 1.4rem 0 !important; padding-block: .2re
 
 @media print {
   .masthead, .page-rail, .section-menu, .fig-controls, .preset-row,
+  .proof-lab-toolbar,
   .theme-toggle, footer { display: none; }
   body { background: #fff; color: #000; font-size: 10pt; }
   a { color: #000; }

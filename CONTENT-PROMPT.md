@@ -46,6 +46,33 @@ The landing page follows the six steps in §1.2 of article v2.0.2:
 The proof uses a central fixed-total Rényi estimate and endpoint-only
 logarithmic-block iteration.
 
+## Teaching order
+
+The main page is organized for a mathematically mature reader who is new to
+this proof:
+
+1. state the public theorem and its limitations;
+2. introduce the four elementary objects: orbit minimum and witness, parity
+   words on dyadic blocks, natural density, and the stretched-logarithmic
+   scale;
+3. place the public result on the ordinary-natural-density literature line:
+   Terras's density-one first descent and parity framework, Korec's
+   \(n^\theta\) bound for \(\theta>\log_4 3\), Inselmann's bound for every
+   fixed \(\theta>0\), and the article's moving exponent
+   \((\log n)^{-\delta}\to0\); keep logarithmic-density and differently
+   quantified results on separate comparison axes;
+4. display the six-stage dependency spine;
+5. let the reader inspect those six producer-to-consumer interfaces in the
+   guided architecture lab;
+6. only then introduce the quantifier and scale controls;
+7. keep orbit, clock, ensemble, and exceptional-rate plots in a later
+   illustration layer;
+8. finish with the formalization boundary and public artifacts.
+
+Do not move interactive parameters ahead of the definitions they manipulate.
+Finite computations remain illustrations even when the page makes them
+interactive.
+
 ## Formalization boundary
 
 The public article names three referee-facing declarations:

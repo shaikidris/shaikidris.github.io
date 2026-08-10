@@ -125,8 +125,8 @@ window.MathJax = {
     <a class="brand" href="./">Quantitative Collatz Descent</a>
     <nav>
       <a href="#result" class="opt">Result</a>
-      <a href="#explore">Explore</a>
-      <a href="#how" class="opt">How it works</a>
+      <a href="#fundamentals" class="opt">Fundamentals</a>
+      <a href="#architecture">Architecture</a>
       <a href="paper/">Paper</a>
       <a href="code/">Lean code</a>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme" title="Toggle colour theme">◐</button>
@@ -139,13 +139,16 @@ window.MathJax = {
   <nav class="section-links">
     <a href="#overview">Overview</a>
     <a href="#result">The result</a>
+    <a href="#fundamentals">Fundamentals</a>
+    <a href="#literature">Literature outcome</a>
+    <a href="#architecture">Proof architecture</a>
+    <a href="#proof-lab">Architecture lab</a>
     <a href="#explore">Parameter lab</a>
     <a href="#threshold">Why the threshold matters</a>
     <a href="#orbit">Orbit explorer</a>
     <a href="#clock">Witness clock</a>
     <a href="#ensemble">Natural density</a>
     <a href="#exceptions">Exceptional set</a>
-    <a href="#how">Proof architecture</a>
     <a href="#lean">Lean formalization</a>
     <a href="#read">Read and cite</a>
   </nav>
@@ -156,13 +159,16 @@ window.MathJax = {
   <nav class="section-links" aria-label="On this page">
     <a href="#overview">Overview</a>
     <a href="#result">The result</a>
+    <a href="#fundamentals">Fundamentals</a>
+    <a href="#literature">Literature outcome</a>
+    <a href="#architecture">Proof architecture</a>
+    <a href="#proof-lab">Architecture lab</a>
     <a href="#explore">Parameter lab</a>
     <a href="#threshold">Why the threshold matters</a>
     <a href="#orbit">Orbit explorer</a>
     <a href="#clock">Witness clock</a>
     <a href="#ensemble">Natural density</a>
     <a href="#exceptions">Exceptional set</a>
-    <a href="#how">Proof architecture</a>
     <a href="#lean">Lean formalization</a>
     <a href="#read">Read and cite</a>
   </nav>
@@ -280,6 +286,320 @@ window.MathJax = {
   </div>
 </section>
 
+<!-- ==================== FUNDAMENTALS ==================== -->
+<section id="fundamentals">
+  <div class="wrap">
+    <div class="col reveal">
+      <p class="eyebrow">Elementary foundations</p>
+      <h2>The vocabulary behind the theorem</h2>
+      <p class="lede">
+        Four elementary ideas carry most of the notation. Keeping them
+        separate makes it easier to see where dynamics ends and counting
+        begins.
+      </p>
+    </div>
+
+    <div class="fundamentals-grid reveal">
+      <article class="fundamental-card">
+        <span class="concept-number">01</span>
+        <h3>Orbit, minimum, witness</h3>
+        <p>
+          Starting from \(n\), the orbit is
+          \(n,T(n),T^2(n),\ldots\). Its smallest attained value is
+          \(T_{\min}(n)=\min_{k\ge0}T^k(n)\). A <em>witness</em> is one
+          particular time \(k\) at which the desired threshold is reached.
+        </p>
+        <p class="concept-use"><strong>Used for:</strong> separating “the orbit
+          eventually gets low” from “every intermediate iterate is controlled.”</p>
+      </article>
+
+      <article class="fundamental-card">
+        <span class="concept-number">02</span>
+        <h3>Parity words and dyadic blocks</h3>
+        <p>
+          Each shortcut step records one bit: even or odd. For a block of
+          \(m\) steps, the first \(m\) parities are determined by the
+          starting residue modulo \(2^m\); over a complete residue system,
+          every parity word occurs once.
+        </p>
+        <p class="concept-use"><strong>Used for:</strong> replacing one block
+          of dynamics by finite arithmetic on the Boolean cube.</p>
+      </article>
+
+      <article class="fundamental-card">
+        <span class="concept-number">03</span>
+        <h3>Natural density</h3>
+        <p>
+          A set \(A\subseteq\mathbb N\) has natural density one when
+          \[
+            \frac{\#(A\cap[1,X])}{X}\longrightarrow1.
+          \]
+          It may still omit infinitely many integers; their relative
+          frequency must vanish.
+        </p>
+        <p class="concept-use"><strong>Used for:</strong> stating an
+          almost-all theorem without turning it into a pointwise claim.</p>
+      </article>
+
+      <article class="fundamental-card">
+        <span class="concept-number">04</span>
+        <h3>Stretched-logarithmic scale</h3>
+        <p>
+          The target can be rewritten as
+          \[
+            \exp((\log n)^{1-\delta})
+            =n^{(\log n)^{-\delta}}.
+          \]
+          For fixed \(\delta&gt;0\), the effective exponent tends to zero,
+          so this scale eventually lies below every fixed power \(n^\varepsilon\).
+        </p>
+        <p class="concept-use"><strong>Used for:</strong> reading the theorem
+          as a genuinely sub-power descent statement.</p>
+      </article>
+    </div>
+
+    <div class="col reveal">
+      <p class="note">
+        <strong>Logical separation.</strong> The parity-word description is
+        exact finite combinatorics. Natural density and the exceptional-count
+        estimate are asymptotic statements. The orbit plots later on the page
+        are finite illustrations, not a bridge between those two scopes.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== LITERATURE OUTCOME ==================== -->
+<section id="literature">
+  <div class="wrap">
+    <div class="col reveal">
+      <p class="eyebrow">Literature ladder</p>
+      <h2>From first descent to a moving sub-power scale</h2>
+      <p class="lede">
+        On the ordinary-natural-density line, the certified landing target has
+        become progressively smaller. The comparison below holds the density
+        notion and shortcut map fixed, so the mathematical gain is visible.
+      </p>
+    </div>
+
+    <div class="tablewrap literature-table reveal">
+      <table>
+        <caption>Four milestones in ordinary-natural-density Collatz descent</caption>
+        <thead>
+          <tr>
+            <th scope="col">Work</th>
+            <th scope="col">Density-one conclusion</th>
+            <th scope="col">What changes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">
+              <a href="https://doi.org/10.4064/aa-30-3-241-252" rel="noopener">Terras (1976)</a>
+            </th>
+            <td>For almost every \(n\), some iterate satisfies \(T^k(n)&lt;n\).</td>
+            <td>
+              Establishes density-one finite stopping below the starting value;
+              the parity-word periodicity behind dyadic counting is also classical
+              in this work.
+            </td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <a href="https://dml.cz/handle/10338.dmlcz/133225" rel="noopener">Korec (1994)</a>
+            </th>
+            <td>
+              For every fixed \(\theta&gt;\log_4 3=0.79248125\ldots\), almost every
+              \(n\) reaches below \(n^\theta\).
+            </td>
+            <td>Replaces the starting-value target by a nontrivial fixed power.</td>
+          </tr>
+          <tr>
+            <th scope="row">
+              <a href="https://arxiv.org/abs/2402.03276v3" rel="noopener">Inselmann (2024)</a>
+            </th>
+            <td>
+              For every fixed \(\theta&gt;0\), almost every \(n\) reaches below
+              \(n^\theta\), within \(6.952\ldots\log n\) steps.
+            </td>
+            <td>Extends the fixed-power conclusion to every positive exponent.</td>
+          </tr>
+          <tr class="literature-outcome">
+            <th scope="row">
+              <a href="https://doi.org/10.5281/zenodo.21851173" rel="noopener">This paper (2026)</a>
+            </th>
+            <td>
+              For every fixed \(0&lt;\delta&lt;\delta_0\), almost every \(n\) reaches
+              below \(n^{(\log n)^{-\delta}}\).
+            </td>
+            <td>
+              The exponent now tends to zero with \(n\), with a quantified
+              exceptional count and a witness before \(6.953\log n\).
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col reveal">
+      <p class="note literature-takeaway">
+        <strong>The outcome.</strong> Inselmann allows any fixed horizontal
+        exponent \(\theta&gt;0\). This paper supplies one descending exponent,
+        \((\log n)^{-\delta}\to0\), so its target eventually lies below every
+        fixed power. It remains an almost-all theorem, not a proof of the
+        Collatz conjecture.
+      </p>
+      <p class="comparison-scope">
+        This ladder is deliberately restricted to ordinary natural density.
+        Tao's logarithmic-density theorem and concurrent natural-density
+        preprints use different threshold or quantifier classes; the article
+        discusses them separately rather than imposing a single total ranking.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROOF ARCHITECTURE ==================== -->
+<section id="architecture">
+  <span id="how" class="anchor-alias" aria-hidden="true"></span>
+  <div class="wrap">
+    <div class="col reveal">
+      <p class="eyebrow">The dependency spine</p>
+      <h2>Proof architecture</h2>
+      <p class="lede">
+        The argument first understands one logarithmic block, then turns that
+        local information into a transport estimate, and only afterward
+        iterates endpoints. Read the six nodes from left to right.
+      </p>
+    </div>
+
+    <nav class="architecture-map reveal" aria-label="Six-stage proof architecture">
+      <a href="#proof-step-1" data-proof-step="proof-step-1">
+        <span>1</span><strong>Encode</strong><small>dyadic shell → parity cube</small>
+      </a>
+      <a href="#proof-step-2" data-proof-step="proof-step-2">
+        <span>2</span><strong>Condition</strong><small>odd count → compositions</small>
+      </a>
+      <a href="#proof-step-3" data-proof-step="proof-step-3">
+        <span>3</span><strong>Control fibers</strong><small>crowding → Rényi moment</small>
+      </a>
+      <a href="#proof-step-4" data-proof-step="proof-step-4">
+        <span>4</span><strong>Transport density</strong><small>target → pullback</small>
+      </a>
+      <a href="#proof-step-5" data-proof-step="proof-step-5">
+        <span>5</span><strong>Iterate endpoints</strong><small>one block → recursion</small>
+      </a>
+      <a href="#proof-step-6" data-proof-step="proof-step-6">
+        <span>6</span><strong>Optimize blocks</strong><small>recursion → theorem</small>
+      </a>
+    </nav>
+
+    <div class="col reveal">
+      <p class="note">
+        <strong>The key design choice:</strong> the consumer is an orbit
+        minimum, so the recursion transports endpoint events. It does not ask
+        for a uniform envelope on every iterate inside every block.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ARCHITECTURE LAB ==================== -->
+<section id="proof-lab">
+  <div class="wrap">
+    <div class="col reveal">
+      <p class="eyebrow">Guided proof lab</p>
+      <h2>Follow one proof interface at a time</h2>
+      <p class="lede">
+        Open a stage to inspect its input, mathematical burden, and output.
+        The output of each panel is the input consumed by the next one.
+      </p>
+
+      <div class="proof-lab-toolbar" aria-label="Proof-stage controls">
+        <button id="proof-prev" type="button">← Previous</button>
+        <span id="proof-lab-progress" role="status" aria-live="polite">Stage 1 of 6</span>
+        <button id="proof-next" type="button">Next →</button>
+      </div>
+
+      <ol class="steps proof-steps">
+        <li>
+          <details id="proof-step-1" data-proof-panel open>
+            <summary>One block in parity coordinates</summary>
+            <p class="step-interface"><span>Input: a dyadic shell</span><i>→</i><span>Output: an explicit endpoint map on parity words</span></p>
+            <p>A dyadic shell contains exactly one representative of every
+            parity word of the matching length. The affine iterate formula then
+            writes the endpoint of one logarithmic block explicitly in terms
+            of that word, converting the dynamical question into finite
+            arithmetic on a complete Boolean cube.</p>
+          </details>
+        </li>
+        <li>
+          <details id="proof-step-2" data-proof-panel>
+            <summary>Condition on the odd count</summary>
+            <p class="step-interface"><span>Input: a parity word</span><i>→</i><span>Output: a fixed-total composition and a congruence</span></p>
+            <p>Fixing the number of odd steps separates the main multiplicative
+            factor from the affine correction. The remaining parity data
+            become a positive composition of a fixed total, and equality of
+            two block endpoints becomes a congruence condition modulo the
+            corresponding power of \(3\).</p>
+          </details>
+        </li>
+        <li>
+          <details id="proof-step-3" data-proof-panel>
+            <summary>Control endpoint multiplicities</summary>
+            <p class="step-interface"><span>Input: endpoint fibers</span><i>→</i><span>Output: a Rényi-moment bound on crowding</span></p>
+            <p>Starts sharing an endpoint form a fiber. Integer-lift
+            injectivity and a quotient-order estimate translate crowding in
+            one congruence class into spending near the end of the associated
+            composition. A fixed-total Rényi estimate controls the resulting
+            \((1+\theta)\)-moment near the mean part count.</p>
+          </details>
+        </li>
+        <li>
+          <details id="proof-step-4" data-proof-panel>
+            <summary>Pull back a dense target</summary>
+            <p class="step-interface"><span>Input: target density plus fiber moments</span><i>→</i><span>Output: one-block density transport</span></p>
+            <p>Endpoint fibers are split into ordinary and heavy classes using
+            an exponential multiplicity threshold. The target's density
+            estimate bounds the ordinary contribution, while the Rényi moment
+            bounds the heavy one. Balancing their decay rates yields the
+            asymptotically linear transport slope \(\Lambda(\theta)\).</p>
+          </details>
+        </li>
+        <li>
+          <details id="proof-step-5" data-proof-panel>
+            <summary>Iterate endpoints only</summary>
+            <p class="step-interface"><span>Input: one-block transport and contraction</span><i>→</i><span>Output: a recursive endpoint descent</span></p>
+            <p>A binomial-tail estimate supplies a fixed dense set on which one
+            logarithmic block contracts \(n\) to at most \(3n^r\) for any
+            fixed \(r>a_0\). The recursion pulls back this endpoint event only;
+            it does not impose a stronger pathwise envelope inside each
+            block.</p>
+          </details>
+        </li>
+        <li>
+          <details id="proof-step-6" data-proof-panel>
+            <summary>Choose the number of blocks</summary>
+            <p class="step-interface"><span>Input: the endpoint recursion</span><i>→</i><span>Output: \(\delta_0\), the rate, and the clock</span></p>
+            <p>Taking \(R\asymp\log\log n\) blocks makes the endpoint scale
+            \(n^{r^R}\). Summability of the propagated exceptional sets
+            imposes two strict scalar bounds. Finally, letting
+            \(r\downarrow a_0\) and \(\theta\uparrow1\) produces the
+            nonattained endpoint \(\delta_0\), together with the exceptional
+            rate and clock.</p>
+          </details>
+        </li>
+      </ol>
+
+      <p>
+        Endpoint control is deliberate: the public theorem concerns an orbit
+        minimum, so it does not need a uniform bound on every intermediate
+        iterate inside each logarithmic block.
+      </p>
+    </div>
+  </div>
+</section>
+
 <!-- ==================== THEOREM LAB ==================== -->
 <section id="explore">
   <div class="wrap">
@@ -390,10 +710,9 @@ window.MathJax = {
 
       <!-- CONTENT SLOT 2: benchmark comparison. See CONTENT-PROMPT.md §2 -->
       <p>
-        Earlier ordinary-natural-density results were fixed-power statements.
-        Korec reached exponents above \(\log_4 3\); Inselmann later reached
-        every fixed positive exponent. Passing from one fixed exponent to all
-        fixed exponents is substantial, but each application still chooses a
+        The literature ladder above isolates the fixed-power progression:
+        Korec reached exponents above \(\log_4 3\), and Inselmann later reached
+        every fixed positive exponent. Each application still chooses a
         horizontal power \(n^\varepsilon\) before \(n\) grows. The public
         theorem instead prescribes a single scale whose effective exponent
         tends to zero. That is the relevant comparison: not a new
@@ -616,96 +935,6 @@ window.MathJax = {
         in \(\log X\) is being illustrated.
       </figcaption>
     </figure>
-  </div>
-</section>
-
-<!-- ==================== HOW IT WORKS ==================== -->
-<section id="how">
-  <div class="wrap">
-    <div class="col reveal">
-      <h2>How the proof works</h2>
-      <!-- CONTENT SLOT 7: the six steps, expanded. See CONTENT-PROMPT.md §7 -->
-      <p class="lede">
-        The public article separates one-block endpoint transport from the
-        iteration of that endpoint map. Its proof has six steps.
-      </p>
-
-      <ol class="steps proof-steps">
-        <li>
-          <details open>
-            <summary>One block in parity coordinates</summary>
-            <p class="step-interface"><span>Input: a dyadic shell</span><i>→</i><span>Output: an explicit endpoint map on parity words</span></p>
-            <p>A dyadic shell contains exactly one representative of every
-            parity word of the matching length. The affine iterate formula then
-            writes the endpoint of one logarithmic block explicitly in terms
-            of that word, converting the dynamical question into finite
-            arithmetic on a complete Boolean cube.</p>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary>Condition on the odd count</summary>
-            <p class="step-interface"><span>Input: a parity word</span><i>→</i><span>Output: a fixed-total composition and a congruence</span></p>
-            <p>Fixing the number of odd steps separates the main multiplicative
-            factor from the affine correction. The remaining parity data
-            become a positive composition of a fixed total, and equality of
-            two block endpoints becomes a congruence condition modulo the
-            corresponding power of \(3\).</p>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary>Control endpoint multiplicities</summary>
-            <p class="step-interface"><span>Input: endpoint fibers</span><i>→</i><span>Output: a Rényi-moment bound on crowding</span></p>
-            <p>Starts sharing an endpoint form a fiber. Integer-lift
-            injectivity and a quotient-order estimate translate crowding in
-            one congruence class into spending near the end of the associated
-            composition. A fixed-total Rényi estimate controls the resulting
-            \((1+\theta)\)-moment near the mean part count.</p>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary>Pull back a dense target</summary>
-            <p class="step-interface"><span>Input: target density plus fiber moments</span><i>→</i><span>Output: one-block density transport</span></p>
-            <p>Endpoint fibers are split into ordinary and heavy classes using
-            an exponential multiplicity threshold. The target's density
-            estimate bounds the ordinary contribution, while the Rényi moment
-            bounds the heavy one. Balancing their decay rates yields the
-            asymptotically linear transport slope \(\Lambda(\theta)\).</p>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary>Iterate endpoints only</summary>
-            <p class="step-interface"><span>Input: one-block transport and contraction</span><i>→</i><span>Output: a recursive endpoint descent</span></p>
-            <p>A binomial-tail estimate supplies a fixed dense set on which one
-            logarithmic block contracts \(n\) to at most \(3n^r\) for any
-            fixed \(r>a_0\). The recursion pulls back this endpoint event only;
-            it does not impose a stronger pathwise envelope inside each
-            block.</p>
-          </details>
-        </li>
-        <li>
-          <details>
-            <summary>Choose the number of blocks</summary>
-            <p class="step-interface"><span>Input: the endpoint recursion</span><i>→</i><span>Output: \(\delta_0\), the rate, and the clock</span></p>
-            <p>Taking \(R\asymp\log\log n\) blocks makes the endpoint scale
-            \(n^{r^R}\). Summability of the propagated exceptional sets
-            imposes two strict scalar bounds. Finally, letting
-            \(r\downarrow a_0\) and \(\theta\uparrow1\) produces the
-            nonattained endpoint \(\delta_0\), together with the exceptional
-            rate and clock.</p>
-          </details>
-        </li>
-      </ol>
-
-      <p>
-        Endpoint control is deliberate: the public theorem concerns an orbit
-        minimum, so it does not need a uniform bound on every intermediate
-        iterate inside each logarithmic block.
-      </p>
-    </div>
   </div>
 </section>
 
