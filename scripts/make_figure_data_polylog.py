@@ -181,6 +181,40 @@ figure_targets = {
 }
 
 # --------------------------------------------------------------------------
+# Which target can a finite illustration honestly use?
+#
+# The headline target (log n)^A_FP is asymptotic: it is only SMALLER than n
+# once n passes a crossover far beyond anything a browser can iterate. Below
+# that point every orbit satisfies it vacuously at k = 0, which would make
+# the figures look like a descent when nothing has happened.
+#
+# So the finite illustrations use the paper's stretched-logarithmic
+# companion, exp((log n)^(1-delta)) -- a genuine theorem of the same paper
+# (every fixed 0 < delta < 1) that IS a real descent at these scales. The
+# crossover below is computed, displayed on the page, and used to explain why.
+# --------------------------------------------------------------------------
+
+def polylog_crossover() -> float:
+    """Least n with (log n)^A_FP < n, by bisection."""
+    lo, hi = 1e10, 1e30
+    for _ in range(300):
+        mid = math.sqrt(lo * hi)
+        if math.log(mid) ** A_FP < mid:
+            hi = mid
+        else:
+            lo = mid
+    return hi
+
+
+CROSSOVER = polylog_crossover()
+DELTA_ILL = 0.25  # the illustrated stretched-logarithmic exponent
+
+
+def stretched_target(n: float) -> float:
+    return math.exp(math.log(n) ** (1.0 - DELTA_ILL))
+
+
+# --------------------------------------------------------------------------
 # Figure 4 — 'almost all', drawn: real orbits from one dyadic shell
 # --------------------------------------------------------------------------
 
@@ -190,8 +224,10 @@ shell_lo, shell_hi = 2 ** SHELL_M, 2 ** (SHELL_M + 1) - 1
 SAMPLE = 220
 ENSEMBLE_CAP = 900
 
-# Illustrative target: a polylogarithmic value at this shell's scale.
-ensemble_target = (math.log(shell_lo)) ** A_FP
+ensemble_target = stretched_target(shell_lo)
+if ensemble_target >= shell_lo:
+    raise SystemExit("illustrated target is not a descent at this shell")
+
 tracks, reached, clock_ok = [], 0, 0
 clock_limit = C_STAR * math.log(shell_lo)
 for _ in range(SAMPLE):
@@ -206,6 +242,7 @@ for _ in range(SAMPLE):
 figure_ensemble = {
     "shellM": SHELL_M,
     "sample": SAMPLE,
+    "delta": DELTA_ILL,
     "target": ensemble_target,
     "targetLog2": math.log2(ensemble_target),
     "clockLimit": clock_limit,
@@ -222,10 +259,12 @@ figure_ensemble = {
 witness_rows = []
 for exp10 in (6, 9, 12, 15, 18):
     n = random.randint(10 ** exp10, 10 ** exp10 * 2)
-    target = (math.log(n)) ** A_FP
+    target = stretched_target(n)
     k = steps_to_below(n, target, 5000)
+    if k <= 0:
+        raise SystemExit(f"illustrated target is vacuous at 10^{exp10}")
     cur, peak = n, n
-    for _ in range(max(k, 0)):
+    for _ in range(k):
         cur = shortcut(cur)
         peak = max(peak, cur)
     witness_rows.append({
@@ -234,8 +273,8 @@ for exp10 in (6, 9, 12, 15, 18):
         "k": k,
         "clock": C_STAR * math.log(n),
         "target": target,
-        "landing": cur if k >= 0 else None,
-        "peakRatioLog": (math.log(peak) / math.log(n)) if k >= 0 else None,
+        "landing": cur,
+        "peakRatioLog": math.log(peak) / math.log(n),
     })
 
 # --------------------------------------------------------------------------
@@ -253,6 +292,8 @@ payload = {
         "A_FP": A_FP,
         "cStar": C_STAR,
         "cRaw": C_RAW,
+        "polylogCrossover": CROSSOVER,
+        "illustrationDelta": DELTA_ILL,
     },
     "orbit": figure_orbit,
     "compression": figure_compression,
@@ -267,4 +308,9 @@ print(f"  kappa_* = {KAPPA_STAR!r}")
 print(f"  A_FP    = {A_FP!r}   (article prints 9.9911133419...)")
 print(f"  c_*     = {C_STAR!r}   (article prints 6.9521189935...)")
 print(f"  c_raw   = {C_RAW!r}   (article prints 10.42817849...)")
-print(f"  ensemble: {reached}/{SAMPLE} reached target, {clock_ok} within the clock")
+print(f"  polylog crossover: (log n)^A_FP < n only for n > {CROSSOVER:.3e}")
+print(f"  illustrations use exp((log n)^{1 - DELTA_ILL:.2f}) instead")
+_ks = [t["k"] for t in tracks if t["k"] >= 0]
+print(f"  ensemble: {reached}/{SAMPLE} reached target, {clock_ok} within the clock, "
+      f"k ranges {min(_ks)}–{max(_ks)}")
+print(f"  witnesses: k = {[r['k'] for r in witness_rows]}")
