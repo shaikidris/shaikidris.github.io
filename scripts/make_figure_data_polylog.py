@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Generate assets/figure-data-polylog.json for the root (v3.2.0) page.
+"""Generate assets/figure-data-polylog.json for the root (v3.2.1) page.
 
 Every number written here is computed from the real shortcut Collatz map or
 from the paper's closed-form constants. Nothing is hand-typed, and nothing
 produced here is a proof input: these are finite illustrations of an
 asymptotic, natural-density theorem.
 
-Source of truth: Zenodo 10.5281/zenodo.21931194 (article v3.2.0).
+Source of truth: Zenodo 10.5281/zenodo.21937271 (article v3.2.1).
 Run:  python3 scripts/make_figure_data_polylog.py
 """
 
@@ -115,8 +115,9 @@ orbit_marks = first_passages(ORBIT_N, ORBIT_CAP)
 orbit_log2n = math.log2(ORBIT_N)
 orbit_M = int(math.floor(orbit_log2n))
 
-# The deterministic high-rank envelope slope is a_0 - 1 per shortcut step.
-orbit_envelope = [
+# The mean-drift reference has slope a_0 - 1 per shortcut step. It is not a
+# deterministic pointwise envelope for the illustrated orbit.
+orbit_drift_reference = [
     [0, orbit_log2n],
     [len(orbit_series) - 1, orbit_log2n + (A0 - 1.0) * (len(orbit_series) - 1)],
 ]
@@ -127,7 +128,7 @@ figure_orbit = {
     "log2n": orbit_log2n,
     "series": orbit_series,
     "landings": orbit_marks,
-    "envelope": orbit_envelope,
+    "driftReference": orbit_drift_reference,
     "clockBound": C_STAR * math.log(ORBIT_N),
     "steps": len(orbit_series) - 1,
 }
@@ -156,11 +157,13 @@ figure_compression = {
 # Figure 3 — how the targets compare as n grows
 # --------------------------------------------------------------------------
 
-# log10 of each target, as a function of D = log10(n).
+# log10 of each target, as a function of D = log10(n). Use a comfortably
+# admissible fixed exponent rather than the unasserted pure critical target.
+TARGET_A = 14.0
 targets_curves = []
 for D in range(2, 401, 2):
     ln_n = D * math.log(10.0)
-    polylog = A_FP * math.log10(ln_n)              # (log n)^{A_FP}
+    polylog = TARGET_A * math.log10(ln_n)           # (log n)^A, A > A_FP
     stretched_25 = (ln_n ** (1.0 - 0.25)) / math.log(10.0)
     power_half = 0.5 * D                            # n^{1/2}
     power_tenth = 0.1 * D                           # n^{1/10}
@@ -175,7 +178,7 @@ for D in range(2, 401, 2):
 
 figure_targets = {
     "curves": targets_curves,
-    "A": A_FP,
+    "A": TARGET_A,
     "delta": 0.25,
     "note": "vertical axis is log10 of the target; the landing constant C_tar is not modelled",
 }
@@ -183,10 +186,12 @@ figure_targets = {
 # --------------------------------------------------------------------------
 # Which target can a finite illustration honestly use?
 #
-# The headline target (log n)^A_FP is asymptotic: it is only SMALLER than n
-# once n passes a crossover far beyond anything a browser can iterate. Below
-# that point every orbit satisfies it vacuously at k = 0, which would make
-# the figures look like a descent when nothing has happened.
+# The principal reference scale (log n)^A_FP is asymptotic: it is only SMALLER
+# than n once n passes a crossover far beyond anything a browser can iterate.
+# The fixed-exponent theorem requires A > A_FP, while the critical endpoint
+# carries extra log-log factors. At the finite scales below, using the
+# principal reference scale would make the figures look like a descent when
+# nothing has happened.
 #
 # So the finite illustrations use the paper's stretched-logarithmic
 # companion, exp((log n)^(1-delta)) -- a genuine theorem of the same paper
@@ -280,7 +285,7 @@ for exp10 in (6, 9, 12, 15, 18):
 # --------------------------------------------------------------------------
 
 payload = {
-    "_source": "Zenodo 10.5281/zenodo.21931194 (article v3.2.0)",
+    "_source": "Zenodo 10.5281/zenodo.21937271 (article v3.2.1)",
     "_disclaimer": (
         "Finite illustrations computed from the real shortcut Collatz map. "
         "Not proof inputs; the theorem is asymptotic and holds in natural density."

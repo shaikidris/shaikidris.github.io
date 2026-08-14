@@ -10,8 +10,8 @@ The **root** is the current flagship paper; the **earlier** paper keeps its
 full page under `/cet/`.
 
 ```
-index.html                  Polylogarithmic Descent (v3.2.0) — landing page
-paper/collatz-first-passage.pdf   exact Zenodo v3.2.0 PDF
+index.html                  Polylogarithmic Descent (v3.2.1) — landing page
+paper/collatz-first-passage.pdf   exact Zenodo v3.2.1 PDF
 code/index.html             theorem -> Lean declaration map (11 public theorems)
 
 cet/index.html              Quantitative Collatz Descent (v2.0.2) — landing page
@@ -24,7 +24,7 @@ assets/paper.css            paper-page-only layout (sticky TOC, reading measure)
 assets/figures.js           figure engine plus browser-local study interactions
 assets/figure-data.json     generated numeric data for the /cet/ figures
 assets/mathjax/             vendored MathJax 3.2.2 bundle, WOFF fonts, licence
-assets/og-card.png          social-preview image — currently CET-specific
+assets/og-card.png          1200x630 social-preview image for the root paper
 assets/favicon.svg
 scripts/                    generators; see below
 robots.txt, sitemap.xml, .nojekyll
@@ -38,7 +38,7 @@ move between directories without breaking. `assets/figures.js` fetches
 
 | | Root (`/`) | Earlier (`/cet/`) |
 |---|---|---|
-| Article | [10.5281/zenodo.21931194](https://doi.org/10.5281/zenodo.21931194) v3.2.0 | [10.5281/zenodo.21851173](https://doi.org/10.5281/zenodo.21851173) v2.0.2 |
+| Article | [10.5281/zenodo.21937271](https://doi.org/10.5281/zenodo.21937271) v3.2.1 | [10.5281/zenodo.21851173](https://doi.org/10.5281/zenodo.21851173) v2.0.2 |
 | Formalization | [10.5281/zenodo.21930432](https://doi.org/10.5281/zenodo.21930432) | [10.5281/zenodo.21797535](https://doi.org/10.5281/zenodo.21797535) |
 | Source | [FirstPassageLinearTransport](https://github.com/shaikidris/FirstPassageLinearTransport) tag `lean-v3.2.0` | [CET](https://github.com/shaikidris/CET) tag `v2.0.1` |
 
@@ -51,6 +51,7 @@ numbering from the other.
 ```sh
 python3 scripts/make_figure_data.py   # iterates the real shortcut Collatz map;
                                        # writes assets/figure-data.json
+python3 scripts/make_figure_data_polylog.py  # root-paper figures and widgets
 python3 scripts/make_og_card.py       # rebuilds assets/og-card.png (needs Pillow)
 python3 scripts/build_paper.py        # re-renders the CET manuscript page
 ```
@@ -63,13 +64,10 @@ regeneration.
 
 Requires `pandoc` and Python 3 with Pillow.
 
-### Known follow-ups
+### Known follow-up
 
-- `assets/og-card.png` still shows the CET card. The root page therefore omits
-  `og:image` rather than advertising the wrong paper. Regenerate for v3.2.0 and
-  add the `og:image` / `twitter:image` tags back to `index.html`.
-- The root page is a landing page only. A rendered full-text HTML edition of
-  the v3.2.0 manuscript (the `/cet/paper/` equivalent) is not built yet.
+The root page is a landing page only. A rendered full-text HTML edition of
+the v3.2.1 manuscript (the `/cet/paper/` equivalent) is not built yet.
 
 ## Content boundary
 

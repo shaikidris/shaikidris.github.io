@@ -1,5 +1,5 @@
 /* =========================================================================
-   Figure engine for the root (v3.2.0) page. Preset values come from
+   Figure engine for the root (v3.2.1) page. Preset values come from
    assets/figure-data-polylog.json, produced by
    scripts/make_figure_data_polylog.py from the actual shortcut Collatz map.
 
@@ -158,8 +158,8 @@
         yLabel: "log₂ of the orbit value"
       });
 
-      // deterministic high-rank envelope (slope a0 - 1)
-      path(ctx, d.envelope.map(pt => [pt[0], pt[1]]), sx, sy, p.faint, [5, 4], 1.2);
+      // mean-drift reference (slope a0 - 1), not a pointwise orbit bound
+      path(ctx, d.driftReference.map(pt => [pt[0], pt[1]]), sx, sy, p.faint, [5, 4], 1.2);
 
       // landing markers on their dyadic thresholds
       ctx.save();
@@ -200,7 +200,7 @@
       ctx.fillStyle = p.warn;
       ctx.font = "600 10px ui-sans-serif, system-ui, sans-serif";
       ctx.textAlign = "right"; ctx.textBaseline = "top";
-      ctx.fillText("c⋆ log n", sx(clockK) - 6, box.y1 + 2);
+      ctx.fillText("c⋆ log n reference", sx(clockK) - 6, box.y1 + 2);
       ctx.restore();
     }
 
@@ -244,17 +244,28 @@
           cur = shortcut(cur); k++;
           if (cur > peak) peak = cur;
         }
+        const reached = log2BigInt(cur) <= targetLog2;
         const peakRatio = log2BigInt(peak) / log2BigInt(n);
+        if (!reached) {
+          result.textContent =
+            "Stopped after " + cap.toLocaleString() +
+            " shortcut steps without reaching the displayed companion target. " +
+            "This is the interactive safety cap, not a mathematical conclusion.";
+          return;
+        }
         const landed = cur.toString().length > 18
           ? "≈2^" + log2BigInt(cur).toFixed(1) : cur.toString();
         const withinClock = k < clock;
         result.innerHTML =
           "Reached <strong>" + landed + "</strong> after <strong>" + k +
           "</strong> shortcut steps, against a target of ≈2^" + targetLog2.toFixed(1) + ". " +
-          "The clock \\(c_*\\log n\\) allows " + clock.toFixed(0) + " — " +
-          (withinClock ? "inside it" : "<strong>outside it</strong>, so this start is in the exceptional set at this scale") + ". " +
+          "The reference \\(c_*\\log n\\) is " + clock.toFixed(0) + " — " +
+          (withinClock ? "inside the reference" : "<strong>outside the reference</strong>") + ". " +
           "The highest iterate on the way was n^" + peakRatio.toFixed(3) + ". " +
           "<em>One finite run under the stretched-logarithmic companion target — an illustration, not evidence for the density theorem.</em>";
+        if (window.MathJax && typeof window.MathJax.typesetPromise === "function") {
+          window.MathJax.typesetPromise([result]).catch(() => {});
+        }
       });
     }
   }
@@ -336,7 +347,7 @@
         ["n^(1/2)", p.faint],
         ["n^(1/10)", p.warn],
         ["exp((log n)^0.75)", p.good],
-        ["C(log n)^A_FP  — this paper", p.accent]
+        ["C(log n)^" + data.targets.A.toFixed(0) + " — fixed-exponent theorem", p.accent]
       ];
       ctx.font = "600 10.5px ui-sans-serif, system-ui, sans-serif";
       ctx.textAlign = "left"; ctx.textBaseline = "middle";
@@ -376,7 +387,7 @@
         sx, sy: v => box.y0 - (v / n) * (box.y0 - box.y1),
         xTicks: [0, 50, 100, 150, 200, 250, 300],
         yTicks: [],
-        xLabel: "shortcut steps to the polylogarithmic target",
+        xLabel: "shortcut steps to the stretched-logarithmic companion target",
         yLabel: "sampled starts in shell 2²⁶"
       });
 
@@ -403,7 +414,7 @@
       ctx.fillStyle = p.warn;
       ctx.font = "600 10px ui-sans-serif, system-ui, sans-serif";
       ctx.textAlign = "left"; ctx.textBaseline = "top";
-      ctx.fillText("c⋆ log n = " + d.clockLimit.toFixed(0), sx(d.clockLimit) + 5, box.y1 + 2);
+      ctx.fillText("c⋆ log n reference = " + d.clockLimit.toFixed(0), sx(d.clockLimit) + 5, box.y1 + 2);
       ctx.restore();
     }
 
@@ -469,7 +480,8 @@
       }
 
       if (status) {
-        status.classList.toggle("bad", !admissible);
+        status.classList.toggle("valid", admissible);
+        status.classList.toggle("invalid", !admissible);
         status.textContent = admissible
           ? "Admissible. The exceptional set is O(X/(log X)^" + gamma.toFixed(4) + ")."
           : (A <= AFP
