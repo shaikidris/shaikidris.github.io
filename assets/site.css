@@ -804,8 +804,64 @@ canvas { display: block; width: 100%; height: auto; }
   .orbit-controls .btn { justify-content: center; }
 }
 .orbit-result {
-  margin: .65rem 0 0; color: var(--ink-faint);
-  font: .75rem/1.5 var(--sans); font-variant-numeric: tabular-nums;
+  margin: 1rem 0 0; padding: 1rem;
+  color: var(--ink-soft); background: var(--paper-raised);
+  border: 1px solid var(--rule); border-radius: 9px; box-shadow: var(--shadow);
+  font: .78rem/1.5 var(--sans); font-variant-numeric: tabular-nums;
+}
+.orbit-result.is-updated { animation: orbit-result-in .25s ease both; }
+.orbit-result:empty { display: none; }
+.orbit-result.reached { border-color: color-mix(in srgb, var(--good) 45%, var(--rule)); }
+.orbit-result.stopped,
+.orbit-result.error { border-color: color-mix(in srgb, var(--warn) 48%, var(--rule)); }
+.orbit-result-head {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: .55rem; margin-bottom: .75rem;
+}
+.orbit-result-head > strong { color: var(--warn); font-size: .8rem; }
+.orbit-status {
+  color: var(--good); font-weight: 750; font-size: .82rem;
+  letter-spacing: .01em;
+}
+.orbit-result.stopped .orbit-status { color: var(--warn); }
+.orbit-verdict {
+  padding: .22rem .55rem; border-radius: 99px;
+  font-size: .66rem; font-weight: 700;
+}
+.orbit-verdict.inside { color: var(--good); background: var(--good-soft); }
+.orbit-verdict.outside { color: var(--warn); background: var(--warn-soft); }
+.orbit-target { margin: 0 0 .7rem; color: var(--ink-faint); font-size: .72rem; }
+.orbit-result-grid {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .5rem; margin: 0;
+}
+.orbit-result-grid div {
+  min-width: 0; padding: .65rem; background: var(--paper-sunk);
+  border: 1px solid var(--rule); border-radius: 7px;
+}
+.orbit-result-grid dt {
+  color: var(--ink-faint); font-size: .6rem; font-weight: 700;
+  letter-spacing: .05em; text-transform: uppercase;
+}
+.orbit-result-grid dd {
+  margin: .25rem 0 0; color: var(--accent);
+  font: 700 clamp(.82rem, 2vw, 1rem)/1.25 var(--mono);
+  overflow-wrap: anywhere;
+}
+.orbit-result-grid small { color: var(--ink-faint); font-size: .62rem; }
+.orbit-finite-note {
+  margin: .75rem 0 0; padding-top: .65rem; border-top: 1px solid var(--rule);
+  color: var(--ink-faint); font-size: .68rem;
+}
+@keyframes orbit-result-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: none; }
+}
+@media (max-width: 38rem) {
+  .orbit-result-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-result { animation: none; }
 }
 
 .legend { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; font-family: var(--sans); font-size: .75rem; color: var(--ink-soft); margin-top: .75rem; }
