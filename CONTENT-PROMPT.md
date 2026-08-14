@@ -6,13 +6,13 @@ theorems by different architectures, with different numbering.
 
 ---
 
-# Part A — Root (`/`): Polylogarithmic Descent, v3.2.0
+# Part A — Root (`/`): Polylogarithmic Descent, v3.2.1
 
 Synchronized to two public records only:
 
 1. **Article:** Zenodo record
-   [10.5281/zenodo.21931194](https://doi.org/10.5281/zenodo.21931194),
-   version 3.2.0, *Polylogarithmic Descent for Almost All Collatz Orbits in
+   [10.5281/zenodo.21937271](https://doi.org/10.5281/zenodo.21937271),
+   version 3.2.1, *Polylogarithmic Descent for Almost All Collatz Orbits in
    Natural Density*.
 2. **Formal artifact:** public
    [FirstPassageLinearTransport tag `lean-v3.2.0`](https://github.com/shaikidris/FirstPassageLinearTransport/tree/lean-v3.2.0),
@@ -45,6 +45,21 @@ boundary**: some combined quantitative statements in the manuscript are
 assembled from separately checked components rather than exported as single
 wrapper theorems. That is a coverage boundary, not an admitted obligation.
 Never compress this to an unqualified "no gaps."
+
+## Figure and widget boundary
+
+- The one-orbit dashed line is the mean-drift reference of slope \(a_0-1\),
+  not a deterministic pointwise envelope.
+- The target-growth comparison uses the admissible fixed exponent \(A=14\),
+  not the unasserted pure target at \(A_{\rm FP}\).
+- Finite orbit illustrations use the stretched-logarithmic companion target.
+  The line \(c_*\log n\) is shown only as a drift reference; the theorem
+  requires every fixed \(c>c_*\), so crossings are not labelled as its
+  exceptional set.
+- The scale calculator omits the unknown multiplicative constant
+  \(C_{\rm tar}\) and must label its digit count accordingly.
+- Generated values and interactive runs are illustrations, never premises of
+  a theorem or evidence for the asymptotic density claim.
 
 ---
 

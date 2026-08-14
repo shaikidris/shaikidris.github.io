@@ -14,7 +14,7 @@
 <meta name="citation_author_orcid" content="https://orcid.org/0009-0009-9699-9712">
 <meta name="citation_publication_date" content="2026/08/14">
 <meta name="citation_online_date" content="2026/08/14">
-<meta name="citation_doi" content="10.5281/zenodo.21931194">
+<meta name="citation_doi" content="10.5281/zenodo.21937271">
 <meta name="citation_abstract_html_url" content="https://shaikidris.github.io/">
 <meta name="citation_pdf_url" content="https://shaikidris.github.io/paper/collatz-first-passage.pdf">
 <meta name="citation_technical_report_institution" content="Zenodo">
@@ -25,23 +25,27 @@
 <meta name="DC.title" content="Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
 <meta name="DC.creator" content="Idris Ali Shaik">
 <meta name="DC.date" content="2026-08-14">
-<meta name="DC.identifier" content="https://doi.org/10.5281/zenodo.21931194">
+<meta name="DC.identifier" content="https://doi.org/10.5281/zenodo.21937271">
 <meta name="DC.type" content="Text.Preprint">
 <meta name="DC.rights" content="CC BY 4.0">
 
 <!-- ============ Open Graph / Twitter ============ -->
-<!-- TODO: assets/og-card.png is still the CET card. Regenerate for this paper,
-     then add og:image / twitter:image back here. -->
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Polylogarithmic Collatz Descent">
 <meta property="og:title" content="Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
 <meta property="og:description" content="Almost every integer reaches a polylogarithmic Collatz value within O(log n) steps, in ordinary natural density, with an explicit critical exponent and a Lean 4 formalization.">
 <meta property="og:url" content="https://shaikidris.github.io/">
+<meta property="og:image" content="https://shaikidris.github.io/assets/og-card.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Title card for Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
 <meta property="article:author" content="Idris Ali Shaik">
 <meta property="article:published_time" content="2026-08-14">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
 <meta name="twitter:description" content="Natural-density Collatz descent to a polylogarithmic target with an explicit critical exponent, quantitative rates, and a Lean 4 formalization.">
+<meta name="twitter:image" content="https://shaikidris.github.io/assets/og-card.png">
+<meta name="twitter:image:alt" content="Title card for Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
 
 <meta name="author" content="Idris Ali Shaik">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -62,11 +66,11 @@
     "identifier": "https://orcid.org/0009-0009-9699-9712"
   },
   "datePublished": "2026-08-14",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "identifier": {
     "@type": "PropertyValue",
     "propertyID": "DOI",
-    "value": "10.5281/zenodo.21931194"
+    "value": "10.5281/zenodo.21937271"
   },
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "url": "https://shaikidris.github.io/",
@@ -104,10 +108,10 @@ window.MathJax = {
     <nav>
       <a href="#result" class="opt">Result</a>
       <a href="#fundamentals" class="opt">Fundamentals</a>
-      <a href="#architecture">Architecture</a>
+      <a href="#architecture" class="opt">Architecture</a>
       <a href="/paper/collatz-first-passage.pdf">Paper</a>
       <a href="/code/">Lean code</a>
-      <a href="/cet/">Earlier work</a>
+      <a href="/cet/" class="opt">Earlier work</a>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme" title="Toggle colour theme">◐</button>
     </nav>
   </div>
@@ -158,7 +162,7 @@ window.MathJax = {
 <!-- ==================== HERO ==================== -->
 <section class="hero" id="overview">
   <div class="wrap"><div class="col">
-    <p class="eyebrow">Preprint · Version 3.2.0 · 14 August 2026</p>
+    <p class="eyebrow">Preprint · Version 3.2.1 · 14 August 2026</p>
     <h1>Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density</h1>
     <p class="tagline">
       In ordinary natural density, almost every positive integer reaches a
@@ -174,7 +178,7 @@ window.MathJax = {
     </div>
     <div class="actions">
       <a class="btn btn-primary" href="/paper/collatz-first-passage.pdf">Read the paper (PDF)</a>
-      <a class="btn" href="https://doi.org/10.5281/zenodo.21931194" rel="noopener">Preprint DOI</a>
+      <a class="btn" href="https://doi.org/10.5281/zenodo.21937271" rel="noopener">Preprint DOI</a>
       <a class="btn" href="/code/">Theorem → Lean map</a>
     </div>
   </div></div>
@@ -211,7 +215,7 @@ window.MathJax = {
       <div>
         <dt>Critical exponent</dt>
         <dd>9.9911133419…</dd>
-        <small>\(A_{\rm FP}\), the polylogarithmic threshold</small>
+        <small>\(A_{\rm FP}\), the first-passage method threshold</small>
       </div>
       <div>
         <dt>Shortcut clock</dt>
@@ -363,27 +367,27 @@ window.MathJax = {
         </thead>
         <tbody>
           <tr>
-            <td>Korec (1994)</td><td>natural</td>
+            <td><a href="https://dml.cz/handle/10338.dmlcz/133225" rel="noopener">Korec (1994)</a></td><td>natural</td>
             <td>\(n^\theta\), every fixed \(\theta&gt;\log_4 3\)</td>
             <td>no clock or quantitative exception used here</td>
           </tr>
           <tr>
-            <td>Inselmann (2024)</td><td>natural</td>
+            <td><a href="https://doi.org/10.48550/arXiv.2402.03276" rel="noopener">Inselmann (2024)</a></td><td>natural</td>
             <td>\(n^\varepsilon\), every fixed \(\varepsilon&gt;0\)</td>
             <td>\(2\log n/\log(4/3)\) shortcut steps</td>
           </tr>
           <tr>
-            <td>Tao (2022)</td><td>logarithmic</td>
+            <td><a href="https://doi.org/10.1017/fmp.2022.8" rel="noopener">Tao (2022)</a></td><td>logarithmic</td>
             <td>every \(f(n)\to\infty\)</td>
             <td>no single global clock in the headline theorem</td>
           </tr>
           <tr>
-            <td>Mazur (2026)</td><td>natural, bridged from Tao</td>
+            <td><a href="https://www.proofatlas.ai/formalizations/natural-density-log-time-collatz/" rel="noopener">Mazur (2026)</a></td><td>natural, bridged from Tao</td>
             <td>every \(f(n)\to\infty\)</td>
             <td>\(&lt;436\log n\) unaccelerated steps</td>
           </tr>
           <tr>
-            <td>Allikvere (2026)</td><td>natural, bridged from Tao</td>
+            <td><a href="https://doi.org/10.5281/zenodo.21499244" rel="noopener">Allikvere (2026)</a></td><td>natural, bridged from Tao</td>
             <td>every \(f(n)\to\infty\)</td>
             <td>\(&lt;12\log n\) unaccelerated steps</td>
           </tr>
@@ -624,9 +628,9 @@ window.MathJax = {
 
         <dl class="metric-grid">
           <div>
-            <dt>Target digits</dt>
+            <dt>Baseline target digits</dt>
             <dd id="metric-target-digits">—</dd>
-            <small>digits of \(C_{\rm tar}(\log n)^A\)</small>
+            <small>digits of \((\log n)^A\); \(C_{\rm tar}\) omitted</small>
           </div>
           <div>
             <dt>Witness clock</dt>
@@ -707,12 +711,12 @@ window.MathJax = {
     <h2>What it looks like for a single start</h2>
     <p>
       Below is a genuine shortcut-Collatz orbit, drawn on a logarithmic
-      vertical axis. The dashed line is the deterministic envelope available
-      on the certified set; green dots mark first passages, each one a landing
-      on the next dyadic threshold in the decreasing chain.
+      vertical axis. The dashed line is the mean-drift reference with slope
+      \(a_0-1\), not a pointwise orbit bound; green dots mark first passages,
+      each one a landing on the next dyadic threshold in the decreasing chain.
     </p>
     <div class="figbox">
-      <canvas id="fig-orbit" aria-label="A real shortcut-Collatz orbit with its certified envelope and successive first-passage landings"></canvas>
+      <canvas id="fig-orbit" aria-label="A real shortcut-Collatz orbit with a mean-drift reference and successive first-passage landings"></canvas>
     </div>
     <div class="fig-controls">
       <button type="button" id="orbit-replay" class="btn">Replay the descent</button>
@@ -766,26 +770,28 @@ window.MathJax = {
     <p>
       Each line is a real starting value sampled from the dyadic shell
       \([2^{26},2^{27})\), and its length is how many shortcut steps it
-      actually needed to reach the target. The dashed line is the clock
-      \(c_*\log n\); the few lines crossing it are, at this finite scale,
-      exactly the exceptional set the theorem allows.
+      actually needed to reach the target. The dashed line is the reference
+      drift scale \(c_*\log n\). The theorem applies only after fixing
+      \(c&gt;c_*\), so crossings here are not identified with its exceptional
+      set.
     </p>
 
     <div class="note">
       <p>
         <strong>Which target these illustrations use, and why.</strong> The
-        headline target \((\log n)^{A_{\rm FP}}\) is genuinely asymptotic: it
-        only becomes <em>smaller</em> than \(n\) once
+        principal reference scale \((\log n)^{A_{\rm FP}}\) is genuinely
+        asymptotic: it only becomes <em>smaller</em> than \(n\) once
         \(n\gtrsim3.3\times10^{15}\). Below that crossover every orbit
         satisfies it at \(k=0\), which would draw a descent where nothing has
-        happened. So the finite illustrations on this page use the paper's
+        happened. The fixed-exponent theorem itself uses \(A&gt;A_{\rm FP}\),
+        while the critical endpoint carries additional log-log factors. So
+        the finite illustrations on this page use the paper's
         stretched-logarithmic companion \(\exp((\log n)^{1-\delta})\) with
-        \(\delta=0.25\) — a genuine theorem of the same paper, and a real
-        descent at these scales.
+        \(\delta=0.25\) — a real descent at these scales.
       </p>
     </div>
     <div class="figbox">
-      <canvas id="fig-ensemble" aria-label="Sampled real orbits from one dyadic shell and the number of steps each needed to reach the polylogarithmic target"></canvas>
+      <canvas id="fig-ensemble" aria-label="Sampled real orbits from one dyadic shell and the number of steps each needed to reach the stretched-logarithmic companion target"></canvas>
     </div>
     <p class="legend">
       A finite sample from one shell. Density one is an asymptotic statement:
@@ -796,7 +802,7 @@ window.MathJax = {
     <div class="tablewrap">
       <table class="literature-table">
         <thead>
-          <tr><th>Start</th><th>Steps to target</th><th>Clock \(c_*\log n\)</th><th>Peak height</th></tr>
+          <tr><th>Start</th><th>Steps to target</th><th>Reference \(c_*\log n\)</th><th>Peak height</th></tr>
         </thead>
         <tbody id="witness-body"></tbody>
       </table>
@@ -871,7 +877,7 @@ window.MathJax = {
         <tbody>
           <tr>
             <td><b>Preprint</b></td>
-            <td><a href="https://doi.org/10.5281/zenodo.21931194" rel="noopener">10.5281/zenodo.21931194</a> · v3.2.0 · CC BY 4.0</td>
+            <td><a href="https://doi.org/10.5281/zenodo.21937271" rel="noopener">10.5281/zenodo.21937271</a> · v3.2.1 · CC BY 4.0</td>
           </tr>
           <tr>
             <td><b>Formalization</b></td>
