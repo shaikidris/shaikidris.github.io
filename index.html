@@ -4,117 +4,94 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Quantitative Collatz Descent to Stretched-Logarithmic Scale in Natural Density</title>
-<meta name="description" content="For every fixed 0 &lt; δ &lt; 0.251245530155874…, almost every integer's shortcut-Collatz orbit falls below exp((log n)^(1−δ)), with an exceptional-count rate, a 6.953 log n witness, and a Lean 4 formalization of the principal theorem chain.">
+<title>Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density</title>
+<meta name="description" content="In ordinary natural density, almost every integer's shortcut-Collatz orbit reaches a polylogarithmic value within O(log n) steps, with every earlier iterate below n^(1+β). Explicit critical exponent A_FP = 9.9911133419…, quantitative exceptional-set rates, and a Lean 4 formalization with no sorry and no project axioms.">
 <link rel="canonical" href="https://shaikidris.github.io/">
 
 <!-- ============ Google Scholar / Highwire citation tags ============ -->
-<meta name="citation_title" content="Quantitative Collatz Descent to Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization">
+<meta name="citation_title" content="Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
 <meta name="citation_author" content="Shaik, Idris Ali">
 <meta name="citation_author_orcid" content="https://orcid.org/0009-0009-9699-9712">
-<meta name="citation_publication_date" content="2026/08/08">
-<meta name="citation_online_date" content="2026/08/08">
-<meta name="citation_doi" content="10.5281/zenodo.21851173">
+<meta name="citation_publication_date" content="2026/08/14">
+<meta name="citation_online_date" content="2026/08/14">
+<meta name="citation_doi" content="10.5281/zenodo.21931194">
 <meta name="citation_abstract_html_url" content="https://shaikidris.github.io/">
-<meta name="citation_pdf_url" content="https://shaikidris.github.io/paper/collatz-endpoint-transport.pdf">
+<meta name="citation_pdf_url" content="https://shaikidris.github.io/paper/collatz-first-passage.pdf">
 <meta name="citation_technical_report_institution" content="Zenodo">
 <meta name="citation_language" content="en">
-<meta name="citation_keywords" content="Collatz map; natural density; Rényi moment; endpoint transport; parity vector; quantitative descent; Lean 4; Mathlib; formalized mathematics">
+<meta name="citation_keywords" content="Collatz map; almost all Collatz orbits; natural density; first passage; stopping map; parity vectors; polylogarithmic descent; Lean 4; Mathlib; formalized mathematics">
 
 <!-- ============ Dublin Core ============ -->
-<meta name="DC.title" content="Quantitative Collatz Descent to Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization">
+<meta name="DC.title" content="Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
 <meta name="DC.creator" content="Idris Ali Shaik">
-<meta name="DC.date" content="2026-08-08">
-<meta name="DC.identifier" content="https://doi.org/10.5281/zenodo.21851173">
+<meta name="DC.date" content="2026-08-14">
+<meta name="DC.identifier" content="https://doi.org/10.5281/zenodo.21931194">
 <meta name="DC.type" content="Text.Preprint">
 <meta name="DC.rights" content="CC BY 4.0">
 
 <!-- ============ Open Graph / Twitter ============ -->
+<!-- TODO: assets/og-card.png is still the CET card. Regenerate via
+     scripts/make_og_card.py for this paper, then add og:image/twitter:image. -->
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="Quantitative Collatz Descent">
-<meta property="og:title" content="Quantitative Collatz Descent to Stretched-Logarithmic Scale">
-<meta property="og:description" content="For every 0 &lt; δ &lt; 0.251245530155874…, almost every shortcut-Collatz orbit falls below exp((log n)^(1−δ)); the principal theorem chain is formalized in Lean 4.">
+<meta property="og:site_name" content="Polylogarithmic Collatz Descent">
+<meta property="og:title" content="Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
+<meta property="og:description" content="Almost every integer reaches a polylogarithmic Collatz value within O(log n) steps, in ordinary natural density, with an explicit critical exponent and a Lean 4 formalization.">
 <meta property="og:url" content="https://shaikidris.github.io/">
-<meta property="og:image" content="https://shaikidris.github.io/assets/og-card.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta property="article:author" content="Idris Ali Shaik">
-<meta property="article:published_time" content="2026-08-08">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Quantitative Collatz Descent to Stretched-Logarithmic Scale">
-<meta name="twitter:description" content="Natural-density Collatz descent below exp((log n)^(1−δ)) for every 0 &lt; δ &lt; 0.251245530155874…, with the principal theorem chain formalized in Lean 4.">
-<meta name="twitter:image" content="https://shaikidris.github.io/assets/og-card.png">
+<meta property="article:published_time" content="2026-08-14">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
+<meta name="twitter:description" content="Natural-density Collatz descent to a polylogarithmic target with an explicit critical exponent, quantitative rates, and a Lean 4 formalization.">
 
 <meta name="author" content="Idris Ali Shaik">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
 
 <!-- ============ schema.org ============ -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ScholarlyArticle",
-  "headline": "Quantitative Collatz Descent to Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization",
-  "name": "Quantitative Collatz Descent to Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization",
+  "headline": "Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density",
+  "name": "Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density",
   "author": {
     "@type": "Person",
     "name": "Idris Ali Shaik",
-    "identifier": "https://orcid.org/0009-0009-9699-9712",
-    "url": "https://orcid.org/0009-0009-9699-9712"
+    "identifier": "https://orcid.org/0009-0009-9699-9712"
   },
-  "datePublished": "2026-08-08",
-  "inLanguage": "en",
+  "datePublished": "2026-08-14",
+  "version": "3.2.0",
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "DOI",
+    "value": "10.5281/zenodo.21931194"
+  },
   "license": "https://creativecommons.org/licenses/by/4.0/",
-  "identifier": [
-    { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.21851173" },
-    { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.21825993" }
-  ],
-  "sameAs": [
-    "https://doi.org/10.5281/zenodo.21851173",
-    "https://zenodo.org/records/21851173"
-  ],
   "url": "https://shaikidris.github.io/",
-  "abstract": "Put δ₀ = log(1/a₀)/log(2/a₀) = 0.251245530155874…, where a₀ = (log₂ 3)/2. For every fixed 0 < δ < δ₀, the shortcut-Collatz orbit minimum satisfies T_min(n) ≤ exp((log n)^(1−δ)) on a set of natural density one. For every 0 < σ < 1−δ/δ₀, the exceptional count is at most 5X exp(−c(log X)^σ) for all sufficiently large X, and a descent witness occurs before 6.953 log n steps on a density-one set. The principal theorem chain has a supplementary Lean 4 formalization against Mathlib.",
-  "keywords": "Collatz map, natural density, Rényi moment, endpoint transport, parity vector, quantitative descent, Lean 4, Mathlib, formalized mathematics",
-  "about": [
-    { "@type": "Thing", "name": "Collatz conjecture", "sameAs": "https://en.wikipedia.org/wiki/Collatz_conjecture" },
-    { "@type": "Thing", "name": "Natural density", "sameAs": "https://en.wikipedia.org/wiki/Natural_density" },
-    { "@type": "Thing", "name": "Lean (proof assistant)", "sameAs": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)" }
-  ],
+  "inLanguage": "en",
+  "keywords": "Collatz map, almost all Collatz orbits, natural density, first passage, parity vectors, polylogarithmic descent, Lean 4",
+  "abstract": "In ordinary natural density, almost every positive integer admits a shortcut Collatz iterate of polylogarithmic size within O(log n) steps, with every iterate up to that time at most n^(1+beta). The argument supplies an explicit critical polylogarithmic exponent, quantitative exceptional-set rates, and a logarithmic witnessing clock.",
   "citation": {
     "@type": "SoftwareSourceCode",
-    "name": "CollatzEndpointTransport: Lean formalization of quantitative Collatz descent",
-    "codeRepository": "https://github.com/shaikidris/CET",
-    "programmingLanguage": "Lean 4",
-    "identifier": "10.5281/zenodo.21797535"
-  },
-  "isPartOf": {
-    "@type": "WebSite",
-    "name": "Quantitative Collatz Descent",
-    "url": "https://shaikidris.github.io/"
+    "name": "FirstPassageLinearTransport",
+    "identifier": "https://doi.org/10.5281/zenodo.21930432"
   }
 }
 </script>
 
 <script>
-  (function () {
-    var t = localStorage.getItem("theme");
-    if (t) document.documentElement.setAttribute("data-theme", t);
-    // Signals that JS is live, which is what enables the scroll-reveal styles.
-    document.documentElement.classList.add("js");
-  })();
+  (function () { var t = localStorage.getItem("theme");
+    if (t) document.documentElement.setAttribute("data-theme", t); })();
 </script>
-
 <script>
 window.MathJax = {
   tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], processEscapes: true },
-  options: { skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"] },
-  chtml: { scale: 0.98 }
+  options: { skipHtmlTags: ["script","noscript","style","textarea","pre","code"] }
 };
 </script>
-<script defer src="assets/mathjax/tex-chtml.js"></script>
+<script defer src="/assets/mathjax/tex-chtml.js"></script>
 </head>
 
 <body>
@@ -122,951 +99,287 @@ window.MathJax = {
 
 <header class="masthead">
   <div class="wrap">
-    <a class="brand" href="./">Quantitative Collatz Descent</a>
+    <a class="brand" href="/">Polylogarithmic Collatz Descent</a>
     <nav>
-      <a href="#result" class="opt">Result</a>
-      <a href="#fundamentals" class="opt">Fundamentals</a>
-      <a href="#architecture">Architecture</a>
-      <a href="paper/">Paper</a>
-      <a href="code/">Lean code</a>
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme" title="Toggle colour theme">◐</button>
+      <a href="/" aria-current="page">Overview</a>
+      <a href="/paper/collatz-first-passage.pdf">Paper (PDF)</a>
+      <a href="/code/">Lean code</a>
+      <a href="/cet/">Earlier work</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme">◐</button>
     </nav>
   </div>
 </header>
 
-<aside class="page-rail" id="page-rail" aria-label="On this page">
-  <p>On this page</p>
-  <nav class="section-links">
-    <a href="#overview">Overview</a>
-    <a href="#result">The result</a>
-    <a href="#fundamentals">Fundamentals</a>
-    <a href="#literature">Literature outcome</a>
-    <a href="#architecture">Proof architecture</a>
-    <a href="#proof-lab">Architecture lab</a>
-    <a href="#explore">Parameter lab</a>
-    <a href="#threshold">Why the threshold matters</a>
-    <a href="#orbit">Orbit explorer</a>
-    <a href="#clock">Witness clock</a>
-    <a href="#ensemble">Natural density</a>
-    <a href="#exceptions">Exceptional set</a>
-    <a href="#lean">Lean formalization</a>
-    <a href="#read">Read and cite</a>
-  </nav>
-</aside>
-
-<details class="section-menu">
-  <summary>Jump to a section</summary>
-  <nav class="section-links" aria-label="On this page">
-    <a href="#overview">Overview</a>
-    <a href="#result">The result</a>
-    <a href="#fundamentals">Fundamentals</a>
-    <a href="#literature">Literature outcome</a>
-    <a href="#architecture">Proof architecture</a>
-    <a href="#proof-lab">Architecture lab</a>
-    <a href="#explore">Parameter lab</a>
-    <a href="#threshold">Why the threshold matters</a>
-    <a href="#orbit">Orbit explorer</a>
-    <a href="#clock">Witness clock</a>
-    <a href="#ensemble">Natural density</a>
-    <a href="#exceptions">Exceptional set</a>
-    <a href="#lean">Lean formalization</a>
-    <a href="#read">Read and cite</a>
-  </nav>
-</details>
-
 <main id="main">
 
-<!-- ==================== HERO ==================== -->
 <section class="hero" id="overview">
-  <div class="wrap">
-    <div class="col">
-      <p class="eyebrow">Number theory · Formalized mathematics</p>
-      <h1>Quantitative Collatz descent to stretched-logarithmic scale</h1>
-      <p class="tagline">
-        For every fixed \(0&lt;\delta&lt;0.251245530155874\ldots\), almost every
-        integer's Collatz orbit falls below
-        <strong>\(\exp\!\left((\log n)^{1-\delta}\right)\)</strong>
-        — with the principal theorem chain formalized in Lean&nbsp;4.
-      </p>
-      <div class="byline">
-        <span>Idris Ali Shaik</span>
-        <span>·</span>
-        <a href="https://orcid.org/0009-0009-9699-9712" rel="author noopener">ORCID 0009-0009-9699-9712</a>
-        <span>·</span>
-        <span>August 2026</span>
-      </div>
-      <div class="actions">
-        <a class="btn btn-primary" href="paper/">Read the paper</a>
-        <a class="btn" href="https://doi.org/10.5281/zenodo.21851173" rel="noopener">PDF on Zenodo</a>
-        <a class="btn" href="code/">Theorem&nbsp;→&nbsp;Lean map</a>
-      </div>
+  <div class="wrap"><div class="col">
+    <p class="eyebrow">Preprint · Version 3.2.0 · 14 August 2026</p>
+    <h1>Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density</h1>
+    <p class="tagline">
+      In ordinary natural density, almost every positive integer reaches a
+      Collatz value of polylogarithmic size within \(O(\log n)\) steps — and
+      never climbs above \(n^{1+\beta}\) before it gets there.
+    </p>
+    <p class="byline">
+      Idris Ali Shaik · Independent researcher, Dubai, United Arab Emirates ·
+      <a href="https://orcid.org/0009-0009-9699-9712" rel="noopener">ORCID 0009-0009-9699-9712</a>
+    </p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/paper/collatz-first-passage.pdf">Read the paper (PDF)</a>
+      <a class="btn" href="https://doi.org/10.5281/zenodo.21931194" rel="noopener">Preprint DOI</a>
+      <a class="btn" href="/code/">Theorem → Lean map</a>
     </div>
-  </div>
+  </div></div>
 </section>
 
-<!-- ==================== THE RESULT ==================== -->
 <section id="result">
-  <div class="wrap">
-    <div class="col reveal">
-      <h2>The result</h2>
+  <div class="wrap"><div class="col">
+    <h2>The result</h2>
 
-      <!-- CONTENT SLOT 1: plain-language framing. See CONTENT-PROMPT.md §1 -->
-      <p class="lede">
-        The Collatz conjecture asks for termination of every orbit. This paper
-        asks a different quantitative question: how far down can one force the
-        orbit for most starting integers, where “most” is measured by ordinary
-        counting? A natural-density-one result permits exceptions, but requires
-        their proportion among the first \(X\) integers to vanish as \(X\)
-        grows. That distinction turns typical descent into a precise asymptotic
-        statement without pretending to settle any exceptional orbit. Here the
-        certified landing scale is prescribed in advance and is eventually
-        smaller than every fixed power of the starting value, with both an
-        exceptional-count rate and a logarithmic witnessing time.
-      </p>
+    <p class="lede">
+      The Collatz conjecture predicts that every orbit reaches \(1\). This
+      paper does not prove that. It proves a quantitative <em>almost-all</em>
+      statement: outside a set of density zero, orbits come down to a
+      polylogarithmic value quickly, and the descent is witnessed by an
+      explicit clock.
+    </p>
 
-      <p>
-        Work with the shortcut map, which halves even numbers and takes one
-        combined step on odd ones:
-      </p>
+    <p>
+      Throughout, \(T\) is the shortcut Collatz map, \(T(n)=n/2\) for even
+      \(n\) and \(T(n)=(3n+1)/2\) for odd \(n\). Write \(H_2\) for binary
+      entropy and put
       \[
-        T(n)=\begin{cases} n/2, &amp; n\equiv 0 \pmod 2,\\[2pt]
-        (3n+1)/2, &amp; n\equiv 1 \pmod 2,\end{cases}
-        \qquad T_{\min}(n)=\min_{k\ge 0}T^k(n).
+      \kappa_*=1-H_2(\log_3 2),
+      \qquad
+      A_{\rm FP}=\frac{1}{2\kappa_*},
+      \qquad
+      c_*=\frac{2}{\log(4/3)}.
       \]
+    </p>
 
-      <div class="theorem">
-        <span class="label">Theorem 1.1 — main theorem</span>
-        <p>
-          Put
-          \(\delta_0=\log(1/a_0)/\log(2/a_0)
-          =0.251245530155874\ldots\), where
-          \(a_0=(\log_2 3)/2\). For every fixed
-          \(0&lt;\delta&lt;\delta_0\),
-        </p>
-        \[ T_{\min}(n)\;\le\;\exp\!\left((\log n)^{1-\delta}\right) \]
-        <p>on a set of natural density one.</p>
+    <dl class="metric-grid">
+      <div>
+        <dt>Critical exponent</dt>
+        <dd>9.9911133419…</dd>
+        <small>\(A_{\rm FP}\), the polylogarithmic threshold</small>
       </div>
+      <div>
+        <dt>Shortcut clock</dt>
+        <dd>6.9521189935…</dd>
+        <small>\(c_*\); any \(c&gt;c_*\) is admissible</small>
+      </div>
+      <div>
+        <dt>Raw clock</dt>
+        <dd>10.4281784900…</dd>
+        <small>\(3/\log(4/3)\) for the unaccelerated map</small>
+      </div>
+    </dl>
 
+    <div class="theorem">
+      <span class="label">Main theorem</span>
       <p>
-        The endpoint \(\delta_0\) is a supremum of the strict parameter ranges
-        used in the proof; equality at \(\delta=\delta_0\) is not claimed.
+        For every fixed \(A&gt;A_{\rm FP}\), \(c&gt;c_*\), \(\beta&gt;0\), and
+        \(0&lt;\gamma&lt;\kappa_*(A-A_{\rm FP})\), there is
+        \(C_{\rm tar}&gt;0\) such that, as \(X\to\infty\), all but
+        \(O_{A,c,\beta,\gamma}\!\left(X/(\log X)^{\gamma}\right)\) integers
+        \(n\le X\) admit an integer \(k&lt;c\log n\) with
+        \[
+        T^k(n)\le C_{\rm tar}(\log n)^A,
+        \qquad
+        \max_{0\le j\le k}T^j(n)\le n^{1+\beta}.
+        \]
       </p>
-
-      <div class="theorem">
-        <span class="label">Theorem 1.1, part 1 — exceptional count</span>
-        <p>
-          For every fixed \(0&lt;\delta&lt;\delta_0\) and every
-          \(0&lt;\sigma&lt;1-\delta/\delta_0\),
-        </p>
-        \[ \#\left\{n\le X: T_{\min}(n)>\exp\!\left((\log n)^{1-\delta}\right)\right\}
-           \;\le\; 5X\exp\!\left(-c_{\delta,\sigma}(\log X)^{\sigma}\right) \]
-        <p>for all sufficiently large \(X\).</p>
-      </div>
-
-      <div class="theorem">
-        <span class="label">Theorem 1.1, part 2 — logarithmic-time witness</span>
-        <p>
-          There is a natural-density-one set on which every sufficiently large
-          \(n\) reaches the threshold at some step
-        </p>
-        \[ 0\le k < 6.953\log n, \]
-        <p>with \(T^k(n)\le\exp((\log n)^{1-\delta})\).</p>
-      </div>
-
-      <div class="note caution">
-        <p>
-          <strong>What this does not do.</strong> These are almost-all statements
-          in natural density. They do not prove the Collatz conjecture, do not
-          establish descent for every initial value, and do not exclude
-          exceptional cycles or divergent trajectories. They are compatible with
-          arbitrarily long individual exceptional orbits.
-        </p>
-      </div>
     </div>
-  </div>
+
+    <p>
+      The same witness \(k\) carries all three conclusions at once: the
+      landing, the clock, and the ceiling on every earlier iterate. A moving
+      form of the theorem allows the exponent to vary with the dyadic shell
+      and reaches the critical exponent itself, at the cost of explicit
+      \(\log\log\) factors. A stretched-logarithmic companion covers the
+      weaker target \(\exp((\log n)^{1-\delta})\) for every fixed
+      \(0&lt;\delta&lt;1\), with a stretched-exponential exceptional count.
+    </p>
+  </div></div>
 </section>
 
-<!-- ==================== FUNDAMENTALS ==================== -->
-<section id="fundamentals">
-  <div class="wrap">
-    <div class="col reveal">
-      <p class="eyebrow">Elementary foundations</p>
-      <h2>The vocabulary behind the theorem</h2>
-      <p class="lede">
-        Four elementary ideas carry most of the notation. Keeping them
-        separate makes it easier to see where dynamics ends and counting
-        begins.
+<section id="scope">
+  <div class="wrap"><div class="col">
+    <h2>What is not claimed</h2>
+    <div class="note caution">
+      <p>
+        <strong>This is an almost-all theorem, not the Collatz conjecture.</strong>
+        It does not prove descent for every starting value, does not exclude
+        nontrivial cycles or divergent trajectories, and says nothing about
+        the orbit after the selected witness. No finite computation is used as
+        a premise for any asymptotic claim.
+      </p>
+      <p>
+        Two parameter limits are explicitly <em>not</em> asserted: the pure
+        target \(C(\log n)^{A_{\rm FP}}\) at the critical exponent with a
+        bounded final multiplier, and the endpoint \(\delta=1\) in the
+        stretched-logarithmic companion. \(A_{\rm FP}\) is a threshold of this
+        argument, not a constant known to be intrinsic to the Collatz map.
       </p>
     </div>
-
-    <div class="fundamentals-grid reveal">
-      <article class="fundamental-card">
-        <span class="concept-number">01</span>
-        <h3>Orbit, minimum, witness</h3>
-        <p>
-          Starting from \(n\), the orbit is
-          \(n,T(n),T^2(n),\ldots\). Its smallest attained value is
-          \(T_{\min}(n)=\min_{k\ge0}T^k(n)\). A <em>witness</em> is one
-          particular time \(k\) at which the desired threshold is reached.
-        </p>
-        <p class="concept-use"><strong>Used for:</strong> separating “the orbit
-          eventually gets low” from “every intermediate iterate is controlled.”</p>
-      </article>
-
-      <article class="fundamental-card">
-        <span class="concept-number">02</span>
-        <h3>Parity words and dyadic blocks</h3>
-        <p>
-          Each shortcut step records one bit: even or odd. For a block of
-          \(m\) steps, the first \(m\) parities are determined by the
-          starting residue modulo \(2^m\); over a complete residue system,
-          every parity word occurs once.
-        </p>
-        <p class="concept-use"><strong>Used for:</strong> replacing one block
-          of dynamics by finite arithmetic on the Boolean cube.</p>
-      </article>
-
-      <article class="fundamental-card">
-        <span class="concept-number">03</span>
-        <h3>Natural density</h3>
-        <p>
-          A set \(A\subseteq\mathbb N\) has natural density one when
-          \[
-            \frac{\#(A\cap[1,X])}{X}\longrightarrow1.
-          \]
-          It may still omit infinitely many integers; their relative
-          frequency must vanish.
-        </p>
-        <p class="concept-use"><strong>Used for:</strong> stating an
-          almost-all theorem without turning it into a pointwise claim.</p>
-      </article>
-
-      <article class="fundamental-card">
-        <span class="concept-number">04</span>
-        <h3>Stretched-logarithmic scale</h3>
-        <p>
-          The target can be rewritten as
-          \[
-            \exp((\log n)^{1-\delta})
-            =n^{(\log n)^{-\delta}}.
-          \]
-          For fixed \(\delta&gt;0\), the effective exponent tends to zero,
-          so this scale eventually lies below every fixed power \(n^\varepsilon\).
-        </p>
-        <p class="concept-use"><strong>Used for:</strong> reading the theorem
-          as a genuinely sub-power descent statement.</p>
-      </article>
-    </div>
-
-    <div class="col reveal">
-      <p class="note">
-        <strong>Logical separation.</strong> The parity-word description is
-        exact finite combinatorics. Natural density and the exceptional-count
-        estimate are asymptotic statements. The orbit plots later on the page
-        are finite illustrations, not a bridge between those two scopes.
-      </p>
-    </div>
-  </div>
+  </div></div>
 </section>
 
-<!-- ==================== LITERATURE OUTCOME ==================== -->
+<section id="method">
+  <div class="wrap"><div class="col">
+    <h2>How the proof works</h2>
+    <p>
+      The proof separates cleanly into an exact counting part and a
+      deterministic transport part. Its only probabilistic input is exact
+      enumeration of parity words on a dyadic shell — not a stochastic model
+      of any individual orbit.
+    </p>
+    <ol class="steps">
+      <li>
+        <strong>Exact parity counting.</strong> Every parity word of length
+        \(M\) occurs exactly once on the shell
+        \(I_M=[2^M,2^{M+1})\). Discarding words with an atypical prefix leaves
+        an exponentially small exceptional set and bounds the orbit at every
+        time in the block.
+      </li>
+      <li>
+        <strong>First-passage reversal.</strong> Reversing the iteration at
+        the first crossing bounds how many sources can reach a given landing
+        value in a given time, while retaining the accumulated effect of the
+        additive \(+1\) terms.
+      </li>
+      <li>
+        <strong>Decreasing thresholds.</strong> Along a decreasing chain of
+        dyadic thresholds, every later landing is <em>also</em> a direct first
+        passage from the original shell — so multi-landing histories collapse
+        to single passages.
+      </li>
+      <li>
+        <strong>Compressed passage times.</strong> Rank-dependent barriers
+        confine every time at which certification can first fail to a common
+        set of size \(O(\sqrt{M\log M})\). Replacing a union over the full
+        linear horizon by this square-root set is the quantitative pivot of
+        the paper, and is what produces the polylogarithmic threshold.
+      </li>
+      <li>
+        <strong>Low-rank timeout.</strong> Below a switch rank, positive
+        certification is replaced by a timeout test: a block that misses its
+        next threshold in time must have an unusually large terminal odd-step
+        count, whose exact binomial tail is estimated directly.
+      </li>
+    </ol>
+  </div></div>
+</section>
+
 <section id="literature">
-  <div class="wrap">
-    <div class="col reveal">
-      <p class="eyebrow">Literature ladder</p>
-      <h2>From first descent to a moving sub-power scale</h2>
-      <p class="lede">
-        On the ordinary-natural-density line, the certified landing target has
-        become progressively smaller. The comparison below holds the density
-        notion and shortcut map fixed, so the mathematical gain is visible.
-      </p>
-    </div>
+  <div class="wrap"><div class="col">
+    <h2>Relation to previous work</h2>
+    <p>
+      In ordinary natural density, Korec proved descent below \(n^\theta\) for
+      every fixed \(\theta&gt;\log_4 3\), and Inselmann below \(n^\varepsilon\)
+      for every fixed \(\varepsilon&gt;0\). Tao reaches every divergent
+      threshold \(f(n)\to\infty\), but in <em>logarithmic</em> density; recent
+      bridge manuscripts transfer that target class to natural density.
+    </p>
+    <p>
+      Those arbitrary-threshold results are not superseded here. The
+      contribution of this paper is a different combination: an explicit
+      polylogarithmic target, quantitative natural-density exceptional rates,
+      a logarithmic witnessing clock, and a bound on every iterate through
+      that same witness. The proof uses neither Tao's Syracuse/Fourier inputs
+      nor any stochastic-independence, mixing, or Diophantine-approximation
+      hypothesis.
+    </p>
+    <p class="cite">
+      The author's earlier and logically independent
+      <a href="/cet/">stretched-logarithmic endpoint-transport paper</a>
+      proves a restricted-range result by a different mechanism. No result
+      from it is used as a premise here.
+    </p>
+  </div></div>
+</section>
 
-    <div class="tablewrap literature-table reveal">
+<section id="formalization">
+  <div class="wrap"><div class="col">
+    <h2>Formalization</h2>
+    <p>
+      The written proof is self-contained. A separate Lean 4 development
+      kernel-checks the canonical route to the principal exported theorem,
+      including the shell exceptional ratio, the moving landing, the
+      logarithmic clock, and the same-witness orbit ceiling.
+    </p>
+    <p>
+      The canonical library builds with no <code>sorry</code>, no
+      <code>admit</code>, no project axiom, and no missing module; the
+      public-root axiom reports contain only Lean's three standard axioms
+      <code>propext</code>, <code>Classical.choice</code>, and
+      <code>Quot.sound</code>. Some combined quantitative statements in the
+      manuscript are assembled from separately checked components rather than
+      exposed as single wrapper theorems — that declaration-level boundary is
+      stated explicitly on the
+      <a href="/code/">theorem&nbsp;→&nbsp;Lean map</a>.
+    </p>
+    <div class="actions">
+      <a class="btn btn-primary" href="/code/">See the theorem → Lean map</a>
+      <a class="btn" href="https://doi.org/10.5281/zenodo.21930432" rel="noopener">Software DOI</a>
+      <a class="btn" href="https://github.com/shaikidris/FirstPassageLinearTransport/tree/lean-v3.2.0" rel="noopener">Browse the source</a>
+    </div>
+  </div></div>
+</section>
+
+<section id="artifacts">
+  <div class="wrap"><div class="col">
+    <h2>Cite and reproduce</h2>
+    <div class="tablewrap">
       <table>
-        <caption>Four milestones in ordinary-natural-density Collatz descent</caption>
-        <thead>
-          <tr>
-            <th scope="col">Work</th>
-            <th scope="col">Density-one conclusion</th>
-            <th scope="col">What changes</th>
-          </tr>
-        </thead>
         <tbody>
           <tr>
-            <th scope="row">
-              <a href="https://doi.org/10.4064/aa-30-3-241-252" rel="noopener">Terras (1976)</a>
-            </th>
-            <td>For almost every \(n\), some iterate satisfies \(T^k(n)&lt;n\).</td>
-            <td>
-              Establishes density-one finite stopping below the starting value;
-              the parity-word periodicity behind dyadic counting is also classical
-              in this work.
-            </td>
+            <td><b>Preprint</b></td>
+            <td><a href="https://doi.org/10.5281/zenodo.21931194" rel="noopener">10.5281/zenodo.21931194</a> · v3.2.0 · CC BY 4.0</td>
           </tr>
           <tr>
-            <th scope="row">
-              <a href="https://dml.cz/handle/10338.dmlcz/133225" rel="noopener">Korec (1994)</a>
-            </th>
-            <td>
-              For every fixed \(\theta&gt;\log_4 3=0.79248125\ldots\), almost every
-              \(n\) reaches below \(n^\theta\).
-            </td>
-            <td>Replaces the starting-value target by a nontrivial fixed power.</td>
+            <td><b>Formalization</b></td>
+            <td><a href="https://doi.org/10.5281/zenodo.21930432" rel="noopener">10.5281/zenodo.21930432</a> · Apache 2.0</td>
           </tr>
           <tr>
-            <th scope="row">
-              <a href="https://arxiv.org/abs/2402.03276v3" rel="noopener">Inselmann (2024)</a>
-            </th>
-            <td>
-              For every fixed \(\theta&gt;0\), almost every \(n\) reaches below
-              \(n^\theta\), within \(6.952\ldots\log n\) steps.
-            </td>
-            <td>Extends the fixed-power conclusion to every positive exponent.</td>
+            <td><b>Source</b></td>
+            <td><a href="https://github.com/shaikidris/FirstPassageLinearTransport/tree/lean-v3.2.0" rel="noopener">shaikidris/FirstPassageLinearTransport</a>, tag <code>lean-v3.2.0</code></td>
           </tr>
-          <tr class="literature-outcome">
-            <th scope="row">
-              <a href="https://doi.org/10.5281/zenodo.21851173" rel="noopener">This paper (2026)</a>
-            </th>
-            <td>
-              For every fixed \(0&lt;\delta&lt;\delta_0\), almost every \(n\) reaches
-              below \(n^{(\log n)^{-\delta}}\).
-            </td>
-            <td>
-              The exponent now tends to zero with \(n\), with a quantified
-              exceptional count and a witness before \(6.953\log n\).
-            </td>
+          <tr>
+            <td><b>Commit</b></td>
+            <td><code>ef3410843bf58d69f771f5ba2c0571d54b54da59</code></td>
+          </tr>
+          <tr>
+            <td><b>Toolchain</b></td>
+            <td>Lean <code>4.15.0</code> · Mathlib <code>9837ca9</code></td>
           </tr>
         </tbody>
       </table>
     </div>
-
-    <div class="col reveal">
-      <p class="note literature-takeaway">
-        <strong>The outcome.</strong> Inselmann allows any fixed horizontal
-        exponent \(\theta&gt;0\). This paper supplies one descending exponent,
-        \((\log n)^{-\delta}\to0\), so its target eventually lies below every
-        fixed power. It remains an almost-all theorem, not a proof of the
-        Collatz conjecture.
-      </p>
-      <p class="comparison-scope">
-        This ladder is deliberately restricted to ordinary natural density.
-        Tao's logarithmic-density theorem and concurrent natural-density
-        preprints use different threshold or quantifier classes; the article
-        discusses them separately rather than imposing a single total ranking.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== PROOF ARCHITECTURE ==================== -->
-<section id="architecture">
-  <span id="how" class="anchor-alias" aria-hidden="true"></span>
-  <div class="wrap">
-    <div class="col reveal">
-      <p class="eyebrow">The dependency spine</p>
-      <h2>Proof architecture</h2>
-      <p class="lede">
-        The argument first understands one logarithmic block, then turns that
-        local information into a transport estimate, and only afterward
-        iterates endpoints. Read the six nodes from left to right.
-      </p>
-    </div>
-
-    <nav class="architecture-map reveal" aria-label="Six-stage proof architecture">
-      <a href="#proof-step-1" data-proof-step="proof-step-1">
-        <span>1</span><strong>Encode</strong><small>dyadic shell → parity cube</small>
-      </a>
-      <a href="#proof-step-2" data-proof-step="proof-step-2">
-        <span>2</span><strong>Condition</strong><small>odd count → compositions</small>
-      </a>
-      <a href="#proof-step-3" data-proof-step="proof-step-3">
-        <span>3</span><strong>Control fibers</strong><small>crowding → Rényi moment</small>
-      </a>
-      <a href="#proof-step-4" data-proof-step="proof-step-4">
-        <span>4</span><strong>Transport density</strong><small>target → pullback</small>
-      </a>
-      <a href="#proof-step-5" data-proof-step="proof-step-5">
-        <span>5</span><strong>Iterate endpoints</strong><small>one block → recursion</small>
-      </a>
-      <a href="#proof-step-6" data-proof-step="proof-step-6">
-        <span>6</span><strong>Optimize blocks</strong><small>recursion → theorem</small>
-      </a>
-    </nav>
-
-    <div class="col reveal">
-      <p class="note">
-        <strong>The key design choice:</strong> the consumer is an orbit
-        minimum, so the recursion transports endpoint events. It does not ask
-        for a uniform envelope on every iterate inside every block.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== ARCHITECTURE LAB ==================== -->
-<section id="proof-lab">
-  <div class="wrap">
-    <div class="col reveal">
-      <p class="eyebrow">Guided proof lab</p>
-      <h2>Follow one proof interface at a time</h2>
-      <p class="lede">
-        Open a stage to inspect its input, mathematical burden, and output.
-        The output of each panel is the input consumed by the next one.
-      </p>
-
-      <div class="proof-lab-toolbar" aria-label="Proof-stage controls">
-        <button id="proof-prev" type="button">← Previous</button>
-        <span id="proof-lab-progress" role="status" aria-live="polite">Stage 1 of 6</span>
-        <button id="proof-next" type="button">Next →</button>
-      </div>
-
-      <ol class="steps proof-steps">
-        <li>
-          <details id="proof-step-1" data-proof-panel open>
-            <summary>One block in parity coordinates</summary>
-            <p class="step-interface"><span>Input: a dyadic shell</span><i>→</i><span>Output: an explicit endpoint map on parity words</span></p>
-            <p>A dyadic shell contains exactly one representative of every
-            parity word of the matching length. The affine iterate formula then
-            writes the endpoint of one logarithmic block explicitly in terms
-            of that word, converting the dynamical question into finite
-            arithmetic on a complete Boolean cube.</p>
-          </details>
-        </li>
-        <li>
-          <details id="proof-step-2" data-proof-panel>
-            <summary>Condition on the odd count</summary>
-            <p class="step-interface"><span>Input: a parity word</span><i>→</i><span>Output: a fixed-total composition and a congruence</span></p>
-            <p>Fixing the number of odd steps separates the main multiplicative
-            factor from the affine correction. The remaining parity data
-            become a positive composition of a fixed total, and equality of
-            two block endpoints becomes a congruence condition modulo the
-            corresponding power of \(3\).</p>
-          </details>
-        </li>
-        <li>
-          <details id="proof-step-3" data-proof-panel>
-            <summary>Control endpoint multiplicities</summary>
-            <p class="step-interface"><span>Input: endpoint fibers</span><i>→</i><span>Output: a Rényi-moment bound on crowding</span></p>
-            <p>Starts sharing an endpoint form a fiber. Integer-lift
-            injectivity and a quotient-order estimate translate crowding in
-            one congruence class into spending near the end of the associated
-            composition. A fixed-total Rényi estimate controls the resulting
-            \((1+\theta)\)-moment near the mean part count.</p>
-          </details>
-        </li>
-        <li>
-          <details id="proof-step-4" data-proof-panel>
-            <summary>Pull back a dense target</summary>
-            <p class="step-interface"><span>Input: target density plus fiber moments</span><i>→</i><span>Output: one-block density transport</span></p>
-            <p>Endpoint fibers are split into ordinary and heavy classes using
-            an exponential multiplicity threshold. The target's density
-            estimate bounds the ordinary contribution, while the Rényi moment
-            bounds the heavy one. Balancing their decay rates yields the
-            asymptotically linear transport slope \(\Lambda(\theta)\).</p>
-          </details>
-        </li>
-        <li>
-          <details id="proof-step-5" data-proof-panel>
-            <summary>Iterate endpoints only</summary>
-            <p class="step-interface"><span>Input: one-block transport and contraction</span><i>→</i><span>Output: a recursive endpoint descent</span></p>
-            <p>A binomial-tail estimate supplies a fixed dense set on which one
-            logarithmic block contracts \(n\) to at most \(3n^r\) for any
-            fixed \(r>a_0\). The recursion pulls back this endpoint event only;
-            it does not impose a stronger pathwise envelope inside each
-            block.</p>
-          </details>
-        </li>
-        <li>
-          <details id="proof-step-6" data-proof-panel>
-            <summary>Choose the number of blocks</summary>
-            <p class="step-interface"><span>Input: the endpoint recursion</span><i>→</i><span>Output: \(\delta_0\), the rate, and the clock</span></p>
-            <p>Taking \(R\asymp\log\log n\) blocks makes the endpoint scale
-            \(n^{r^R}\). Summability of the propagated exceptional sets
-            imposes two strict scalar bounds. Finally, letting
-            \(r\downarrow a_0\) and \(\theta\uparrow1\) produces the
-            nonattained endpoint \(\delta_0\), together with the exceptional
-            rate and clock.</p>
-          </details>
-        </li>
-      </ol>
-
-      <p>
-        Endpoint control is deliberate: the public theorem concerns an orbit
-        minimum, so it does not need a uniform bound on every intermediate
-        iterate inside each logarithmic block.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== THEOREM LAB ==================== -->
-<section id="explore">
-  <div class="wrap">
-    <div class="col reveal">
-      <p class="eyebrow">Graduate study lab</p>
-      <h2>Explore the theorem's quantifiers</h2>
-      <p class="lede">
-        The theorem has an order: first fix an interior descent exponent
-        \(\delta\), then choose an admissible exceptional-set exponent
-        \(\sigma\), and only then let the counting cutoff \(X\) grow.
-        Move the controls to see which conclusions travel together and where
-        the strict endpoint enters.
-      </p>
-    </div>
-
-    <div class="lab-grid reveal">
-      <article class="lab-card" aria-labelledby="parameter-lab-title">
-        <h3 id="parameter-lab-title">1. Admissible parameters</h3>
-        <div class="control-stack">
-          <label for="theorem-delta">
-            Descent exponent
-            <output id="theorem-delta-value" for="theorem-delta">δ = 0.150</output>
-          </label>
-          <input id="theorem-delta" type="range" min="0.01" max="0.25"
-            step="0.001" value="0.15">
-
-          <label for="theorem-sigma">
-            Exceptional-rate exponent
-            <output id="theorem-sigma-value" for="theorem-sigma">σ = 0.200</output>
-          </label>
-          <input id="theorem-sigma" type="range" min="0.01" max="0.95"
-            step="0.005" value="0.20">
-        </div>
-
-        <div class="lab-status" id="theorem-status" role="status" aria-live="polite"></div>
-        <div class="formula-panel">
-          <span>Admissibility test</span>
-          <strong id="theorem-admissibility">σ &lt; 1 − δ/δ₀</strong>
-          <small id="theorem-sigma-cap"></small>
-        </div>
-        <div class="preset-row" aria-label="Parameter presets">
-          <button type="button" data-theorem-preset="interior">Comfortable interior</button>
-          <button type="button" data-theorem-preset="endpoint">Near the endpoint</button>
-          <button type="button" data-theorem-preset="invalid">Cross the σ boundary</button>
-        </div>
-      </article>
-
-      <article class="lab-card" aria-labelledby="scale-lab-title">
-        <h3 id="scale-lab-title">2. Read the scale</h3>
-        <p class="lab-intro">
-          Model a very large input as \(n=10^D\). The slider controls
-          \(\log_{10}D\), so each step changes the input length by an order
-          of magnitude.
-        </p>
-        <label for="theorem-size">
-          Input size
-          <output id="theorem-size-value" for="theorem-size">D = 10⁶</output>
-        </label>
-        <input id="theorem-size" type="range" min="1" max="9" step="1" value="6">
-
-        <dl class="metric-grid">
-          <div>
-            <dt>Effective exponent</dt>
-            <dd id="metric-epsilon">—</dd>
-            <small>\(\varepsilon(n)=(\log n)^{-\delta}\)</small>
-          </div>
-          <div>
-            <dt>Target length</dt>
-            <dd id="metric-target-digits">—</dd>
-            <small>approximate decimal digits</small>
-          </div>
-          <div>
-            <dt>Witness clock</dt>
-            <dd id="metric-clock">—</dd>
-            <small>\(6.953\log n\) shortcut steps</small>
-          </div>
-        </dl>
-      </article>
-    </div>
-
-    <div class="quantifier-chain reveal" aria-label="Order of quantifiers">
-      <span>fix \(0&lt;\delta&lt;\delta_0\)</span>
-      <i aria-hidden="true">→</i>
-      <span>fix \(0&lt;\sigma&lt;1-\delta/\delta_0\)</span>
-      <i aria-hidden="true">→</i>
-      <span>obtain \(c_{\delta,\sigma}&gt;0\) and an onset</span>
-      <i aria-hidden="true">→</i>
-      <span>the count bound holds for every sufficiently large \(X\)</span>
-    </div>
-
-    <div class="col reveal">
-      <p class="note caution">
-        <strong>Boundary discipline.</strong> The controls stop below
-        \(\delta_0=0.251245530155874\ldots\), because equality is not
-        claimed. The paper proves existence of an effective constant and a
-        sufficiently-large onset; this calculator does not invent numerical
-        values for either one.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== WHY THE THRESHOLD MATTERS ==================== -->
-<section id="threshold">
-  <div class="wrap">
-    <div class="col reveal">
-      <h2>Why this threshold is the interesting one</h2>
-
-      <!-- CONTENT SLOT 2: benchmark comparison. See CONTENT-PROMPT.md §2 -->
-      <p>
-        The literature ladder above isolates the fixed-power progression:
-        Korec reached exponents above \(\log_4 3\), and Inselmann later reached
-        every fixed positive exponent. Each application still chooses a
-        horizontal power \(n^\varepsilon\) before \(n\) grows. The public
-        theorem instead prescribes a single scale whose effective exponent
-        tends to zero. That is the relevant comparison: not a new
-        constant-power exponent, but a quantified rate at which the exponent
-        itself decays. The article also tracks the counting-cutoff error; these
-        are separate axes, not a claim that it dominates every recent Collatz
-        result.
-      </p>
-      <p>
-        Counting digits makes the gap concrete. The theorem certifies an orbit
-        value with at most
-        \(1+(\log n)^{1-\delta}/\log 10\) decimal digits, while \(n\) itself has
-        \(\asymp \log n\) digits — so the certified digit ratio tends to zero. A
-        fixed-power bound \(n^{\alpha}\) only ever shrinks the digit count by the
-        constant factor \(\alpha\).
-      </p>
-      <p>
-        The cleanest way to see it is to write the threshold <em>as</em> a power
-        of \(n\). Since
-        \(\exp\!\left((\log n)^{1-\delta}\right)=n^{\varepsilon(n)}\) with
-      </p>
-      \[ \varepsilon(n)=(\log n)^{-\delta}\;\longrightarrow\;0, \]
-      <p>
-        the threshold is a power of \(n\) whose exponent decays. A fixed power is
-        a horizontal line, and the decaying exponent eventually passes under
-        every one of them — which is precisely the claim.
-      </p>
-    </div>
-
-    <figure class="col reveal">
-      <div class="figbox">
-        <canvas id="fig-comparison" data-aspect="1.85" role="img"
-          aria-label="The effective exponent of the stretched-logarithmic threshold, plotted against the digit count of n on a logarithmic axis. Fixed powers appear as horizontal lines. The curve decays and crosses below each horizontal line in turn."></canvas>
-        <div class="legend">
-          <span><i style="border-color:var(--accent)"></i> \(\varepsilon(n)=(\log n)^{-\delta}\)</span>
-          <span><i style="border-color:var(--ink-faint);border-top-style:dashed"></i> fixed powers \(n^{\varepsilon}\)</span>
-          <span><i style="border-color:var(--good);border-top-style:dotted"></i> crossing</span>
-        </div>
-        <div class="fig-controls">
-          <label for="fig-comparison-delta">δ</label>
-          <input type="range" id="fig-comparison-delta" min="0" max="1" step="1" value="0" aria-label="Select delta">
-          <span class="val" id="fig-comparison-delta-val">δ = 0.15</span>
-        </div>
-      </div>
-      <figcaption>
-        <b>Figure 1.</b> The effective exponent \(\varepsilon(n)=(\log
-        n)^{-\delta}\), against the digit count of \(n\) on a logarithmic axis.
-        Each fixed power \(n^{\varepsilon}\) is a horizontal line; the curve
-        crosses below each in turn and never returns. The crossings are the
-        honest measure of how asymptotic this is: at \(\delta=0.2\) the
-        threshold drops below \(n^{0.05}\) once \(n\) has about
-        \(1.4\times10^{6}\) digits, while at \(\delta=0.15\) that needs
-        roughly \(2\times10^{8}\) digits. Both values of \(\delta\) lie in the
-        theorem's strict public range.
-        Computed from the closed form.
-      </figcaption>
-    </figure>
-  </div>
-</section>
-
-<!-- ==================== ONE ORBIT ==================== -->
-<section id="orbit">
-  <div class="wrap">
-    <div class="col reveal">
-      <h2>What it looks like for one number</h2>
-      <!-- CONTENT SLOT 3: orbit walkthrough. See CONTENT-PROMPT.md §3 -->
-      <p>
-        The preset black curve is the actual shortcut orbit of
-        \(n=1{,}234{,}567\); the dashed line is the geometric trend suggested
-        by a typical balance of odd and even steps, and the green line is the
-        stretched-logarithmic target. Change \(n\) or \(\delta\) below, then
-        compare the first target crossing with the theorem's displayed clock.
-        A single orbit only illustrates the definitions: the theorem is an
-        asymptotic statement about a density-one population and does not
-        assert a pointwise envelope for each starting value.
-      </p>
-    </div>
-
-    <figure class="col reveal">
-      <div class="figbox">
-        <canvas id="fig-orbit" data-aspect="1.8" role="img"
-          aria-label="The orbit of 1,234,567 under the shortcut Collatz map, plotted as log base 2 against step number, together with a heuristic geometric trend and its first crossing of the stretched-logarithmic threshold at step 29."></canvas>
-        <div class="legend">
-          <span><i style="border-color:var(--ink)"></i> orbit \(\log_2 T^k(n)\)</span>
-          <span><i style="border-color:var(--ink-soft);border-top-style:dashed"></i> heuristic trend \(\rho^k n\)</span>
-          <span><i style="border-color:var(--good);border-top-style:dotted"></i> threshold</span>
-        </div>
-        <form class="fig-controls orbit-controls" id="orbit-form">
-          <label for="orbit-input">Start \(n\)</label>
-          <input id="orbit-input" type="number" min="3" max="1000000000000"
-            step="1" value="1234567" inputmode="numeric">
-          <label for="orbit-delta">\(\delta\)</label>
-          <input id="orbit-delta" type="range" min="0.01" max="0.25"
-            step="0.01" value="0.15">
-          <output id="orbit-delta-value" for="orbit-delta">0.15</output>
-          <button type="submit">Run orbit</button>
-          <button id="fig-orbit-replay" type="button">Replay</button>
-        </form>
-        <p class="orbit-result" id="orbit-result" role="status" aria-live="polite">
-          n = 1,234,567 · δ = 0.15 · witness k* = 29 · clock bound ≈ 97.5
-        </p>
-      </div>
-      <figcaption>
-        <b>Figure 2.</b> The actual orbit is plotted against the heuristic trend
-        \(k\log_2\rho+\log_2 n\), with \(\rho=\sqrt3/2\), discussed in the
-        article's logarithmic-block motivation. In the preset at
-        \(\delta=0.15\), the marked point first reaches
-        \(\exp((\log n)^{0.85})\) at \(k=29\), inside
-        \(6.953\log n\approx97.5\). Custom inputs are computed in the
-        browser. The dashed trend is not a bound, and no displayed orbit is a
-        proof input or a test of the asymptotic density claim.
-      </figcaption>
-    </figure>
-  </div>
-</section>
-
-<!-- ==================== THE CLOCK, MEASURED ==================== -->
-<section id="clock">
-  <div class="wrap">
-    <div class="col reveal">
-      <h2>The clock, measured</h2>
-      <!-- CONTENT SLOT 4: honest empirics. See CONTENT-PROMPT.md §4 -->
-      <p>
-        Theorem 1.1, part 2, gives a witness before \(6.953\log n\) steps on a
-        density-one set of sufficiently large \(n\). Sampling 2,000 odd
-        starting values across the dyadic shell \([2^{26},2^{27})\),
-        <b id="witness-rate">—</b> land inside the clock, with a median witness at
-        <b id="witness-median">—</b> of the bound.
-      </p>
-      <p>
-        There is no tension between the theorem and a small value that misses
-        the displayed clock. Its quantifiers say that, after fixing \(\delta\),
-        there is a density-one set \(A_\delta\) whose sufficiently large
-        members have a witness; they do not say that every integer, or every
-        small integer, belongs to that set. A record-holder may therefore lie
-        outside \(A_\delta\) or before the unspecified onset. Conversely, the
-        high hit rate in this finite shell does not verify the asymptotic
-        theorem. The table is a calibration of the literal map, target, and
-        clock, not evidence for the limiting density claim.
-      </p>
-      <div id="witness-table"></div>
-      <p class="note">
-        <strong>Reproduce it.</strong> The preset data in this table and all four
-        figures are produced by
-        <code>scripts/make_figure_data.py</code>, which iterates the map
-        directly. A custom orbit entered above is computed locally in the
-        browser using the same shortcut map.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== ENSEMBLE ==================== -->
-<section id="ensemble">
-  <div class="wrap">
-    <div class="col reveal">
-      <h2>“Almost all”, drawn</h2>
-      <!-- CONTENT SLOT 5: density intuition. See CONTENT-PROMPT.md §5 -->
-      <p>
-        A set \(A\) of positive integers has natural density one when the
-        fraction \(\#(A\cap[1,X])/X\) tends to \(1\), or equivalently when the
-        fraction of exceptions tends to zero. Thus “most integers” is a limit
-        of ordinary finite counts, not a probability assigned to an individual
-        orbit. The definition allows infinitely many exceptions, even with
-        irregular clustering, provided their relative frequency vanishes.
-        The traces below offer a finite visual analogy: individual running
-        minima remain ragged, while the theorem concerns the population as the
-        counting scale tends to infinity. The sample itself proves no density
-        statement.
-      </p>
-    </div>
-    <figure class="col reveal">
-      <div class="figbox">
-        <canvas id="fig-ensemble" data-aspect="1.9" role="img"
-          aria-label="Sixty Collatz orbits from the dyadic shell between 2^19 and 2^20, each drawn as its running minimum in log base 2 against step number. The traces descend together as a population."></canvas>
-        <div class="fig-controls">
-          <button id="fig-ensemble-replay" type="button">Replay</button>
-          <span>60 starting values in \([2^{19},2^{20})\)</span>
-        </div>
-      </div>
-      <figcaption>
-        <b>Figure 3.</b> Running minimum \(\log_2\min_{j\le k}T^j(n)\) for 60
-        odd starting values spread across one dyadic shell. The theorem is a
-        claim about how this population behaves as the shell index grows, not
-        about any one trace.
-      </figcaption>
-    </figure>
-  </div>
-</section>
-
-<!-- ==================== EXCEPTIONAL SET ==================== -->
-<section id="exceptions">
-  <div class="wrap">
-    <div class="col reveal">
-      <h2>How thin the exceptional set is</h2>
-      <!-- CONTENT SLOT 6: exceptional-count reading. See CONTENT-PROMPT.md §6 -->
-      <p>
-        Theorem 1.1 gives more than density zero, which by itself says only that
-        the exceptional fraction is \(o(1)\) and supplies no rate. A power-law
-        saving in \(X\) would decay exponentially in \(\log X\). The proved
-        fraction \(\exp(-c(\log X)^\sigma)\) sits strictly between those scales:
-        it is faster than every fixed negative power of \(\log X\), but slower
-        than every fixed negative power of \(X\). The constant
-        \(c_{\delta,\sigma}\) is an effective but unoptimized proof constant,
-        not an empirical fit. The normalized curve below shows only the shape
-        of the stated rate, not its actual onset or vertical placement.
-      </p>
-    </div>
-    <figure class="col reveal">
-      <div class="figbox">
-        <canvas id="fig-exceptional" data-aspect="2.1" role="img"
-          aria-label="Normalized stretched-exponential shape for the exceptional fraction, plotted on a logarithmic scale against the digit count of X for an admissible pair of public theorem exponents."></canvas>
-      </div>
-      <figcaption>
-        <b>Figure 4.</b> The normalized shape
-        \(5\exp(-c(\log X)^{\sigma})\), at the admissible public-theorem pair
-        \(\delta=0.1\), \(\sigma=0.5\), with \(c=1\) solely for normalization.
-        The theorem supplies an effective \(c_{\delta,\sigma}>0\), but does not
-        identify it with \(1\) or claim a practical onset. Only the decay shape
-        in \(\log X\) is being illustrated.
-      </figcaption>
-    </figure>
-  </div>
-</section>
-
-<!-- ==================== FORMALIZATION ==================== -->
-<section id="lean">
-  <div class="wrap">
-    <div class="col reveal">
-      <h2>Machine-checked</h2>
-      <!-- CONTENT SLOT 8: what is and is not formalized. See CONTENT-PROMPT.md §8 -->
-      <p>
-        The public Lean artifact verifies the principal theorem chain, not
-        merely a companion result. Three referee-facing declarations match the
-        descent statement, the optimized exceptional-count estimate, and the
-        logarithmic-time witness in the public article. At the one-block seed,
-        the formal proof uses a stronger all-prefix estimate than the terminal
-        consequence used in the written proof; the final public conclusions
-        are the same. This is not a line-by-line certification of the article's
-        English exposition, literature discussion, or motivation. It is a
-        kernel check that the encoded conclusions follow from the encoded
-        definitions and formal lemmas, with a declaration-level dependency
-        report exposing that chain.
-      </p>
-      <p>
-        The development is pinned to Lean <code>v4.15.0</code> and a fixed
-        Mathlib revision. Its paper-facing axiom audit reports only
-        <code>propext</code>, <code>Classical.choice</code>, and
-        <code>Quot.sound</code>, with no <code>sorry</code> or project-local
-        axioms. These checks supplement the self-contained manuscript proof;
-        the manuscript does not use the build as a missing proof step.
-      </p>
-      <div class="actions">
-        <a class="btn btn-primary" href="code/">Browse the theorem&nbsp;→&nbsp;Lean map</a>
-        <a class="btn" href="https://github.com/shaikidris/CET" rel="noopener">Source on GitHub</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ==================== READ / CITE ==================== -->
-<section id="read">
-  <div class="wrap">
-    <div class="col reveal">
-      <h2>Read it, cite it, check it</h2>
-      <div class="grid" style="margin-bottom:2rem">
-        <a class="tile" href="paper/">
-          <b>Full paper</b>
-          <span>The complete article, rendered as HTML with live typeset mathematics.</span>
-        </a>
-        <a class="tile" href="https://doi.org/10.5281/zenodo.21851173" rel="noopener">
-          <b>Preprint on Zenodo</b>
-          <span>Archived PDF of record, CC BY 4.0.</span>
-          <span class="doi">10.5281/zenodo.21851173</span>
-        </a>
-        <a class="tile" href="https://doi.org/10.5281/zenodo.21797535" rel="noopener">
-          <b>Lean artifact</b>
-          <span>The formalization, archived and versioned. Apache 2.0.</span>
-          <span class="doi">10.5281/zenodo.21797535</span>
-        </a>
-        <a class="tile" href="code/">
-          <b>Theorem → code map</b>
-          <span>Each informal result linked to the exact Lean declaration proving it.</span>
-        </a>
-      </div>
-
-      <h3>Cite this work</h3>
-      <p style="font-size:.9375rem;color:var(--ink-soft)">
-        Cite the concept DOI <code>10.5281/zenodo.21825993</code> to always
-        resolve to the newest version, or the version DOI below to pin v2.0.2.
-      </p>
-      <pre class="cite">@misc{shaik2026collatz,
-  author       = {Shaik, Idris Ali},
-  title        = {Quantitative {C}ollatz Descent to Stretched-Logarithmic
-                  Scale in Natural Density, with a {L}ean 4 Formalization},
-  year         = {2026},
-  publisher    = {Zenodo},
-  version      = {2.0.2},
-  doi          = {10.5281/zenodo.21851173},
-  url          = {https://doi.org/10.5281/zenodo.21851173}
-}</pre>
-    </div>
-  </div>
+  </div></div>
 </section>
 
 </main>
 
 <footer>
   <div class="wrap">
-    <div class="cols">
-      <div>
-        <h5>Paper</h5>
-        <ul>
-          <li><a href="paper/">Full text</a></li>
-          <li><a href="https://doi.org/10.5281/zenodo.21851173" rel="noopener">PDF (Zenodo)</a></li>
-          <li><a href="#read">How to cite</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Formalization</h5>
-        <ul>
-          <li><a href="code/">Theorem → Lean map</a></li>
-          <li><a href="https://github.com/shaikidris/CET" rel="noopener">CET on GitHub</a></li>
-          <li><a href="https://doi.org/10.5281/zenodo.21797535" rel="noopener">Software DOI</a></li>
-        </ul>
-      </div>
-      <div>
-        <h5>Author</h5>
-        <ul>
-          <li><a href="https://orcid.org/0009-0009-9699-9712" rel="author noopener">ORCID</a></li>
-          <li><a href="https://github.com/shaikidris" rel="noopener">GitHub</a></li>
-        </ul>
-      </div>
-    </div>
     <p style="margin:0">
-      © 2026 Idris Ali Shaik. Text and figures licensed
-      <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a>;
-      the Lean development is Apache 2.0. This site presents almost-all results
-      in natural density and does not claim a proof of the Collatz conjecture.
+      © 2026 Idris Ali Shaik · Article under
+      <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a>,
+      Lean development under
+      <a href="https://www.apache.org/licenses/LICENSE-2.0" rel="license noopener">Apache 2.0</a> ·
+      <a href="/code/">Lean map</a> · <a href="/cet/">earlier work</a>
     </p>
   </div>
 </footer>
 
-<script src="assets/figures.js"></script>
 <script>
   (function () {
     var btn = document.getElementById("theme-toggle");
-    if (!btn) return;
-    btn.addEventListener("click", function () {
-      var root = document.documentElement;
-      var cur = root.getAttribute("data-theme");
-      if (!cur) {
-        cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      }
+    btn && btn.addEventListener("click", function () {
+      var root = document.documentElement, cur = root.getAttribute("data-theme");
+      if (!cur) cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
       var next = cur === "dark" ? "light" : "dark";
       root.setAttribute("data-theme", next);
       localStorage.setItem("theme", next);

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theorem → Lean map — Quantitative Collatz Descent</title>
+<meta name="description" content="The three conclusions of public article v2.0.2 linked to their exact Lean 4 declarations in CET v2.0.1, with replay commands, dependency scope, and axiom-report boundaries.">
+<link rel="canonical" href="https://shaikidris.github.io/cet/code/">
+
+<meta name="citation_title" content="CollatzEndpointTransport: Lean formalization of quantitative Collatz descent">
+<meta name="citation_author" content="Shaik, Idris Ali">
+<meta name="citation_author_orcid" content="https://orcid.org/0009-0009-9699-9712">
+<meta name="citation_publication_date" content="2026/08/04">
+<meta name="citation_doi" content="10.5281/zenodo.21797535">
+<meta name="citation_language" content="en">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Theorem → Lean map — Quantitative Collatz Descent">
+<meta property="og:description" content="Public article v2.0.2 mapped to the exact principal Lean 4 declarations in CET v2.0.1.">
+<meta property="og:url" content="https://shaikidris.github.io/cet/code/">
+<meta property="og:image" content="https://shaikidris.github.io/assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="author" content="Idris Ali Shaik">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  "name": "CollatzEndpointTransport",
+  "description": "Lean 4 formalization of a quantitative natural-density descent theorem for the Collatz map, verified against Mathlib.",
+  "codeRepository": "https://github.com/shaikidris/CET",
+  "programmingLanguage": { "@type": "ComputerLanguage", "name": "Lean 4" },
+  "runtimePlatform": "Lean 4.15.0",
+  "license": "https://www.apache.org/licenses/LICENSE-2.0",
+  "author": { "@type": "Person", "name": "Idris Ali Shaik",
+              "identifier": "https://orcid.org/0009-0009-9699-9712" },
+  "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.21797535" },
+  "url": "https://shaikidris.github.io/cet/code/",
+  "version": "2.0.1"
+}
+</script>
+
+<script>
+  (function () { var t = localStorage.getItem("theme");
+    if (t) document.documentElement.setAttribute("data-theme", t); })();
+</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], processEscapes: true },
+  options: { skipHtmlTags: ["script","noscript","style","textarea","pre","code"] }
+};
+</script>
+<script defer src="/assets/mathjax/tex-chtml.js"></script>
+
+<style>
+  .maptable td:first-child { white-space: normal; min-width: 11rem; }
+  .maptable code { font-size: .78125rem; word-break: break-all; white-space: normal; }
+  .maptable td { vertical-align: top; white-space: normal; }
+  .maptable td.mod { font-family: var(--mono); font-size: .75rem; color: var(--ink-faint); white-space: nowrap; }
+  .maptable a { text-decoration: none; }
+  .maptable a:hover { text-decoration: underline; }
+  .rowhead td { background: var(--paper-sunk); font-weight: 650; color: var(--ink-faint);
+    font-size: .7rem; letter-spacing: .05em; text-transform: uppercase; }
+  .facts { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(11rem,1fr)); margin-bottom: 2rem; }
+  .fact { background: var(--paper-raised); border: 1px solid var(--rule); border-radius: var(--radius); padding: .9rem 1.05rem; }
+  .fact b { display: block; font-family: var(--mono); font-size: .95rem; color: var(--accent); margin-bottom: .15rem; }
+  .fact span { font-family: var(--sans); font-size: .75rem; color: var(--ink-faint); }
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="/cet/">Quantitative Collatz Descent</a>
+    <nav>
+      <a href="/cet/">Overview</a>
+      <a href="/cet/paper/">Paper</a>
+      <a href="./" aria-current="page">Lean code</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme">◐</button>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" style="padding-bottom:1.5rem">
+  <div class="wrap"><div class="col">
+    <p class="eyebrow">Formalization</p>
+    <h1 style="font-size:clamp(1.7rem,4vw,2.5rem)">Theorem → Lean map</h1>
+    <p class="tagline" style="font-size:1.1rem">
+      Each conclusion of Theorem&nbsp;1.1 in the public v2.0.2 article is
+      linked to its exact Lean&nbsp;4 declaration in the immutable v2.0.1 tag.
+    </p>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://github.com/shaikidris/CET/tree/v2.0.1" rel="noopener">Browse CET v2.0.1</a>
+      <a class="btn" href="https://doi.org/10.5281/zenodo.21797535" rel="noopener">Archived artifact</a>
+    </div>
+  </div></div>
+</section>
+
+<section>
+  <div class="wrap"><div class="col">
+    <h2>The pin</h2>
+    <div class="facts">
+      <div class="fact"><b>v2.0.1</b><span>CET release tag</span></div>
+      <div class="fact"><b>4.15.0</b><span>Lean toolchain</span></div>
+      <div class="fact"><b>9837ca9</b><span>Mathlib commit</span></div>
+      <div class="fact"><b>3</b><span>axioms, all standard</span></div>
+    </div>
+    <p>
+      The development is pinned to commit
+      <code>db84058497f8be629c8a2460033e20fe303bd673</code> and archived under
+      DOI <a href="https://doi.org/10.5281/zenodo.21797535" rel="noopener">10.5281/zenodo.21797535</a>.
+      The public article is self-contained. Its supplementary formalization
+      checks the principal theorem chain independently of the English proof.
+    </p>
+
+    <h3>What the axiom report says</h3>
+    <p>
+      <code>PaperAudit.lean</code> runs <code>#print axioms</code> over every
+      declaration in the public chain. Each one reports only
+      <code>propext</code>, <code>Classical.choice</code>, and
+      <code>Quot.sound</code> — the three standard Lean axioms. There is no
+      <code>sorry</code>, no <code>native_decide</code>, no
+      <code>ofReduceBool</code>, and no project-local <code>axiom</code>.
+    </p>
+
+    <h3>Replay it yourself</h3>
+    <p>From the <code>lean</code> directory of the tagged checkout:</p>
+    <pre><code>lake build
+
+lake env lean -DautoImplicit=false -DrelaxedAutoImplicit=false \
+  -DmaxHeartbeats=20000000 \
+  CollatzEndpointTransport/Linear/PaperDependencyAudit.lean
+
+lake env lean -DautoImplicit=false -DrelaxedAutoImplicit=false \
+  -DmaxHeartbeats=20000000 \
+  CollatzEndpointTransport/Linear/PaperAudit.lean</code></pre>
+    <div class="note">
+      <p>
+        These three commands answer <strong>three different questions</strong>.
+        <code>lake build</code> is the source-reconstruction gate for the
+        library. The dependency audit reports a transitive compiled-declaration
+        closure plus a separate source-reference closure from Lean's
+        <code>.ilean</code> metadata. The axiom audit is a logical-trust check
+        and is <em>not</em> evidence of declaration reachability.
+      </p>
+    </div>
+  </div></div>
+</section>
+
+<section>
+  <div class="wrap"><div class="col">
+    <h2>The map</h2>
+    <p style="font-size:.9375rem;color:var(--ink-soft)">
+      Article labels below follow public Zenodo v2.0.2. Module paths are
+      relative to <code>lean/CollatzEndpointTransport/</code>. The software
+      tag also retains companion results from the preceding manuscript
+      edition; they are not relabeled as theorem products of the streamlined
+      public article.
+    </p>
+
+    <div class="tablewrap">
+      <table class="maptable">
+        <thead>
+          <tr><th>Paper result</th><th>Lean declaration</th><th>Module</th></tr>
+        </thead>
+        <tbody>
+          <tr class="rowhead"><td colspan="3">Public article v2.0.2</td></tr>
+          <tr>
+            <td><b>Theorem 1.1, part 1</b><br><span style="color:var(--ink-faint);font-size:.75rem">natural-density descent</span></td>
+            <td><code>QuantitativeCollatzMain.<wbr>collatz_central_renyi_endpoint_natural_density_descent</code></td>
+            <td class="mod">Linear/Main.lean</td>
+          </tr>
+          <tr>
+            <td><b>Theorem 1.1, part 1</b><br><span style="color:var(--ink-faint);font-size:.75rem">optimized exceptional count</span></td>
+            <td><code>QuantitativeCollatzMain.<wbr>collatz_central_renyi_endpoint_exceptional_count_at_exponent</code></td>
+            <td class="mod">Linear/Main.lean</td>
+          </tr>
+          <tr>
+            <td><b>Theorem 1.1, part 2</b><br><span style="color:var(--ink-faint);font-size:.75rem">logarithmic-time witness</span></td>
+            <td><code>QuantitativeCollatzMain.<wbr>collatz_central_renyi_endpoint_natural_density_descent_timed</code></td>
+            <td class="mod">Linear/Main.lean</td>
+          </tr>
+          <tr>
+            <td><b>Endpoint identity</b><br><span style="color:var(--ink-faint);font-size:.75rem">exact nonattained value of \(\delta_0\)</span></td>
+            <td><code>QuantitativeCollatzMain.<wbr>centralRenyiEndpointAdmissibleExponent_eq_paper</code></td>
+            <td class="mod">Linear/Main.lean</td>
+          </tr>
+
+          <tr class="rowhead"><td colspan="3">Principal mechanism</td></tr>
+          <tr>
+            <td><b>Article §4</b><br><span style="color:var(--ink-faint);font-size:.75rem">central fixed-total Rényi core</span></td>
+            <td><code>FixedTotal.<wbr>fixedRenyiMoment_central_le</code></td>
+            <td class="mod">Linear/CentralRenyiReverse.lean</td>
+          </tr>
+          <tr>
+            <td><b>Article §4</b><br><span style="color:var(--ink-faint);font-size:.75rem">central endpoint aggregate</span></td>
+            <td><code>FixedTotal.<wbr>centralEndpointInformation_le</code></td>
+            <td class="mod">Linear/CentralRenyiShell.lean</td>
+          </tr>
+          <tr>
+            <td><b>Article §5</b><br><span style="color:var(--ink-faint);font-size:.75rem">quantitative density pullback</span></td>
+            <td><code>FixedTotal.<wbr>collatzPullback_dense_centralRenyi</code></td>
+            <td class="mod">Linear/CentralRenyiPullback.lean</td>
+          </tr>
+          <tr>
+            <td><b>Article §§6–7</b><br><span style="color:var(--ink-faint);font-size:.75rem">endpoint bootstrap socket</span></td>
+            <td><code>OptimizedLinearPullback.<wbr>centralRenyiEndpointOnlyTheorem_of_transport</code></td>
+            <td class="mod">Linear/<wbr>CentralRenyiEndpointOnly.lean</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div></div>
+</section>
+
+<section>
+  <div class="wrap"><div class="col">
+    <h2>Package layout</h2>
+    <ul>
+      <li><code>Linear/Main.lean</code> — referee-facing theorem API, with the
+        exact nonattained endpoint <code>log (1 / a0) / log (2 / a0)</code>.</li>
+      <li><code>Linear/CentralRenyi*.lean</code> — the fixed-total endpoint
+        estimate and quantitative pullback mechanism used by the article.</li>
+      <li><code>Linear/PaperDependencyAudit.lean</code> — transitive
+        compiled-declaration graph, <code>.ilean</code> source-reference graph,
+        and the frozen release's manuscript-to-source roots.</li>
+      <li><code>Linear/PaperAudit.lean</code> — the public
+        <code>#print axioms</code> report.</li>
+      <li><code>Common/</code> — route-independent Collatz definitions,
+        parity infrastructure, the stronger all-prefix one-block seed used by
+        the formal proof, and dyadic summation.</li>
+      <li><code>QuadraticAppendix/</code> — the independently verified
+        optional quadratic baseline, outside the principal article chain.</li>
+    </ul>
+
+    <div class="note caution">
+      <p>
+        <strong>Scope of the formalization.</strong> The Lean development
+        verifies the principal theorem chain: the descent conclusion,
+        optimized exceptional-count estimate, and logarithmic-time witness.
+        Its one-block seed is stronger than the terminal consequence used in
+        the written proof. The article remains self-contained and does not use
+        Lean to discharge a missing English step; conversely, Lean does not
+        certify the literature discussion or every sentence of exposition.
+        The dependency and axiom audits state the exact formal boundary.
+      </p>
+    </div>
+  </div></div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p style="margin:0">
+      © 2026 Idris Ali Shaik · Lean development under
+      <a href="https://www.apache.org/licenses/LICENSE-2.0" rel="license noopener">Apache 2.0</a> ·
+      <a href="/cet/">site overview</a> · <a href="/cet/paper/">full paper</a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById("theme-toggle");
+    btn && btn.addEventListener("click", function () {
+      var root = document.documentElement, cur = root.getAttribute("data-theme");
+      if (!cur) cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      var next = cur === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+  })();
+</script>
+</body>
+</html>

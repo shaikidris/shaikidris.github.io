@@ -1,6 +1,56 @@
-# Content source of truth — Quantitative Collatz Descent site
+# Content source of truth
 
-This site is synchronized to two public records only:
+The site hosts **two independent papers**. Each page is synchronized to its own
+published records, and the two must never be blended: they prove different
+theorems by different architectures, with different numbering.
+
+---
+
+# Part A — Root (`/`): Polylogarithmic Descent, v3.2.0
+
+Synchronized to two public records only:
+
+1. **Article:** Zenodo record
+   [10.5281/zenodo.21931194](https://doi.org/10.5281/zenodo.21931194),
+   version 3.2.0, *Polylogarithmic Descent for Almost All Collatz Orbits in
+   Natural Density*.
+2. **Formal artifact:** public
+   [FirstPassageLinearTransport tag `lean-v3.2.0`](https://github.com/shaikidris/FirstPassageLinearTransport/tree/lean-v3.2.0),
+   commit `ef3410843bf58d69f771f5ba2c0571d54b54da59`, archived as
+   [10.5281/zenodo.21930432](https://doi.org/10.5281/zenodo.21930432).
+
+## Frozen public theorem surface
+
+Put \(\kappa_*=1-H_2(\log_3 2)\), \(A_{\rm FP}=1/(2\kappa_*)=9.9911133419\ldots\),
+and \(c_*=2/\log(4/3)=6.9521189935\ldots\). For every fixed \(A>A_{\rm FP}\),
+\(c>c_*\), \(\beta>0\), and \(0<\gamma<\kappa_*(A-A_{\rm FP})\), all but
+\(O(X/(\log X)^\gamma)\) integers \(n\le X\) admit \(k<c\log n\) with
+\(T^k(n)\le C_{\rm tar}(\log n)^A\) and \(\max_{j\le k}T^j(n)\le n^{1+\beta}\).
+
+Not asserted, and never to be implied: the pure target
+\(C(\log n)^{A_{\rm FP}}\), a bounded final multiplier at the critical
+secondary scale, and the endpoint \(\delta=1\) in the stretched-logarithmic
+companion.
+
+## Formalization boundary
+
+`Main.lean` exports exactly **eleven** public theorems in namespace
+`FirstPassageLinearTransport.QuantitativeCollatzMain`. The canonical library
+builds with no `sorry`, `admit`, project axiom, or missing module, and the
+public-root axiom reports contain only `propext`, `Classical.choice`, and
+`Quot.sound`.
+
+The `/code/` page must keep stating the **declaration-level coverage
+boundary**: some combined quantitative statements in the manuscript are
+assembled from separately checked components rather than exported as single
+wrapper theorems. That is a coverage boundary, not an admitted obligation.
+Never compress this to an unqualified "no gaps."
+
+---
+
+# Part B — `/cet/`: Quantitative Collatz Descent, v2.0.2
+
+This page is synchronized to two public records only:
 
 1. **Article:** Zenodo record
    [10.5281/zenodo.21851173](https://doi.org/10.5281/zenodo.21851173),
