@@ -51,7 +51,9 @@
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/site.css">
+<!-- Bump the asset revision whenever root-page CSS or JavaScript changes.
+     GitHub Pages otherwise permits browsers to reuse those files for 10 min. -->
+<link rel="stylesheet" href="/assets/site.css?v=20260815-primer-fix1">
 
 <!-- ============ schema.org ============ -->
 <script type="application/ld+json">
@@ -96,8 +98,8 @@ window.MathJax = {
 };
 </script>
 <script defer src="/assets/mathjax/tex-chtml.js"></script>
-<script defer src="/assets/collatz-primer-core.js"></script>
-<script defer src="/assets/figures-polylog.js"></script>
+<script defer src="/assets/collatz-primer-core.js?v=20260815-primer-fix1"></script>
+<script defer src="/assets/figures-polylog.js?v=20260815-primer-fix1"></script>
 </head>
 
 <body>
@@ -209,17 +211,17 @@ window.MathJax = {
           <button type="button" class="map-option" data-primer-map="shortcut" aria-pressed="false">Shortcut map used in the paper</button>
         </div>
 
-        <form id="primer-form" class="primer-form">
+        <div id="primer-form" class="primer-form" role="group" aria-label="Run a Collatz orbit">
           <label for="primer-input">
             Starting integer
             <small>Positive integers with at most 80 digits</small>
           </label>
           <div class="primer-input-row">
             <input id="primer-input" name="n" type="text" inputmode="numeric" pattern="[0-9]+" value="7" autocomplete="off" spellcheck="false">
-            <button class="btn btn-primary" type="submit">Run orbit</button>
+            <button class="btn btn-primary" id="primer-run" type="button">Run orbit</button>
             <button class="btn" id="primer-replay" type="button" disabled>Replay</button>
           </div>
-        </form>
+        </div>
 
         <div class="primer-examples" aria-label="Example starting values">
           <span>Examples</span>
@@ -900,7 +902,7 @@ window.MathJax = {
       <input id="orbit-input" type="text" inputmode="numeric" placeholder="e.g. 987654321987" value="987654321987">
       <button type="submit" class="btn btn-primary">Run it locally</button>
     </form>
-    <p class="orbit-result" id="orbit-result" role="status" aria-live="polite"></p>
+    <div class="orbit-result" id="orbit-result" role="status" aria-live="polite"></div>
 
     <p class="note caution">
       <strong>A single orbit proves nothing.</strong> These runs are evaluated

@@ -131,8 +131,9 @@
 
   function collatzPrimer() {
     const panel = document.getElementById("collatz-primer");
-    const form = document.getElementById("primer-form");
+    const controls = document.getElementById("primer-form");
     const input = document.getElementById("primer-input");
+    const runButton = document.getElementById("primer-run");
     const replay = document.getElementById("primer-replay");
     const summary = document.getElementById("primer-summary");
     const chain = document.getElementById("primer-chain");
@@ -140,7 +141,7 @@
     const mapNote = document.getElementById("primer-map-note");
     const mapButtons = Array.from(document.querySelectorAll("[data-primer-map]"));
     const examples = Array.from(document.querySelectorAll("[data-primer-example]"));
-    if (!panel || !form || !input || !replay || !summary || !chain || !chainWindow) return;
+    if (!panel || !controls || !input || !runButton || !replay || !summary || !chain || !chainWindow) return;
     const core = window.CollatzPrimerCore;
     if (!core || typeof core.compute !== "function") {
       summary.className = "primer-summary error";
@@ -318,7 +319,10 @@
       if (hasStarted) run();
     }
 
-    form.addEventListener("submit", event => { event.preventDefault(); run(); });
+    runButton.addEventListener("click", run);
+    input.addEventListener("keydown", event => {
+      if (event.key === "Enter") { event.preventDefault(); run(); }
+    });
     replay.addEventListener("click", () => { if (lastRun) render(lastRun); });
     mapButtons.forEach(button => {
       button.addEventListener("click", () => selectMap(button.dataset.primerMap));
@@ -430,13 +434,25 @@
     const input = document.getElementById("orbit-input");
     const result = document.getElementById("orbit-result");
     if (form && input && result) {
+      function beginOrbitResult(kind) {
+        result.className = "orbit-result " + kind;
+        void result.offsetWidth;
+        result.classList.add("is-updated");
+      }
+      function orbitMessage(message, kind) {
+        beginOrbitResult(kind || "error");
+        result.textContent = message;
+      }
       form.addEventListener("submit", ev => {
         ev.preventDefault();
         let n;
         try { n = BigInt(input.value.trim()); }
-        catch (e) { result.textContent = "Enter a positive integer."; return; }
-        if (n < 2n) { result.textContent = "Enter an integer of at least 2."; return; }
-        if (n > 10n ** 24n) { result.textContent = "Keep it at or below 10²⁴ for a responsive local run."; return; }
+        catch (e) { orbitMessage("Enter a positive integer."); return; }
+        if (n < 2n) { orbitMessage("Enter an integer of at least 2."); return; }
+        if (n > 10n ** 24n) {
+          orbitMessage("Keep it at or below 10²⁴ for a responsive local run.");
+          return;
+        }
 
         // Precise for big values: Number(n) would lose bits past 2^53.
         const lnN = log2BigInt(n) * Math.LN2;
@@ -454,25 +470,35 @@
         const reached = log2BigInt(cur) <= targetLog2;
         const peakRatio = log2BigInt(peak) / log2BigInt(n);
         if (!reached) {
-          result.textContent =
-            "Stopped after " + cap.toLocaleString() +
-            " shortcut steps without reaching the displayed companion target. " +
-            "This is the interactive safety cap, not a mathematical conclusion.";
+          beginOrbitResult("stopped");
+          result.innerHTML =
+            '<div class="orbit-result-head">' +
+              '<span class="orbit-status">Safety cap reached</span>' +
+              '<strong>' + cap.toLocaleString() + ' shortcut steps</strong>' +
+            '</div>' +
+            '<p class="orbit-finite-note">The displayed target was not reached before the local cap. ' +
+            'The simulation stops here without drawing a mathematical conclusion.</p>';
           return;
         }
         const landed = cur.toString().length > 18
-          ? "≈2^" + log2BigInt(cur).toFixed(1) : cur.toString();
+          ? "≈ 2<sup>" + log2BigInt(cur).toFixed(1) + "</sup>" : cur.toString();
         const withinClock = k < clock;
+        beginOrbitResult("reached");
         result.innerHTML =
-          "Reached <strong>" + landed + "</strong> after <strong>" + k +
-          "</strong> shortcut steps, against a target of ≈2^" + targetLog2.toFixed(1) + ". " +
-          "The reference \\(c_*\\log n\\) is " + clock.toFixed(0) + " — " +
-          (withinClock ? "inside the reference" : "<strong>outside the reference</strong>") + ". " +
-          "The highest iterate on the way was n^" + peakRatio.toFixed(3) + ". " +
-          "<em>One finite run under the stretched-logarithmic companion target — an illustration, not evidence for the density theorem.</em>";
-        if (window.MathJax && typeof window.MathJax.typesetPromise === "function") {
-          window.MathJax.typesetPromise([result]).catch(() => {});
-        }
+          '<div class="orbit-result-head">' +
+            '<span class="orbit-status">Target reached</span>' +
+            '<span class="orbit-verdict ' + (withinClock ? 'inside' : 'outside') + '">' +
+              (withinClock ? 'Inside clock reference' : 'Outside clock reference') +
+            '</span>' +
+          '</div>' +
+          '<p class="orbit-target">Companion target ≈ 2<sup>' + targetLog2.toFixed(1) + '</sup></p>' +
+          '<dl class="orbit-result-grid">' +
+            '<div><dt>Landing</dt><dd>' + landed + '</dd></div>' +
+            '<div><dt>Shortcut steps</dt><dd>' + k.toLocaleString() + '</dd></div>' +
+            '<div><dt>Clock reference</dt><dd>' + clock.toFixed(1) + '</dd><small>c<sub>*</sub> log n</small></div>' +
+            '<div><dt>Peak height</dt><dd>n<sup>' + peakRatio.toFixed(3) + '</sup></dd></div>' +
+          '</dl>' +
+          '<p class="orbit-finite-note">One finite browser run — an illustration, not evidence for the density theorem.</p>';
       });
     }
   }
@@ -868,7 +894,7 @@
     proofFlowLab();
     sectionNavigation();
     reveal();
-    fetch("/assets/figure-data-polylog.json")
+    fetch("/assets/figure-data-polylog.json?v=20260815-primer-fix1")
       .then(r => r.json())
       .then(data => {
         window.__figdata = data;

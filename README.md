@@ -104,6 +104,14 @@ The repo is `shaikidris/shaikidris.github.io` on the personal `shaikidris`
 account (**not** `shaiki_Zeta` — see `~/research/collatz/AGENTS.md`), served by
 GitHub Pages from `main` at the root folder. `.nojekyll` is present.
 
+GitHub Pages currently serves static assets with a ten-minute browser cache.
+Whenever root-page CSS, JavaScript, or generated figure data changes, bump the
+shared `?v=` revision on the corresponding URLs in `index.html` and the figure
+data fetch in `assets/figures-polylog.js`. This prevents a newly deployed HTML
+page from running against stale interaction code. Interactive controls should
+also use `type="button"` rather than native form submission, so missing or stale
+JavaScript cannot navigate the page.
+
 After a structural change like the `/cet/` relocation, resubmit
 `https://shaikidris.github.io/sitemap.xml` in Google Search Console and Bing
 Webmaster Tools. The `citation_*` tags and `ScholarlyArticle` JSON-LD on each
