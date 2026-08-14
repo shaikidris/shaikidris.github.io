@@ -273,6 +273,18 @@ window.MathJax = {
       <article class="fundamental-card">
         <span class="concept-number">1</span>
         <h3>Threshold and first passage</h3>
+        <figure class="concept-figure">
+          <svg viewBox="0 0 360 116" role="img" aria-labelledby="concept-first-passage-title concept-first-passage-desc">
+            <title id="concept-first-passage-title">An orbit crossing a dyadic threshold for the first time</title>
+            <desc id="concept-first-passage-desc">A descending orbit trace stays above the threshold, then crosses it at a highlighted landing.</desc>
+            <line class="concept-rule concept-dashed" x1="18" y1="79" x2="342" y2="79" />
+            <text class="concept-label" x="337" y="72" text-anchor="end">threshold 2<tspan baseline-shift="super" font-size="8">q</tspan></text>
+            <path class="concept-trace concept-draw" pathLength="1" d="M18 25 L68 40 L111 31 L158 58 L202 48 L249 88 L330 96" />
+            <circle class="concept-point concept-pulse" cx="249" cy="88" r="5" />
+            <text class="concept-label concept-good-text" x="260" y="105">first landing</text>
+          </svg>
+          <figcaption>First crossing, not merely a later visit below the line.</figcaption>
+        </figure>
         <p>
           A <em>threshold</em> is a dyadic value \(2^q\) the orbit tries to
           cross from above. Its <em>first passage</em> is the first iterate at
@@ -284,6 +296,23 @@ window.MathJax = {
       <article class="fundamental-card">
         <span class="concept-number">2</span>
         <h3>Threshold chain</h3>
+        <figure class="concept-figure">
+          <svg viewBox="0 0 360 116" role="img" aria-labelledby="concept-chain-title concept-chain-desc">
+            <title id="concept-chain-title">A decreasing chain of threshold landings</title>
+            <desc id="concept-chain-desc">Three successive passages descend through checkpoints, while a dashed diagonal represents the direct first passage from the original shell.</desc>
+            <line class="concept-rule" x1="18" y1="28" x2="118" y2="28" />
+            <line class="concept-rule" x1="118" y1="58" x2="229" y2="58" />
+            <line class="concept-rule" x1="229" y1="89" x2="342" y2="89" />
+            <path class="concept-trace concept-draw" pathLength="1" d="M26 13 L105 28 L126 39 L216 58 L238 69 L326 89" />
+            <circle class="concept-point concept-pulse delay-1" cx="105" cy="28" r="4" />
+            <circle class="concept-point concept-pulse delay-2" cx="216" cy="58" r="4" />
+            <circle class="concept-point concept-pulse delay-3" cx="326" cy="89" r="4" />
+            <path class="concept-direct" pathLength="1" d="M26 13 Q174 24 326 89" />
+            <text class="concept-label" x="21" y="106">source</text>
+            <text class="concept-label concept-accent-text" x="337" y="106" text-anchor="end">same direct passage</text>
+          </svg>
+          <figcaption>Intermediate checkpoints collapse to the source passage.</figcaption>
+        </figure>
         <p>
           Successive landings that start new passages are <em>checkpoints</em>;
           together they form a decreasing <em>threshold chain</em>. The key
@@ -296,6 +325,27 @@ window.MathJax = {
       <article class="fundamental-card">
         <span class="concept-number">3</span>
         <h3>Parity word</h3>
+        <figure class="concept-figure">
+          <svg viewBox="0 0 360 116" role="img" aria-labelledby="concept-parity-title concept-parity-desc">
+            <title id="concept-parity-title">One residue represented by one parity word</title>
+            <desc id="concept-parity-desc">A residue modulo two to the power M points to a row of M even or odd parity bits.</desc>
+            <rect class="concept-chip" x="17" y="35" width="95" height="42" rx="7" />
+            <text class="concept-main-label" x="64" y="52" text-anchor="middle">n mod 2<tspan baseline-shift="super" font-size="9">M</tspan></text>
+            <text class="concept-label" x="64" y="68" text-anchor="middle">one residue</text>
+            <path class="concept-arrow" d="M121 56 H151" />
+            <path class="concept-arrow-head" d="M145 50 L153 56 L145 62" />
+            <g aria-label="parity word 0 1 1 0 1 0">
+              <rect class="concept-bit bit-delay-1" x="165" y="36" width="26" height="40" rx="5" /><text class="concept-bit-label" x="178" y="61">0</text>
+              <rect class="concept-bit bit-delay-2" x="195" y="36" width="26" height="40" rx="5" /><text class="concept-bit-label" x="208" y="61">1</text>
+              <rect class="concept-bit bit-delay-3" x="225" y="36" width="26" height="40" rx="5" /><text class="concept-bit-label" x="238" y="61">1</text>
+              <rect class="concept-bit bit-delay-4" x="255" y="36" width="26" height="40" rx="5" /><text class="concept-bit-label" x="268" y="61">0</text>
+              <rect class="concept-bit bit-delay-5" x="285" y="36" width="26" height="40" rx="5" /><text class="concept-bit-label" x="298" y="61">1</text>
+              <rect class="concept-bit bit-delay-6" x="315" y="36" width="26" height="40" rx="5" /><text class="concept-bit-label" x="328" y="61">0</text>
+            </g>
+            <text class="concept-label" x="253" y="96" text-anchor="middle">one word of length M</text>
+          </svg>
+          <figcaption>Exact shell enumeration, not an independence assumption.</figcaption>
+        </figure>
         <p>
           The first \(M\) parity bits of an orbit depend only on
           \(n \bmod 2^M\), and every word of length \(M\) occurs
@@ -308,6 +358,25 @@ window.MathJax = {
       <article class="fundamental-card">
         <span class="concept-number">4</span>
         <h3>Certificate and timeout</h3>
+        <figure class="concept-figure">
+          <svg viewBox="0 0 360 116" role="img" aria-labelledby="concept-certificate-title concept-certificate-desc">
+            <title id="concept-certificate-title">The proof switches from a prefix certificate to a timeout</title>
+            <desc id="concept-certificate-desc">The high-rank side shows a path certified beneath an envelope; the low-rank side shows an allotted clock expiring before a crossing.</desc>
+            <text class="concept-label" x="18" y="18">high rank · certificate</text>
+            <line class="concept-divider" x1="180" y1="13" x2="180" y2="102" />
+            <path class="concept-envelope" d="M20 35 L164 62" />
+            <path class="concept-trace concept-draw" pathLength="1" d="M20 52 L50 57 L78 49 L109 69 L137 66 L164 83" />
+            <circle class="concept-small-point" cx="50" cy="57" r="2.8" /><circle class="concept-small-point" cx="78" cy="49" r="2.8" />
+            <circle class="concept-small-point" cx="109" cy="69" r="2.8" /><circle class="concept-small-point" cx="137" cy="66" r="2.8" />
+            <text class="concept-label" x="18" y="100">every prefix checked</text>
+            <text class="concept-label" x="196" y="18">low rank · timeout</text>
+            <rect class="concept-clock" x="197" y="47" width="143" height="18" rx="9" />
+            <rect class="concept-clock-fill" x="200" y="50" width="137" height="12" rx="6" />
+            <line class="concept-timeout-tick" x1="337" y1="39" x2="337" y2="73" />
+            <text class="concept-label concept-warn-text" x="337" y="91" text-anchor="end">allotted time</text>
+          </svg>
+          <figcaption>Two rank regimes, with one controlled switch.</figcaption>
+        </figure>
         <p>
           A <em>certificate</em> is a condition on parity data guaranteeing the
           stated orbit bounds. At high shell ranks it controls every prefix. At
@@ -320,6 +389,28 @@ window.MathJax = {
       <article class="fundamental-card">
         <span class="concept-number">5</span>
         <h3>Transport</h3>
+        <figure class="concept-figure">
+          <svg viewBox="0 0 360 116" role="img" aria-labelledby="concept-transport-title concept-transport-desc">
+            <title id="concept-transport-title">Bad target landings transported back to their sources</title>
+            <desc id="concept-transport-desc">A small highlighted target set on the right is connected backwards to the corresponding source fibers on the left.</desc>
+            <text class="concept-label" x="28" y="18">source shell</text>
+            <text class="concept-label" x="332" y="18" text-anchor="end">target set</text>
+            <rect class="concept-chip" x="17" y="27" width="69" height="70" rx="7" />
+            <rect class="concept-chip" x="289" y="27" width="54" height="70" rx="7" />
+            <g class="concept-source-dots">
+              <circle cx="33" cy="43" r="3"/><circle cx="51" cy="43" r="3"/><circle cx="69" cy="43" r="3"/>
+              <circle cx="33" cy="61" r="3"/><circle class="bad" cx="51" cy="61" r="4"/><circle cx="69" cy="61" r="3"/>
+              <circle class="bad" cx="33" cy="79" r="4"/><circle cx="51" cy="79" r="3"/><circle cx="69" cy="79" r="3"/>
+            </g>
+            <circle class="concept-target-bad concept-pulse" cx="316" cy="61" r="7" />
+            <path class="concept-flow" pathLength="1" d="M309 57 C239 28 165 31 56 58" />
+            <path class="concept-flow delay-2" pathLength="1" d="M309 65 C239 94 163 94 38 79" />
+            <path class="concept-arrow-head" d="M61 52 L51 59 L62 64" />
+            <path class="concept-arrow-head" d="M45 73 L33 79 L44 85" />
+            <text class="concept-label concept-accent-text" x="181" y="109" text-anchor="middle">pull back the bad landing fiber</text>
+          </svg>
+          <figcaption>Count at the landing, then pull the count back.</figcaption>
+        </figure>
         <p>
           <em>Transport</em> means counting sources in the original shell whose
           first-passage landing lies in a specified target set — reversing the
@@ -332,6 +423,21 @@ window.MathJax = {
       <article class="fundamental-card">
         <span class="concept-number">6</span>
         <h3>Same-witness ceiling</h3>
+        <figure class="concept-figure">
+          <svg viewBox="0 0 360 116" role="img" aria-labelledby="concept-ceiling-title concept-ceiling-desc">
+            <title id="concept-ceiling-title">An orbit ceiling that ends at the witnessing time</title>
+            <desc id="concept-ceiling-desc">The orbit stays below a horizontal ceiling up to a highlighted witnessing time; the later path is faded because no claim is made after that witness.</desc>
+            <line class="concept-ceiling" x1="18" y1="29" x2="239" y2="29" />
+            <text class="concept-label" x="22" y="22">ceiling n<tspan baseline-shift="super" font-size="8">1+β</tspan></text>
+            <path class="concept-trace concept-draw" pathLength="1" d="M18 51 L52 41 L86 61 L120 47 L153 71 L184 58 L218 88 L239 91" />
+            <line class="concept-witness-line" x1="239" y1="23" x2="239" y2="99" />
+            <circle class="concept-point concept-pulse" cx="239" cy="91" r="5" />
+            <path class="concept-after" d="M239 91 L269 73 L299 83 L338 48" />
+            <text class="concept-label concept-good-text" x="232" y="109" text-anchor="end">witness k</text>
+            <text class="concept-label" x="336" y="109" text-anchor="end">no later claim</text>
+          </svg>
+          <figcaption>The ceiling and descent share exactly the same witness.</figcaption>
+        </figure>
         <p>
           A <em>witnessing time</em> is an iterate where the asserted descent
           has occurred. The <em>same-witness orbit ceiling</em> bounds every
