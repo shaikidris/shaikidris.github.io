@@ -23,6 +23,9 @@ assets/site.css             shared design system (light/dark aware)
 assets/paper.css            paper-page-only layout (sticky TOC, reading measure)
 assets/figures.js           figure engine plus browser-local study interactions
 assets/figure-data.json     generated numeric data for the /cet/ figures
+assets/figures-polylog.js   root-paper figures and browser-local interactions
+assets/figure-data-polylog.json   generated data for root-paper figures
+assets/collatz-primer-core.js     exact standard/shortcut orbit calculator
 assets/mathjax/             vendored MathJax 3.2.2 bundle, WOFF fonts, licence
 assets/og-card.png          1200x630 social-preview image for the root paper
 assets/favicon.svg
@@ -64,6 +67,12 @@ regeneration.
 
 Requires `pandoc` and Python 3 with Pillow.
 
+The beginner orbit arithmetic has a dependency-free regression check:
+
+```sh
+node scripts/test_collatz_primer.js
+```
+
 ### Known follow-up
 
 The root page is a landing page only. A rendered full-text HTML edition of
@@ -74,6 +83,12 @@ the v3.2.1 manuscript (the `/cet/paper/` equivalent) is not built yet.
 Every page is synchronized to a **published** record — a Zenodo DOI and a
 public tag. No unpublished or internal draft is a source for this site. See
 `CONTENT-PROMPT.md` for the per-paper source of truth and the update gate.
+
+The root-page beginner orbit primer is an exact browser-local computation,
+not a theorem illustration generated from sampled data. It defaults to the
+standard Collatz map and can switch explicitly to the shortcut map used in the
+paper. It must retain finite step and display-size caps, and a capped run must
+never be described as evidence for or against the pointwise conjecture.
 
 ## Preview locally
 

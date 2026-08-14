@@ -127,6 +127,213 @@
     return Math.log2(head) + (bits - 52);
   }
 
+  /* ---------- beginner orbit primer ---------- */
+
+  function collatzPrimer() {
+    const panel = document.getElementById("collatz-primer");
+    const form = document.getElementById("primer-form");
+    const input = document.getElementById("primer-input");
+    const replay = document.getElementById("primer-replay");
+    const summary = document.getElementById("primer-summary");
+    const chain = document.getElementById("primer-chain");
+    const chainWindow = document.getElementById("primer-chain-window");
+    const mapNote = document.getElementById("primer-map-note");
+    const mapButtons = Array.from(document.querySelectorAll("[data-primer-map]"));
+    const examples = Array.from(document.querySelectorAll("[data-primer-example]"));
+    if (!panel || !form || !input || !replay || !summary || !chain || !chainWindow) return;
+    const core = window.CollatzPrimerCore;
+    if (!core || typeof core.compute !== "function") {
+      summary.className = "primer-summary error";
+      summary.textContent = "The local orbit calculator could not be loaded.";
+      return;
+    }
+
+    const stepCap = 2000;
+    const renderedValueCap = 360;
+    const digitCap = 320;
+    let selectedMap = "standard";
+    let lastRun = null;
+    let animationTimer = null;
+    let hasStarted = false;
+
+    function mapLabel(map) {
+      return map === "shortcut" ? "Shortcut map" : "Standard map";
+    }
+
+    function compactInteger(n) {
+      const s = n.toString();
+      if (s.length <= 28) return s;
+      return s.slice(0, 10) + "…" + s.slice(-7) + " (" + s.length + " digits)";
+    }
+
+    function displayRecords(run) {
+      if (run.values.length <= renderedValueCap) return run.values;
+      const headCount = 300;
+      const tailCount = 50;
+      const omitted = run.values.length - headCount - tailCount;
+      const tail = run.values.slice(-tailCount).map((record, index) => {
+        if (index !== 0) return record;
+        return { value: record.value, operation: "resume", step: record.step };
+      });
+      return run.values.slice(0, headCount)
+        .concat([{ gap: true, omitted }], tail);
+    }
+
+    function makeStep(record, run) {
+      if (record.gap) {
+        const gap = document.createElement("li");
+        gap.className = "chain-gap";
+        gap.textContent = "… " + record.omitted.toLocaleString() + " intermediate values …";
+        gap.setAttribute("aria-label", record.omitted + " intermediate values omitted from display");
+        return gap;
+      }
+
+      const item = document.createElement("li");
+      item.className = "chain-step";
+      if (record.value === run.peak) item.classList.add("is-peak");
+      if (record.value === 1n) item.classList.add("is-one");
+      const operationLabel = record.operation === "resume" ? "continued chain" : record.operation;
+
+      if (record.step > 0) {
+        const arrow = document.createElement("span");
+        arrow.className = "chain-arrow";
+        arrow.setAttribute("aria-hidden", "true");
+        arrow.textContent = "→";
+        item.appendChild(arrow);
+
+        const op = document.createElement("span");
+        op.className = "chain-op";
+        op.textContent = operationLabel;
+        item.appendChild(op);
+      }
+
+      const value = document.createElement("span");
+      value.className = "chain-value";
+      value.textContent = record.value.toString();
+      item.appendChild(value);
+      item.setAttribute(
+        "aria-label",
+        record.step === 0
+          ? "Starting value " + record.value
+          : "Step " + record.step + ", " + operationLabel + ", value " + record.value
+      );
+      return item;
+    }
+
+    function setSummary(run) {
+      summary.className = "primer-summary";
+      if (run.status === "reached") {
+        summary.classList.add("success");
+        summary.textContent = mapLabel(run.map) + ": reached 1 in " + run.steps.toLocaleString() +
+          " steps. Highest value: " + compactInteger(run.peak) +
+          " at step " + run.peakStep.toLocaleString() + ".";
+      } else if (run.status === "cycle") {
+        summary.classList.add("stopped");
+        summary.textContent = mapLabel(run.map) + ": stopped after detecting a repeated value at step " +
+          run.steps.toLocaleString() + ".";
+      } else if (run.status === "size") {
+        summary.classList.add("stopped");
+        summary.textContent = mapLabel(run.map) + ": stopped when the orbit exceeded the local " +
+          digitCap + "-digit display limit, after " + run.steps.toLocaleString() + " steps.";
+      } else {
+        summary.classList.add("stopped");
+        summary.textContent = mapLabel(run.map) + ": stopped at the " + stepCap.toLocaleString() +
+          "-step safety cap without reaching 1. No conclusion is inferred.";
+      }
+    }
+
+    function render(run) {
+      if (animationTimer) clearTimeout(animationTimer);
+      animationTimer = null;
+      const records = displayRecords(run);
+      const fragment = document.createDocumentFragment();
+      records.forEach(record => fragment.appendChild(makeStep(record, run)));
+      chain.replaceChildren(fragment);
+      chainWindow.scrollTop = 0;
+      replay.disabled = false;
+      setSummary(run);
+
+      const nodes = Array.from(chain.children);
+      if (reduceMotion) {
+        nodes.forEach(node => node.classList.add("is-visible"));
+        return;
+      }
+
+      const interval = Math.max(16, Math.min(140, Math.round(5000 / Math.max(1, nodes.length))));
+      let index = 0;
+      function revealNext() {
+        if (index >= nodes.length) { animationTimer = null; return; }
+        nodes[index].classList.add("is-visible");
+        if (index % 8 === 0 || index === nodes.length - 1) {
+          chainWindow.scrollTop = chainWindow.scrollHeight;
+        }
+        index++;
+        animationTimer = setTimeout(revealNext, interval);
+      }
+      revealNext();
+    }
+
+    function run() {
+      const raw = input.value.trim();
+      summary.className = "primer-summary";
+      function fail(message) {
+        if (animationTimer) clearTimeout(animationTimer);
+        animationTimer = null;
+        lastRun = null;
+        replay.disabled = true;
+        chain.replaceChildren();
+        summary.classList.add("error");
+        summary.textContent = message;
+      }
+      if (!/^[0-9]+$/.test(raw)) {
+        fail("Enter a positive integer using digits only.");
+        return;
+      }
+      const normalized = raw.replace(/^0+(?=\d)/, "");
+      if (normalized.length > 80) {
+        fail("Use a starting integer with at most 80 digits.");
+        return;
+      }
+      const start = BigInt(normalized);
+      if (start < 1n) {
+        fail("Enter a positive integer of at least 1.");
+        return;
+      }
+
+      hasStarted = true;
+      lastRun = core.compute(start, selectedMap, { stepCap, digitCap });
+      render(lastRun);
+    }
+
+    function selectMap(name) {
+      selectedMap = name === "shortcut" ? "shortcut" : "standard";
+      mapButtons.forEach(button => {
+        button.setAttribute("aria-pressed", String(button.dataset.primerMap === selectedMap));
+      });
+      if (mapNote) {
+        mapNote.textContent = selectedMap === "shortcut"
+          ? "Shortcut map used in the paper: odd n → (3n + 1)/2; even n → n/2."
+          : "Standard map: odd n → 3n + 1; even n → n/2.";
+      }
+      if (hasStarted) run();
+    }
+
+    form.addEventListener("submit", event => { event.preventDefault(); run(); });
+    replay.addEventListener("click", () => { if (lastRun) render(lastRun); });
+    mapButtons.forEach(button => {
+      button.addEventListener("click", () => selectMap(button.dataset.primerMap));
+    });
+    examples.forEach(button => {
+      button.addEventListener("click", () => {
+        input.value = button.dataset.primerExample;
+        run();
+      });
+    });
+
+    selectMap("standard");
+    onVisible(panel, () => { if (!hasStarted) run(); });
+  }
+
   /* =====================================================================
      Figure 1 — one real orbit, its envelope, thresholds, and landings
      ===================================================================== */
@@ -657,6 +864,7 @@
   /* ---------- boot ---------- */
 
   function boot() {
+    collatzPrimer();
     proofFlowLab();
     sectionNavigation();
     reveal();

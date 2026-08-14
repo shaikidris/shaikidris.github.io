@@ -223,6 +223,140 @@ h1 {
 }
 .byline a { color: var(--ink-soft); }
 
+/* ---------- beginner orbit primer ---------- */
+
+.primer-section {
+  background:
+    radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 34rem),
+    var(--paper);
+}
+.collatz-primer {
+  display: grid; grid-template-columns: minmax(15rem, .8fr) minmax(0, 1.35fr);
+  align-items: start; gap: clamp(1.5rem, 5vw, 4rem);
+}
+.primer-heading { padding-top: .65rem; }
+.primer-heading h2 { max-width: 14ch; }
+.primer-heading .lede { margin-bottom: 0; }
+.primer-console {
+  min-width: 0; padding: clamp(1rem, 3vw, 1.45rem);
+  background: var(--paper-raised); border: 1px solid var(--rule);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.map-toggle {
+  display: inline-flex; max-width: 100%; gap: .25rem; padding: .25rem;
+  background: var(--paper-sunk); border: 1px solid var(--rule);
+  border-radius: 8px; font-family: var(--sans);
+}
+.map-option {
+  min-width: 0; cursor: pointer; border: 0; border-radius: 6px;
+  padding: .48rem .68rem; color: var(--ink-faint); background: transparent;
+  font: 600 .72rem/1.35 var(--sans); text-align: center;
+}
+.map-option[aria-pressed="true"] {
+  color: var(--accent); background: var(--paper-raised);
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--ink) 12%, transparent);
+}
+.primer-form { margin-top: 1rem; }
+.primer-form > label {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 1rem;
+  margin-bottom: .35rem; color: var(--ink-soft);
+  font: 650 .8rem/1.4 var(--sans);
+}
+.primer-form label small { color: var(--ink-faint); font-weight: 450; }
+.primer-input-row {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: stretch; gap: .5rem;
+}
+.primer-input-row input {
+  min-width: 0; width: 100%; padding: .6rem .72rem;
+  border: 1px solid var(--rule-strong); border-radius: 7px;
+  color: var(--ink); background: var(--paper-sunk);
+  font: 600 .9rem var(--mono); font-variant-numeric: tabular-nums;
+}
+.primer-input-row .btn { justify-content: center; cursor: pointer; }
+.primer-input-row .btn:disabled { cursor: default; opacity: .45; }
+.primer-examples {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .38rem;
+  margin-top: .7rem; color: var(--ink-faint); font: .7rem var(--sans);
+}
+.primer-examples button {
+  cursor: pointer; padding: .2rem .5rem; border-radius: 99px;
+  border: 1px solid var(--rule); color: var(--ink-soft);
+  background: var(--paper-sunk); font: 600 .7rem var(--mono);
+}
+.primer-examples button:hover { border-color: var(--accent); color: var(--accent); }
+.primer-map-note {
+  margin: .85rem 0 .45rem; color: var(--ink-faint);
+  font: .72rem/1.5 var(--sans);
+}
+.primer-summary {
+  min-height: 2.1rem; margin: 0 0 .65rem; color: var(--ink-soft);
+  font: 600 .78rem/1.5 var(--sans); font-variant-numeric: tabular-nums;
+}
+.primer-summary.success { color: var(--good); }
+.primer-summary.stopped,
+.primer-summary.error { color: var(--warn); }
+.chain-window {
+  min-height: 8.5rem; max-height: 22rem; overflow: auto;
+  padding: .9rem; border: 1px solid var(--rule); border-radius: 8px;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--rule) 36%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--rule) 36%, transparent) 1px, transparent 1px),
+    var(--paper-sunk);
+  background-size: 18px 18px;
+  scrollbar-width: thin;
+}
+.collatz-chain {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .48rem .38rem;
+  list-style: none; margin: 0; padding: 0;
+}
+.chain-step {
+  display: inline-flex; align-items: center; gap: .35rem; max-width: 100%;
+  margin: 0; opacity: 0; transform: translateY(5px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+.chain-step.is-visible { opacity: 1; transform: none; }
+.chain-arrow { color: var(--ink-faint); font: 600 .78rem var(--sans); }
+.chain-op {
+  padding: .12rem .35rem; border-radius: 99px;
+  color: var(--ink-faint); background: var(--paper-raised);
+  border: 1px solid var(--rule); font: 600 .58rem/1.25 var(--mono);
+}
+.chain-value {
+  max-width: 100%; overflow-wrap: anywhere; padding: .32rem .52rem;
+  border: 1px solid var(--rule-strong); border-radius: 6px;
+  color: var(--ink); background: var(--paper-raised);
+  font: 650 .78rem/1.25 var(--mono); font-variant-numeric: tabular-nums;
+}
+.chain-step.is-peak .chain-value { border-color: var(--warn); color: var(--warn); }
+.chain-step.is-one .chain-value {
+  border-color: var(--good); color: var(--good); background: var(--good-soft);
+}
+.chain-gap {
+  color: var(--ink-faint); font: 650 .7rem/1.4 var(--sans); margin: 0 .25rem;
+  opacity: 0; transform: translateY(5px);
+  transition: opacity .18s ease, transform .18s ease;
+}
+.chain-gap.is-visible { opacity: 1; transform: none; }
+.primer-caveat {
+  margin: .8rem 0 0; color: var(--ink-faint); font: .7rem/1.55 var(--sans);
+}
+@media (max-width: 47rem) {
+  .collatz-primer { grid-template-columns: 1fr; gap: 1.25rem; }
+  .primer-heading { width: min(100%, var(--measure)); }
+  .primer-heading h2 { max-width: none; }
+}
+@media (max-width: 34rem) {
+  .map-toggle { display: grid; width: 100%; }
+  .primer-form > label { display: grid; gap: .1rem; }
+  .primer-input-row { grid-template-columns: 1fr 1fr; }
+  .primer-input-row input { grid-column: 1 / -1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chain-step,
+  .chain-gap { opacity: 1; transform: none; transition: none; }
+}
+
 /* ---------- buttons ---------- */
 
 .actions { display: flex; flex-wrap: wrap; gap: .75rem; }
