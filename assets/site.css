@@ -316,6 +316,124 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
 .fundamental-card h3 { margin: .15rem 0 .7rem; }
 .fundamental-card p { font-size: .96rem; color: var(--ink-soft); }
 .fundamental-card mjx-container[display="true"] { margin: .85rem 0 !important; }
+.concept-figure {
+  margin: .9rem 0 1rem; overflow: hidden;
+  background: var(--paper-sunk); border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+.concept-figure svg {
+  display: block; width: 100%; height: auto; color: var(--ink-soft);
+}
+.concept-figure figcaption {
+  margin: 0; padding: .55rem .75rem .6rem; border-top: 1px solid var(--rule);
+  color: var(--ink-faint); font: 550 .68rem/1.45 var(--sans);
+}
+.concept-figure .concept-label,
+.concept-figure .concept-main-label,
+.concept-figure .concept-bit-label {
+  font-family: var(--sans); fill: var(--ink-faint);
+}
+.concept-figure .concept-label { font-size: 10px; }
+.concept-figure .concept-main-label { font-size: 12px; font-weight: 650; fill: var(--ink-soft); }
+.concept-figure .concept-bit-label {
+  font: 650 13px var(--mono); text-anchor: middle; fill: var(--ink-soft);
+}
+.concept-figure .concept-good-text { fill: var(--good); }
+.concept-figure .concept-warn-text { fill: var(--warn); }
+.concept-figure .concept-accent-text { fill: var(--accent); }
+.concept-rule,
+.concept-divider,
+.concept-clock,
+.concept-chip {
+  fill: none; stroke: var(--rule-strong); stroke-width: 1.2;
+}
+.concept-dashed { stroke-dasharray: 4 4; }
+.concept-divider { stroke-dasharray: 2 4; }
+.concept-chip { fill: var(--paper-raised); }
+.concept-trace {
+  fill: none; stroke: var(--accent); stroke-width: 2.2;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.concept-draw {
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+  animation: concept-draw 6s cubic-bezier(.4,0,.2,1) infinite;
+}
+.concept-point { fill: var(--good); stroke: var(--paper-raised); stroke-width: 2; }
+.concept-small-point { fill: var(--accent); }
+.concept-pulse {
+  transform-box: fill-box; transform-origin: center;
+  animation: concept-pulse 3.2s ease-in-out infinite;
+}
+.delay-1 { animation-delay: .35s; }
+.delay-2 { animation-delay: .7s; }
+.delay-3 { animation-delay: 1.05s; }
+.concept-direct {
+  fill: none; stroke: var(--good); stroke-width: 1.35; stroke-dasharray: 4 4;
+}
+.concept-arrow,
+.concept-arrow-head {
+  fill: none; stroke: var(--ink-faint); stroke-width: 1.4;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.concept-bit {
+  fill: var(--paper-raised); stroke: var(--rule-strong); stroke-width: 1.1;
+  animation: concept-bit 6s ease-in-out infinite;
+}
+.bit-delay-1 { animation-delay: 0s; }
+.bit-delay-2 { animation-delay: .18s; }
+.bit-delay-3 { animation-delay: .36s; }
+.bit-delay-4 { animation-delay: .54s; }
+.bit-delay-5 { animation-delay: .72s; }
+.bit-delay-6 { animation-delay: .9s; }
+.concept-envelope {
+  fill: none; stroke: var(--warn); stroke-width: 1.4; stroke-dasharray: 4 3;
+}
+.concept-clock { fill: var(--paper-raised); }
+.concept-clock-fill {
+  fill: var(--warn); opacity: .52; transform-box: fill-box; transform-origin: left center;
+  animation: concept-clock 6s ease-in-out infinite;
+}
+.concept-timeout-tick { stroke: var(--warn); stroke-width: 2; }
+.concept-source-dots circle { fill: var(--rule-strong); }
+.concept-source-dots .bad { fill: var(--accent); }
+.concept-target-bad { fill: var(--accent); stroke: var(--paper-raised); stroke-width: 2; }
+.concept-flow {
+  fill: none; stroke: var(--accent); stroke-width: 1.4;
+  stroke-dasharray: 5 5; animation: concept-flow 3.2s linear infinite;
+}
+.concept-ceiling { stroke: var(--warn); stroke-width: 1.5; stroke-dasharray: 5 3; }
+.concept-witness-line { stroke: var(--good); stroke-width: 1.2; stroke-dasharray: 3 3; }
+.concept-after {
+  fill: none; stroke: var(--ink-faint); stroke-width: 1.5;
+  stroke-dasharray: 3 4; opacity: .48;
+}
+@keyframes concept-draw {
+  0%, 9% { stroke-dashoffset: 1; }
+  42%, 100% { stroke-dashoffset: 0; }
+}
+@keyframes concept-pulse {
+  0%, 100% { transform: scale(.86); opacity: .72; }
+  50% { transform: scale(1.18); opacity: 1; }
+}
+@keyframes concept-bit {
+  0%, 15%, 55%, 100% { fill: var(--paper-raised); stroke: var(--rule-strong); }
+  24%, 40% { fill: var(--accent-soft); stroke: var(--accent); }
+}
+@keyframes concept-clock {
+  0%, 10% { transform: scaleX(.04); opacity: .3; }
+  52%, 100% { transform: scaleX(1); opacity: .58; }
+}
+@keyframes concept-flow { to { stroke-dashoffset: 20; } }
+@media (prefers-reduced-motion: reduce) {
+  .concept-draw,
+  .concept-pulse,
+  .concept-bit,
+  .concept-clock-fill,
+  .concept-flow {
+    animation: none !important; transform: none; opacity: 1;
+  }
+  .concept-draw { stroke-dashoffset: 0; }
+}
 .concept-number {
   display: block; color: var(--accent); font: 650 .68rem var(--mono);
   letter-spacing: .06em;
