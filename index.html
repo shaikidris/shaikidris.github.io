@@ -719,7 +719,10 @@ window.MathJax = {
     </div>
 
     <form id="orbit-form" class="orbit-controls" autocomplete="off">
-      <label for="orbit-input">Try your own starting value</label>
+      <label for="orbit-input">
+        Try your own starting value
+        <small>descends to \(\exp((\log n)^{0.75})\), the companion target — see the note below</small>
+      </label>
       <input id="orbit-input" type="text" inputmode="numeric" placeholder="e.g. 987654321987" value="987654321987">
       <button type="submit" class="btn btn-primary">Run it locally</button>
     </form>
@@ -763,9 +766,24 @@ window.MathJax = {
     <p>
       Each line is a real starting value sampled from the dyadic shell
       \([2^{26},2^{27})\), and its length is how many shortcut steps it
-      actually needed to reach a polylogarithmic target. The dashed line is
-      the clock \(c_*\log n\).
+      actually needed to reach the target. The dashed line is the clock
+      \(c_*\log n\); the few lines crossing it are, at this finite scale,
+      exactly the exceptional set the theorem allows.
     </p>
+
+    <div class="note">
+      <p>
+        <strong>Which target these illustrations use, and why.</strong> The
+        headline target \((\log n)^{A_{\rm FP}}\) is genuinely asymptotic: it
+        only becomes <em>smaller</em> than \(n\) once
+        \(n\gtrsim3.3\times10^{15}\). Below that crossover every orbit
+        satisfies it at \(k=0\), which would draw a descent where nothing has
+        happened. So the finite illustrations on this page use the paper's
+        stretched-logarithmic companion \(\exp((\log n)^{1-\delta})\) with
+        \(\delta=0.25\) — a genuine theorem of the same paper, and a real
+        descent at these scales.
+      </p>
+    </div>
     <div class="figbox">
       <canvas id="fig-ensemble" aria-label="Sampled real orbits from one dyadic shell and the number of steps each needed to reach the polylogarithmic target"></canvas>
     </div>
@@ -784,9 +802,10 @@ window.MathJax = {
       </table>
     </div>
     <p class="legend">
-      Real values, computed from the map. "Peak height" is the largest iterate
-      before the witness, written as a power of the starting value — the
-      quantity the same-witness ceiling bounds by \(n^{1+\beta}\).
+      Real values, computed from the map, against the companion target
+      \(\exp((\log n)^{0.75})\). "Peak height" is the largest iterate before
+      the witness, written as a power of the starting value — the quantity the
+      same-witness ceiling bounds by \(n^{1+\beta}\).
     </p>
   </div></div>
 </section>

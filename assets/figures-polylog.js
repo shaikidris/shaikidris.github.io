@@ -228,25 +228,33 @@
         let n;
         try { n = BigInt(input.value.trim()); }
         catch (e) { result.textContent = "Enter a positive integer."; return; }
-        if (n < 1n) { result.textContent = "Enter a positive integer."; return; }
-        if (n > 10n ** 15n) { result.textContent = "Keep it at or below 10¹⁵ for a responsive local run."; return; }
+        if (n < 2n) { result.textContent = "Enter an integer of at least 2."; return; }
+        if (n > 10n ** 24n) { result.textContent = "Keep it at or below 10²⁴ for a responsive local run."; return; }
 
-        const lnN = Math.log(Number(n < 10n ** 15n ? n : 10n ** 15n));
-        const target = Math.pow(lnN, data.constants.A_FP);
+        // Precise for big values: Number(n) would lose bits past 2^53.
+        const lnN = log2BigInt(n) * Math.LN2;
+        const delta = data.constants.illustrationDelta;
+        // target = exp((log n)^(1-delta)); compare in log2 to stay exact.
+        const targetLog2 = Math.pow(lnN, 1 - delta) / Math.LN2;
         const clock = data.constants.cStar * lnN;
+
         let cur = n, k = 0, peak = n;
-        const cap = 5000;
-        while (k < cap && log2BigInt(cur) > Math.log2(target)) {
+        const cap = 20000;
+        while (k < cap && log2BigInt(cur) > targetLog2) {
           cur = shortcut(cur); k++;
           if (cur > peak) peak = cur;
         }
         const peakRatio = log2BigInt(peak) / log2BigInt(n);
+        const landed = cur.toString().length > 18
+          ? "≈2^" + log2BigInt(cur).toFixed(1) : cur.toString();
+        const withinClock = k < clock;
         result.innerHTML =
-          "Reached <strong>" + (cur.toString().length > 18 ? "≈2^" + log2BigInt(cur).toFixed(1) : cur.toString()) +
-          "</strong> after <strong>" + k + "</strong> shortcut steps. " +
-          "The clock allows " + clock.toFixed(0) + ". " +
-          "Peak height was n^" + peakRatio.toFixed(3) + ". " +
-          "<em>One finite run — an illustration, not evidence for the density theorem.</em>";
+          "Reached <strong>" + landed + "</strong> after <strong>" + k +
+          "</strong> shortcut steps, against a target of ≈2^" + targetLog2.toFixed(1) + ". " +
+          "The clock \\(c_*\\log n\\) allows " + clock.toFixed(0) + " — " +
+          (withinClock ? "inside it" : "<strong>outside it</strong>, so this start is in the exceptional set at this scale") + ". " +
+          "The highest iterate on the way was n^" + peakRatio.toFixed(3) + ". " +
+          "<em>One finite run under the stretched-logarithmic companion target — an illustration, not evidence for the density theorem.</em>";
       });
     }
   }
