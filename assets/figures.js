@@ -780,7 +780,7 @@
     proofFlowLab();
     sectionNavigation();
     reveal();
-    fetch("assets/figure-data.json")
+    fetch("/assets/figure-data.json")
       .then(r => r.json())
       .then(data => {
         window.__figdata = data;
