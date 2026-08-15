@@ -100,6 +100,8 @@ window.MathJax = {
 <script defer src="/assets/mathjax/tex-chtml.js"></script>
 <script defer src="/assets/collatz-primer-core.js?v=20260815-primer-fix1"></script>
 <script defer src="/assets/figures-polylog.js?v=20260815-primer-fix1"></script>
+<script data-goatcounter="https://shaikidris.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.js"></script>
 </head>
 
 <body>
@@ -113,7 +115,7 @@ window.MathJax = {
       <a href="#result" class="opt">Result</a>
       <a href="#fundamentals" class="opt">Fundamentals</a>
       <a href="#architecture" class="opt">Architecture</a>
-      <a href="/paper/collatz-first-passage.pdf">Paper</a>
+      <a href="/paper/collatz-first-passage.pdf" data-goatcounter-click="root-paper-nav">Paper</a>
       <a href="/code/">Lean code</a>
       <a href="/cet/" class="opt">Earlier work</a>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme" title="Toggle colour theme">◐</button>
@@ -183,10 +185,10 @@ window.MathJax = {
       <span>Independent researcher, Dubai</span>
     </div>
     <div class="actions">
-      <a class="btn btn-primary" href="/paper/collatz-first-passage.pdf">Read the paper (PDF)</a>
+      <a class="btn btn-primary" href="/paper/collatz-first-passage.pdf" data-goatcounter-click="root-paper-pdf">Read the paper (PDF)</a>
       <a class="btn" href="#try-collatz">Try a Collatz orbit</a>
-      <a class="btn" href="https://doi.org/10.5281/zenodo.21937271" rel="noopener">Preprint DOI</a>
-      <a class="btn" href="/code/">Theorem → Lean map</a>
+      <a class="btn" href="https://doi.org/10.5281/zenodo.21937271" rel="noopener" data-goatcounter-click="root-preprint-doi">Preprint DOI</a>
+      <a class="btn" href="/code/" data-goatcounter-click="root-lean-map">Theorem → Lean map</a>
     </div>
   </div></div>
 </section>
@@ -207,8 +209,8 @@ window.MathJax = {
 
       <div class="primer-console">
         <div class="map-toggle" role="group" aria-label="Choose the Collatz map">
-          <button type="button" class="map-option" data-primer-map="standard" aria-pressed="true">Standard map</button>
-          <button type="button" class="map-option" data-primer-map="shortcut" aria-pressed="false">Shortcut map used in the paper</button>
+          <button type="button" class="map-option" data-primer-map="standard" data-goatcounter-click="root-primer-map-standard" aria-pressed="true">Standard map</button>
+          <button type="button" class="map-option" data-primer-map="shortcut" data-goatcounter-click="root-primer-map-shortcut" aria-pressed="false">Shortcut map used in the paper</button>
         </div>
 
         <div id="primer-form" class="primer-form" role="group" aria-label="Run a Collatz orbit">
@@ -218,8 +220,8 @@ window.MathJax = {
           </label>
           <div class="primer-input-row">
             <input id="primer-input" name="n" type="text" inputmode="numeric" pattern="[0-9]+" value="7" autocomplete="off" spellcheck="false">
-            <button class="btn btn-primary" id="primer-run" type="button">Run orbit</button>
-            <button class="btn" id="primer-replay" type="button" disabled>Replay</button>
+            <button class="btn btn-primary" id="primer-run" type="button" data-goatcounter-click="root-primer-run">Run orbit</button>
+            <button class="btn" id="primer-replay" type="button" data-goatcounter-click="root-primer-replay" disabled>Replay</button>
           </div>
         </div>
 
@@ -779,9 +781,9 @@ window.MathJax = {
           <small id="lab-gamma-cap"></small>
         </div>
         <div class="preset-row" aria-label="Parameter presets">
-          <button type="button" data-lab-preset="comfortable">Comfortable interior</button>
-          <button type="button" data-lab-preset="near-critical">Near the critical exponent</button>
-          <button type="button" data-lab-preset="inadmissible">Cross the γ boundary</button>
+          <button type="button" data-lab-preset="comfortable" data-goatcounter-click="root-lab-preset-comfortable">Comfortable interior</button>
+          <button type="button" data-lab-preset="near-critical" data-goatcounter-click="root-lab-preset-near-critical">Near the critical exponent</button>
+          <button type="button" data-lab-preset="inadmissible" data-goatcounter-click="root-lab-preset-inadmissible">Cross the γ boundary</button>
         </div>
       </article>
 
@@ -891,7 +893,7 @@ window.MathJax = {
       <canvas id="fig-orbit" aria-label="A real shortcut-Collatz orbit with a mean-drift reference and successive first-passage landings"></canvas>
     </div>
     <div class="fig-controls">
-      <button type="button" id="orbit-replay" class="btn">Replay the descent</button>
+      <button type="button" id="orbit-replay" class="btn" data-goatcounter-click="root-orbit-replay">Replay the descent</button>
     </div>
 
     <form id="orbit-form" class="orbit-controls" autocomplete="off">
@@ -900,7 +902,7 @@ window.MathJax = {
         <small>descends to \(\exp((\log n)^{0.75})\), the companion target — see the note below</small>
       </label>
       <input id="orbit-input" type="text" inputmode="numeric" placeholder="e.g. 987654321987" value="987654321987">
-      <button type="submit" class="btn btn-primary">Run it locally</button>
+      <button type="submit" class="btn btn-primary" data-goatcounter-click="root-orbit-run">Run it locally</button>
     </form>
     <div class="orbit-result" id="orbit-result" role="status" aria-live="polite"></div>
 
@@ -1034,8 +1036,8 @@ window.MathJax = {
     </p>
     <div class="actions">
       <a class="btn btn-primary" href="/code/">See the theorem → Lean map</a>
-      <a class="btn" href="https://doi.org/10.5281/zenodo.21930432" rel="noopener">Software DOI</a>
-      <a class="btn" href="https://github.com/shaikidris/FirstPassageLinearTransport/tree/lean-v3.2.0" rel="noopener">Browse the source</a>
+      <a class="btn" href="https://doi.org/10.5281/zenodo.21930432" rel="noopener" data-goatcounter-click="root-software-doi">Software DOI</a>
+      <a class="btn" href="https://github.com/shaikidris/FirstPassageLinearTransport/tree/lean-v3.2.0" rel="noopener" data-goatcounter-click="root-lean-source">Browse the source</a>
     </div>
   </div></div>
 </section>
@@ -1089,6 +1091,11 @@ window.MathJax = {
       Lean development under
       <a href="https://www.apache.org/licenses/LICENSE-2.0" rel="license noopener">Apache 2.0</a> ·
       <a href="/code/">Lean map</a> · <a href="/cet/">earlier work</a>
+    </p>
+    <p style="margin:.45rem 0 0;font-size:.85rem">
+      Privacy-friendly, cookieless page and interaction counts are collected
+      with <a href="https://www.goatcounter.com/help/privacy" rel="noopener">GoatCounter</a>;
+      no form values are sent.
     </p>
   </div>
 </footer>

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render the public Zenodo v2.0.2 article source to paper/index.html.
+"""Render the public Zenodo v2.0.2 article source to cet/paper/index.html.
 
 Source of truth:
   ~/research/collatz/CET-Sigma/rewrite/collatz_endpoint_transport_main.md
@@ -18,7 +18,7 @@ from pathlib import Path
 
 SITE = Path(__file__).resolve().parent.parent
 SRC = Path.home() / "research/collatz/CET-Sigma/rewrite/collatz_endpoint_transport_main.md"
-OUT = SITE / "paper" / "index.html"
+OUT = SITE / "cet" / "paper" / "index.html"
 
 TITLE = ("Quantitative Collatz Descent to Stretched-Logarithmic Scale in "
          "Natural Density, with a Lean 4 Formalization")
@@ -27,7 +27,7 @@ DESC = ("Full text of the public Zenodo v2.0.2 article: for every fixed "
         "orbit minimum satisfies T_min(n) <= exp((log n)^(1-delta)) on a set "
         "of natural density one, with an explicit exceptional count and a "
         "6.953 log n witness.")
-CANON = "https://shaikidris.github.io/paper/"
+CANON = "https://shaikidris.github.io/cet/paper/"
 DOI = "10.5281/zenodo.21851173"
 
 
@@ -77,7 +77,7 @@ TEMPLATE = """<!DOCTYPE html>
 <meta name="citation_doi" content="{doi}">
 <meta name="citation_abstract_html_url" content="https://shaikidris.github.io/">
 <meta name="citation_fulltext_html_url" content="{canon}">
-<meta name="citation_pdf_url" content="https://shaikidris.github.io/paper/collatz-endpoint-transport.pdf">
+<meta name="citation_pdf_url" content="https://shaikidris.github.io/cet/paper/collatz-endpoint-transport.pdf">
 <meta name="citation_language" content="en">
 <meta name="citation_keywords" content="Collatz map; natural density; Renyi moment; endpoint transport; parity vector; quantitative descent; Lean 4">
 
@@ -90,9 +90,9 @@ TEMPLATE = """<!DOCTYPE html>
 
 <meta name="author" content="Idris Ali Shaik">
 <meta name="robots" content="index, follow, max-snippet:-1">
-<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../assets/site.css">
-<link rel="stylesheet" href="../assets/paper.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/paper.css">
 
 <script type="application/ld+json">
 {{
@@ -122,18 +122,20 @@ window.MathJax = {{
   chtml: {{ scale: 0.97 }}
 }};
 </script>
-<script defer src="../assets/mathjax/tex-chtml.js"></script>
+<script defer src="/assets/mathjax/tex-chtml.js"></script>
+<script data-goatcounter="https://shaikidris.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body class="paperpage">
 <a class="skip" href="#doc">Skip to the paper</a>
 
 <header class="masthead">
   <div class="wrap">
-    <a class="brand" href="../">Quantitative Collatz Descent</a>
+    <a class="brand" href="/cet/">Quantitative Collatz Descent</a>
     <nav>
-      <a href="../">Overview</a>
+      <a href="/cet/">Overview</a>
       <a href="./" aria-current="page">Paper</a>
-      <a href="../code/">Lean code</a>
+      <a href="/cet/code/">Lean code</a>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme">◐</button>
     </nav>
   </div>
@@ -142,8 +144,8 @@ window.MathJax = {{
 <div class="paperbar">
   <div class="wrap">
     <span>Preprint · v2.0.2 · CC BY 4.0</span>
-    <a href="collatz-endpoint-transport.pdf">Download PDF</a>
-    <a href="https://doi.org/{doi}" rel="noopener">doi:{doi}</a>
+    <a href="collatz-endpoint-transport.pdf" data-goatcounter-click="cet-paper-download-pdf">Download PDF</a>
+    <a href="https://doi.org/{doi}" rel="noopener" data-goatcounter-click="cet-paper-preprint-doi">doi:{doi}</a>
   </div>
 </div>
 
@@ -159,9 +161,14 @@ window.MathJax = {{
     <p style="margin:0">
       © 2026 Idris Ali Shaik · licensed
       <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a> ·
-      <a href="../">site overview</a> ·
-      <a href="../code/">theorem → Lean map</a>
+      <a href="/cet/">site overview</a> ·
+      <a href="/cet/code/">theorem → Lean map</a>
       <br>An almost-all result in natural density; not a proof of the Collatz conjecture.
+    </p>
+    <p style="margin:.45rem 0 0;font-size:.85rem">
+      Privacy-friendly, cookieless page and interaction counts are collected
+      with <a href="https://www.goatcounter.com/help/privacy" rel="noopener">GoatCounter</a>;
+      no form values are sent.
     </p>
   </div>
 </footer>
