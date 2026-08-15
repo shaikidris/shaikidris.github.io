@@ -115,6 +115,8 @@ window.MathJax = {
 };
 </script>
 <script defer src="/assets/mathjax/tex-chtml.js"></script>
+<script data-goatcounter="https://shaikidris.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.js"></script>
 </head>
 
 <body>
@@ -207,9 +209,9 @@ window.MathJax = {
         </p>
       </div>
       <div class="actions">
-        <a class="btn btn-primary" href="/cet/paper/">Read the paper</a>
-        <a class="btn" href="https://doi.org/10.5281/zenodo.21851173" rel="noopener">PDF on Zenodo</a>
-        <a class="btn" href="/cet/code/">Theorem&nbsp;→&nbsp;Lean map</a>
+        <a class="btn btn-primary" href="/cet/paper/" data-goatcounter-click="cet-paper-html">Read the paper</a>
+        <a class="btn" href="https://doi.org/10.5281/zenodo.21851173" rel="noopener" data-goatcounter-click="cet-preprint-doi">PDF on Zenodo</a>
+        <a class="btn" href="/cet/code/" data-goatcounter-click="cet-lean-map">Theorem&nbsp;→&nbsp;Lean map</a>
       </div>
     </div>
   </div>
@@ -819,8 +821,8 @@ window.MathJax = {
           <input id="orbit-delta" type="range" min="0.01" max="0.25"
             step="0.01" value="0.15">
           <output id="orbit-delta-value" for="orbit-delta">0.15</output>
-          <button type="submit">Run orbit</button>
-          <button id="fig-orbit-replay" type="button">Replay</button>
+          <button type="submit" data-goatcounter-click="cet-orbit-run">Run orbit</button>
+          <button id="fig-orbit-replay" type="button" data-goatcounter-click="cet-orbit-replay">Replay</button>
         </form>
         <p class="orbit-result" id="orbit-result" role="status" aria-live="polite">
           n = 1,234,567 · δ = 0.15 · witness k* = 29 · clock bound ≈ 97.5
@@ -978,7 +980,7 @@ window.MathJax = {
       </p>
       <div class="actions">
         <a class="btn btn-primary" href="/cet/code/">Browse the theorem&nbsp;→&nbsp;Lean map</a>
-        <a class="btn" href="https://github.com/shaikidris/CET" rel="noopener">Source on GitHub</a>
+        <a class="btn" href="https://github.com/shaikidris/CET" rel="noopener" data-goatcounter-click="cet-lean-source">Source on GitHub</a>
       </div>
     </div>
   </div>
@@ -994,12 +996,12 @@ window.MathJax = {
           <b>Full paper</b>
           <span>The complete article, rendered as HTML with live typeset mathematics.</span>
         </a>
-        <a class="tile" href="https://doi.org/10.5281/zenodo.21851173" rel="noopener">
+        <a class="tile" href="https://doi.org/10.5281/zenodo.21851173" rel="noopener" data-goatcounter-click="cet-read-preprint-doi">
           <b>Preprint on Zenodo</b>
           <span>Archived PDF of record, CC BY 4.0.</span>
           <span class="doi">10.5281/zenodo.21851173</span>
         </a>
-        <a class="tile" href="https://doi.org/10.5281/zenodo.21797535" rel="noopener">
+        <a class="tile" href="https://doi.org/10.5281/zenodo.21797535" rel="noopener" data-goatcounter-click="cet-read-software-doi">
           <b>Lean artifact</b>
           <span>The formalization, archived and versioned. Apache 2.0.</span>
           <span class="doi">10.5281/zenodo.21797535</span>
@@ -1063,6 +1065,11 @@ window.MathJax = {
       <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a>;
       the Lean development is Apache 2.0. This site presents almost-all results
       in natural density and does not claim a proof of the Collatz conjecture.
+    </p>
+    <p style="margin:.45rem 0 0;font-size:.85rem">
+      Privacy-friendly, cookieless page and interaction counts are collected
+      with <a href="https://www.goatcounter.com/help/privacy" rel="noopener">GoatCounter</a>;
+      no form values are sent.
     </p>
   </div>
 </footer>

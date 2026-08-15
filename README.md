@@ -61,9 +61,7 @@ python3 scripts/build_paper.py        # re-renders the CET manuscript page
 
 `build_paper.py` reads
 `~/research/collatz/CET-Sigma/rewrite/collatz_endpoint_transport_main.md` and
-writes the CET manuscript page. **Its output path still points at the old
-`paper/` location** — update it to `cet/paper/` before the next CET
-regeneration.
+writes the CET manuscript page at `cet/paper/index.html`.
 
 Requires `pandoc` and Python 3 with Pillow.
 
@@ -111,6 +109,20 @@ data fetch in `assets/figures-polylog.js`. This prevents a newly deployed HTML
 page from running against stale interaction code. Interactive controls should
 also use `type="button"` rather than native form submission, so missing or stale
 JavaScript cannot navigate the page.
+
+### Analytics
+
+All public HTML pages load GoatCounter with the site endpoint
+`https://shaikidris.goatcounter.com/count`. The endpoint is a public site
+identifier, not a credential. GoatCounter's default localhost filter prevents
+local previews from being counted.
+
+Important outbound links and interactive controls use
+`data-goatcounter-click` event names. Event names describe only the action
+(for example, `root-paper-pdf` or `cet-orbit-run`); never include form values,
+starting integers, slider values, or other visitor-entered data. New public
+HTML pages must include both the GoatCounter script in `<head>` and the short
+privacy notice in the footer.
 
 After a structural change like the `/cet/` relocation, resubmit
 `https://shaikidris.github.io/sitemap.xml` in Google Search Console and Bing
