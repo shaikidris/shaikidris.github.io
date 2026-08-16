@@ -6,13 +6,13 @@ theorems by different architectures, with different numbering.
 
 ---
 
-# Part A — Root (`/`): Polylogarithmic Descent, v3.2.1
+# Part A — Root (`/`): Polylogarithmic Descent, v3.2.2
 
 Synchronized to two public records only:
 
 1. **Article:** Zenodo record
-   [10.5281/zenodo.21937271](https://doi.org/10.5281/zenodo.21937271),
-   version 3.2.1, *Polylogarithmic Descent for Almost All Collatz Orbits in
+   [10.5281/zenodo.21956066](https://doi.org/10.5281/zenodo.21956066),
+   version 3.2.2, *Polylogarithmic Descent for Almost All Collatz Orbits in
    Natural Density*.
 2. **Formal artifact:** public
    [FirstPassageLinearTransport tag `lean-v3.2.0`](https://github.com/shaikidris/FirstPassageLinearTransport/tree/lean-v3.2.0),

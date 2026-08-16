@@ -1,5 +1,5 @@
 /* =========================================================================
-   Figure engine for the root (v3.2.1) page. Preset values come from
+   Figure engine for the root (v3.2.2) page. Preset values come from
    assets/figure-data-polylog.json, produced by
    scripts/make_figure_data_polylog.py from the actual shortcut Collatz map.
 
@@ -894,7 +894,7 @@
     proofFlowLab();
     sectionNavigation();
     reveal();
-    fetch("/assets/figure-data-polylog.json?v=20260815-primer-fix1")
+    fetch("/assets/figure-data-polylog.json?v=20260815-v322")
       .then(r => r.json())
       .then(data => {
         window.__figdata = data;
