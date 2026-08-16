@@ -75,11 +75,11 @@ TEMPLATE = """<!DOCTYPE html>
 <meta name="citation_author_orcid" content="https://orcid.org/0009-0009-9699-9712">
 <meta name="citation_publication_date" content="2026/08/08">
 <meta name="citation_doi" content="{doi}">
-<meta name="citation_abstract_html_url" content="https://shaikidris.github.io/">
+<meta name="citation_abstract_html_url" content="https://shaikidris.github.io/cet/">
 <meta name="citation_fulltext_html_url" content="{canon}">
 <meta name="citation_pdf_url" content="https://shaikidris.github.io/cet/paper/collatz-endpoint-transport.pdf">
 <meta name="citation_language" content="en">
-<meta name="citation_keywords" content="Collatz map; natural density; Renyi moment; endpoint transport; parity vector; quantitative descent; Lean 4">
+<meta name="citation_keywords" content="Collatz conjecture; almost all Collatz orbits; shortcut Collatz map; ordinary natural density; stretched-logarithmic descent; fixed-total Rényi estimate; endpoint transport; endpoint fibers; parity vectors; quantitative exceptional-set bounds; logarithmic witnessing clock; Lean 4 formalization; Mathlib">
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="{title}">
@@ -105,8 +105,9 @@ TEMPLATE = """<!DOCTYPE html>
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "identifier": {{ "@type": "PropertyValue", "propertyID": "DOI", "value": "{doi}" }},
   "url": "{canon}",
+  "keywords": "Collatz conjecture, almost all Collatz orbits, shortcut Collatz map, ordinary natural density, stretched-logarithmic descent, fixed-total Rényi estimate, endpoint transport, endpoint fibers, parity vectors, quantitative exceptional-set bounds, logarithmic witnessing clock, Lean 4 formalization, Mathlib",
   "isPartOf": {{ "@type": "WebSite", "name": "Quantitative Collatz Descent",
-                 "url": "https://shaikidris.github.io/" }}
+                 "url": "https://shaikidris.github.io/cet/" }}
 }}
 </script>
 
