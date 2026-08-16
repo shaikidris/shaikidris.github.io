@@ -10,8 +10,8 @@ The **root** is the current flagship paper; the **earlier** paper keeps its
 full page under `/cet/`.
 
 ```
-index.html                  Polylogarithmic Descent (v3.2.1) — landing page
-paper/collatz-first-passage.pdf   exact Zenodo v3.2.1 PDF
+index.html                  Polylogarithmic Descent (v3.2.2) — landing page
+paper/collatz-first-passage.pdf   exact Zenodo v3.2.2 PDF
 code/index.html             theorem -> Lean declaration map (11 public theorems)
 
 cet/index.html              Quantitative Collatz Descent (v2.0.2) — landing page
@@ -41,7 +41,7 @@ move between directories without breaking. `assets/figures.js` fetches
 
 | | Root (`/`) | Earlier (`/cet/`) |
 |---|---|---|
-| Article | [10.5281/zenodo.21937271](https://doi.org/10.5281/zenodo.21937271) v3.2.1 | [10.5281/zenodo.21851173](https://doi.org/10.5281/zenodo.21851173) v2.0.2 |
+| Article | [10.5281/zenodo.21956066](https://doi.org/10.5281/zenodo.21956066) v3.2.2 | [10.5281/zenodo.21851173](https://doi.org/10.5281/zenodo.21851173) v2.0.2 |
 | Formalization | [10.5281/zenodo.21930432](https://doi.org/10.5281/zenodo.21930432) | [10.5281/zenodo.21797535](https://doi.org/10.5281/zenodo.21797535) |
 | Source | [FirstPassageLinearTransport](https://github.com/shaikidris/FirstPassageLinearTransport) tag `lean-v3.2.0` | [CET](https://github.com/shaikidris/CET) tag `v2.0.1` |
 
@@ -74,7 +74,7 @@ node scripts/test_collatz_primer.js
 ### Known follow-up
 
 The root page is a landing page only. A rendered full-text HTML edition of
-the v3.2.1 manuscript (the `/cet/paper/` equivalent) is not built yet.
+the v3.2.2 manuscript (the `/cet/paper/` equivalent) is not built yet.
 
 ## Content boundary
 
