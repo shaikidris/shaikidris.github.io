@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the 1200x630 social card for the root v3.2.2 paper page."""
+"""Generate the 1200x630 social card for the root v3.2.3 paper page."""
 
 from __future__ import annotations
 
@@ -126,7 +126,7 @@ def main() -> None:
     draw.text((rx, 478 * SCALE), "Idris Ali Shaik", font=name_font, fill=INK)
     draw.text(
         (rx, 511 * SCALE),
-        "doi:10.5281/zenodo.21956066  ·  v3.2.2",
+        "doi:10.5281/zenodo.21984038  ·  v3.2.3",
         font=meta_font,
         fill=ACCENT,
     )

@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Generate assets/figure-data-polylog.json for the root (v3.2.2) page.
+"""Generate assets/figure-data-polylog.json for the root (v3.2.3) page.
 
 Every number written here is computed from the real shortcut Collatz map or
 from the paper's closed-form constants. Nothing is hand-typed, and nothing
 produced here is a proof input: these are finite illustrations of an
 asymptotic, natural-density theorem.
 
-Source of truth: Zenodo 10.5281/zenodo.21956066 (article v3.2.2).
+Source of truth: Zenodo 10.5281/zenodo.21984038 (article v3.2.3).
 Run:  python3 scripts/make_figure_data_polylog.py
 """
 
@@ -285,7 +285,7 @@ for exp10 in (6, 9, 12, 15, 18):
 # --------------------------------------------------------------------------
 
 payload = {
-    "_source": "Zenodo 10.5281/zenodo.21956066 (article v3.2.2)",
+    "_source": "Zenodo 10.5281/zenodo.21984038 (article v3.2.3)",
     "_disclaimer": (
         "Finite illustrations computed from the real shortcut Collatz map. "
         "Not proof inputs; the theorem is asymptotic and holds in natural density."
