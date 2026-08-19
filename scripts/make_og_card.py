@@ -126,7 +126,7 @@ def main() -> None:
     draw.text((rx, 478 * SCALE), "Idris Ali Shaik", font=name_font, fill=INK)
     draw.text(
         (rx, 511 * SCALE),
-        "doi:10.5281/zenodo.21984038  ·  v3.2.3",
+        "doi:10.2139/ssrn.7290240  ·  v3.2.3",
         font=meta_font,
         fill=ACCENT,
     )
