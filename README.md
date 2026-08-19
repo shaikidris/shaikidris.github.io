@@ -42,6 +42,7 @@ move between directories without breaking. `assets/figures.js` fetches
 | | Root (`/`) | Earlier (`/cet/`) |
 |---|---|---|
 | Article | [SSRN Paper 7290240](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240), DOI [10.2139/ssrn.7290240](https://doi.org/10.2139/ssrn.7290240); versioned archive [10.5281/zenodo.21984038](https://doi.org/10.5281/zenodo.21984038) v3.2.3 | [10.5281/zenodo.21851173](https://doi.org/10.5281/zenodo.21851173) v2.0.2 |
+| Direct PDF | [Version 3.2.3](https://shaikidris.github.io/paper/collatz-first-passage.pdf) | [Version 2.0.2](https://shaikidris.github.io/cet/paper/collatz-endpoint-transport.pdf) |
 | Formalization | [10.5281/zenodo.21930432](https://doi.org/10.5281/zenodo.21930432) | [10.5281/zenodo.21797535](https://doi.org/10.5281/zenodo.21797535) |
 | Source | [FirstPassageLinearTransport](https://github.com/shaikidris/FirstPassageLinearTransport) tag `lean-v3.2.0` | [CET](https://github.com/shaikidris/CET) tag `v2.0.1` |
 
