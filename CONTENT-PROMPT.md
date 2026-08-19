@@ -8,24 +8,28 @@ theorems by different architectures, with different numbering.
 
 # Part A — Root (`/`): Polylogarithmic Descent, v3.2.3
 
-Synchronized to three public records only:
+Synchronized to three public records plus one direct full-text copy:
 
 1. **Primary preprint page:** SSRN
    [Paper 7290240](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240),
    DOI [10.2139/ssrn.7290240](https://doi.org/10.2139/ssrn.7290240),
    *Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density*.
-2. **Versioned article archive:** Zenodo record
+2. **Direct full-text copy:**
+   [Version 3.2.3 PDF](https://shaikidris.github.io/paper/collatz-first-passage.pdf),
+   byte-identical to the versioned Zenodo PDF.
+3. **Versioned article archive:** Zenodo record
    [10.5281/zenodo.21984038](https://doi.org/10.5281/zenodo.21984038),
    version 3.2.3, *Polylogarithmic Descent for Almost All Collatz Orbits in
    Natural Density*.
-3. **Formal artifact:** public
+4. **Formal artifact:** public
    [FirstPassageLinearTransport tag `lean-v3.2.0`](https://github.com/shaikidris/FirstPassageLinearTransport/tree/lean-v3.2.0),
    commit `ef3410843bf58d69f771f5ba2c0571d54b54da59`, archived as
    [10.5281/zenodo.21930432](https://doi.org/10.5281/zenodo.21930432).
 
-SSRN is the primary reader-facing discovery and citation page. Zenodo remains
-the immutable versioned archive and source of the exact public PDF. Neither
-record changes the theorem statement or formalization boundary below.
+SSRN is the primary reader-facing discovery and citation page. The GitHub Pages
+URL is the direct full-text copy. Zenodo remains the immutable versioned archive
+and source of those exact PDF bytes. None of these locations changes the theorem
+statement or formalization boundary below.
 
 ## Frozen public theorem surface
 
