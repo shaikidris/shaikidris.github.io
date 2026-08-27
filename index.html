@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density</title>
-<meta name="description" content="In ordinary natural density, almost every integer's shortcut-Collatz orbit reaches a polylogarithmic value within O(log n) steps, with every earlier iterate below n^(1+β). Explicit critical exponent A_FP = 9.9911133419…, quantitative exceptional-set rates, and a Lean 4 formalization with no sorry and no project axioms.">
+<meta name="description" content="In ordinary natural density, almost every integer's shortcut-Collatz orbit reaches a polylogarithmic value within O(log n) steps. The companion Lean 4 formalization is mechanically verified and preserved in the Palomar Registry.">
 <link rel="canonical" href="https://shaikidris.github.io/">
 
 <!-- ============ Google Scholar / Highwire citation tags ============ -->
@@ -34,7 +34,7 @@
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Polylogarithmic Collatz Descent">
 <meta property="og:title" content="Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
-<meta property="og:description" content="Almost every integer reaches a polylogarithmic Collatz value within O(log n) steps, in ordinary natural density, with an explicit critical exponent and a Lean 4 formalization.">
+<meta property="og:description" content="Almost every integer reaches a polylogarithmic Collatz value within O(log n) steps, with four principal Lean declarations mechanically verified and preserved in Palomar.">
 <meta property="og:url" content="https://shaikidris.github.io/">
 <meta property="og:image" content="https://shaikidris.github.io/assets/og-card.png?v=20260819-ssrn1">
 <meta property="og:image:width" content="1200">
@@ -44,7 +44,7 @@
 <meta property="article:published_time" content="2026-08-17">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
-<meta name="twitter:description" content="Natural-density Collatz descent to a polylogarithmic target with an explicit critical exponent, quantitative rates, and a Lean 4 formalization.">
+<meta name="twitter:description" content="Natural-density Collatz descent to a polylogarithmic target, with four principal Lean declarations mechanically verified and preserved in Palomar.">
 <meta name="twitter:image" content="https://shaikidris.github.io/assets/og-card.png?v=20260819-ssrn1">
 <meta name="twitter:image:alt" content="Title card for Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
 
@@ -54,7 +54,7 @@
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <!-- Bump the asset revision whenever root-page CSS or JavaScript changes.
      GitHub Pages otherwise permits browsers to reuse those files for 10 min. -->
-<link rel="stylesheet" href="/assets/site.css?v=20260815-title1">
+<link rel="stylesheet" href="/assets/site.css?v=20260827-palomar1">
 
 <!-- ============ schema.org ============ -->
 <script type="application/ld+json">
@@ -79,7 +79,8 @@
   "url": "https://shaikidris.github.io/",
   "sameAs": [
     "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240",
-    "https://doi.org/10.5281/zenodo.21984038"
+    "https://doi.org/10.5281/zenodo.21984038",
+    "https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&version=2"
   ],
   "inLanguage": "en",
   "keywords": "Collatz conjecture, almost all Collatz orbits, shortcut Collatz map, ordinary natural density, first-passage method, stopping map, parity vectors, polylogarithmic descent, quantitative exceptional-set bounds, logarithmic witnessing clock, Lean 4 formalization, Mathlib",
@@ -127,6 +128,7 @@ window.MathJax = {
       <a href="#result" class="opt">Result</a>
       <a href="#fundamentals" class="opt">Fundamentals</a>
       <a href="#architecture" class="opt">Architecture</a>
+      <a href="#palomar" class="opt">Verification</a>
       <a href="/paper/collatz-first-passage.pdf" data-goatcounter-click="root-paper-nav">Paper</a>
       <a href="/code/">Lean code</a>
       <a href="/cet/" class="opt">Earlier work</a>
@@ -139,6 +141,7 @@ window.MathJax = {
   <p>On this page</p>
   <nav class="section-links">
     <a href="#overview">Overview</a>
+    <a href="#palomar">Palomar verification</a>
     <a href="#try-collatz">Try a Collatz orbit</a>
     <a href="#result">The result</a>
     <a href="#fundamentals">Fundamentals</a>
@@ -160,6 +163,7 @@ window.MathJax = {
   <summary>Jump to a section</summary>
   <nav class="section-links" aria-label="On this page">
     <a href="#overview">Overview</a>
+    <a href="#palomar">Palomar verification</a>
     <a href="#try-collatz">Try a Collatz orbit</a>
     <a href="#result">The result</a>
     <a href="#fundamentals">Fundamentals</a>
@@ -182,7 +186,7 @@ window.MathJax = {
 <!-- ==================== HERO ==================== -->
 <section class="hero" id="overview">
   <div class="wrap"><div class="col">
-    <p class="eyebrow">Preprint · Version 3.2.3 · 17 August 2026</p>
+    <p class="eyebrow">Preprint · Version 3.2.3 · Palomar-registered formalization</p>
     <h1 class="paper-title">Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density</h1>
     <p class="tagline">
       In ordinary natural density, almost every positive integer reaches a
@@ -202,6 +206,23 @@ window.MathJax = {
       <a class="btn" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240" rel="noopener" data-goatcounter-click="root-preprint-ssrn">SSRN preprint</a>
       <a class="btn" href="/code/" data-goatcounter-click="root-lean-map">Theorem → Lean map</a>
     </div>
+
+    <aside class="palomar-headline" id="palomar" aria-labelledby="palomar-title">
+      <p class="palomar-status"><span aria-hidden="true">✓</span> Palomar Registry · Version 2 · High trust</p>
+      <h2 id="palomar-title">Four Lean declarations independently replayed and permanently preserved</h2>
+      <p>
+        Palomar mechanically checked the submitted Challenge/Solution pairs,
+        replayed the proofs with Comparator and NanoDa, and archived the exact
+        source commit with its dependencies. The registered declarations cover
+        the moving endpoint, fixed polylogarithmic specialization, same-witness
+        stretched-logarithmic descent, and quantitative exceptional count.
+      </p>
+      <p class="palomar-scope">
+        This is public machine-verification evidence, not journal peer review
+        and not a proof of the pointwise Collatz conjecture.
+      </p>
+      <a class="palomar-link" href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&amp;version=2" rel="noopener" data-goatcounter-click="root-palomar-v2">View the permanent Palomar record <span aria-hidden="true">→</span></a>
+    </aside>
   </div></div>
 </section>
 
@@ -1046,8 +1067,15 @@ window.MathJax = {
       exposed as single wrapper theorems — that declaration-level boundary is
       stated explicitly on the map page.
     </p>
+    <p>
+      Palomar Registry version 2 independently verifies four selected public
+      declarations from this theorem chain, permits only Lean's standard
+      axioms, records a high-trust result, and preserves the exact submitted
+      source and dependency graph.
+    </p>
     <div class="actions">
-      <a class="btn btn-primary" href="/code/">See the theorem → Lean map</a>
+      <a class="btn btn-primary" href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&amp;version=2" rel="noopener" data-goatcounter-click="root-lean-palomar">Palomar verification record</a>
+      <a class="btn" href="/code/">See the theorem → Lean map</a>
       <a class="btn" href="https://doi.org/10.5281/zenodo.21930432" rel="noopener" data-goatcounter-click="root-software-doi">Software DOI</a>
       <a class="btn" href="https://github.com/shaikidris/FirstPassageLinearTransport/tree/lean-v3.2.0" rel="noopener" data-goatcounter-click="root-lean-source">Browse the source</a>
     </div>
@@ -1076,6 +1104,10 @@ window.MathJax = {
           <tr>
             <td><b>Formalization</b></td>
             <td><a href="https://doi.org/10.5281/zenodo.21930432" rel="noopener">10.5281/zenodo.21930432</a> · Apache 2.0</td>
+          </tr>
+          <tr>
+            <td><b>Palomar verification</b></td>
+            <td><a href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&amp;version=2" rel="noopener">PALOMAR-2026-08-26-000005 v2</a> · four declarations · high trust</td>
           </tr>
           <tr>
             <td><b>Source</b></td>

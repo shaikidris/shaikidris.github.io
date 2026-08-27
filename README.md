@@ -44,11 +44,18 @@ move between directories without breaking. `assets/figures.js` fetches
 | Article | [SSRN Paper 7290240](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240), DOI [10.2139/ssrn.7290240](https://doi.org/10.2139/ssrn.7290240); versioned archive [10.5281/zenodo.21984038](https://doi.org/10.5281/zenodo.21984038) v3.2.3 | [10.5281/zenodo.21851173](https://doi.org/10.5281/zenodo.21851173) v2.0.2 |
 | Direct PDF | [Version 3.2.3](https://shaikidris.github.io/paper/collatz-first-passage.pdf) | [Version 2.0.2](https://shaikidris.github.io/cet/paper/collatz-endpoint-transport.pdf) |
 | Formalization | [10.5281/zenodo.21930432](https://doi.org/10.5281/zenodo.21930432) | [10.5281/zenodo.21797535](https://doi.org/10.5281/zenodo.21797535) |
+| Palomar | [PALOMAR-2026-08-26-000005 v2](https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&version=2), four selected declarations, high trust | — |
 | Source | [FirstPassageLinearTransport](https://github.com/shaikidris/FirstPassageLinearTransport) tag `lean-v3.2.0` | [CET](https://github.com/shaikidris/CET) tag `v2.0.1` |
 
 The two papers are logically independent and use different proof
 architectures. Neither page may borrow theorem statements, ranges, or
 numbering from the other.
+
+The Palomar record is versioned separately from the Lean software archive. Its
+version 2 snapshot verifies four selected declarations from commit
+`68d0ab1f258fa9a584d9ca3f3822d5f56461b8ed` of the dedicated Lean 4.33.0
+Palomar package. Describe it as mechanical verification and preservation, not
+as journal peer review or verification of every manuscript specialization.
 
 ## Regenerating things
 

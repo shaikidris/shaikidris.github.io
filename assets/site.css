@@ -228,6 +228,41 @@ h1 {
 }
 .byline a { color: var(--ink-soft); }
 
+.palomar-headline {
+  margin-top: 2rem; padding: 1.25rem 1.35rem 1.3rem;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--good-soft) 82%, var(--paper-raised)), var(--paper-raised));
+  border: 1px solid color-mix(in srgb, var(--good) 38%, var(--rule));
+  border-radius: var(--radius); box-shadow: var(--shadow);
+}
+.palomar-headline h2 {
+  max-width: 26ch; margin-bottom: .7rem;
+  font-size: clamp(1.25rem, 2.8vw, 1.6rem);
+}
+.palomar-headline > p:not(.palomar-status) {
+  color: var(--ink-soft); font-size: .94rem; line-height: 1.58;
+}
+.palomar-status {
+  display: flex; align-items: center; gap: .48rem; margin: 0 0 .65rem;
+  color: var(--good); font: 700 .7rem/1.35 var(--sans);
+  letter-spacing: .07em; text-transform: uppercase;
+}
+.palomar-status span {
+  display: inline-grid; place-items: center; width: 1.25rem; height: 1.25rem;
+  border-radius: 50%; color: var(--paper-raised); background: var(--good);
+  font-size: .75rem; letter-spacing: 0;
+}
+.palomar-headline .palomar-scope {
+  margin: -.15rem 0 .9rem; color: var(--ink-faint);
+  font: .76rem/1.5 var(--sans);
+}
+.palomar-link {
+  display: inline-flex; align-items: center; gap: .4rem;
+  color: var(--good); font: 700 .82rem/1.4 var(--sans); text-decoration: none;
+}
+.palomar-link:hover { text-decoration: underline; }
+#palomar { scroll-margin-top: 5rem; }
+
 /* ---------- beginner orbit primer ---------- */
 
 .primer-section {
