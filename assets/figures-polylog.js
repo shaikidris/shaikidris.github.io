@@ -1,5 +1,5 @@
 /* =========================================================================
-   Figure engine for the root (v3.2.3) page. Preset values come from
+   Figure engine for the root (v3.2.4) page. Preset values come from
    assets/figure-data-polylog.json, produced by
    scripts/make_figure_data_polylog.py from the actual shortcut Collatz map.
 
