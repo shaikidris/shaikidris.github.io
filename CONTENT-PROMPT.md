@@ -6,7 +6,7 @@ theorems by different architectures, with different numbering.
 
 ---
 
-# Part A — Root (`/`): Polylogarithmic Descent, v3.2.3
+# Part A — Root (`/`): Polylogarithmic Descent, v3.2.4
 
 Synchronized to three public records plus one direct full-text copy:
 
@@ -15,11 +15,11 @@ Synchronized to three public records plus one direct full-text copy:
    DOI [10.2139/ssrn.7290240](https://doi.org/10.2139/ssrn.7290240),
    *Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density*.
 2. **Direct full-text copy:**
-   [Version 3.2.3 PDF](https://shaikidris.github.io/paper/collatz-first-passage.pdf),
+   [Version 3.2.4 PDF](https://shaikidris.github.io/paper/collatz-first-passage.pdf),
    byte-identical to the versioned Zenodo PDF.
 3. **Versioned article archive:** Zenodo record
-   [10.5281/zenodo.21984038](https://doi.org/10.5281/zenodo.21984038),
-   version 3.2.3, *Polylogarithmic Descent for Almost All Collatz Orbits in
+   [10.5281/zenodo.22130385](https://doi.org/10.5281/zenodo.22130385),
+   version 3.2.4, *Polylogarithmic Descent for Almost All Collatz Orbits in
    Natural Density*.
 4. **Formal artifact:** public
    [FirstPassageLinearTransport tag `lean-v3.2.0`](https://github.com/shaikidris/FirstPassageLinearTransport/tree/lean-v3.2.0),

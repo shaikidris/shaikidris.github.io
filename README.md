@@ -10,8 +10,8 @@ The **root** is the current flagship paper; the **earlier** paper keeps its
 full page under `/cet/`.
 
 ```
-index.html                  Polylogarithmic Descent (v3.2.3) — landing page
-paper/collatz-first-passage.pdf   exact Zenodo v3.2.3 PDF
+index.html                  Polylogarithmic Descent (v3.2.4) — landing page
+paper/collatz-first-passage.pdf   exact Zenodo v3.2.4 PDF
 code/index.html             theorem -> Lean declaration map (11 public theorems)
 
 cet/index.html              Quantitative Collatz Descent (v2.0.2) — landing page
@@ -41,8 +41,8 @@ move between directories without breaking. `assets/figures.js` fetches
 
 | | Root (`/`) | Earlier (`/cet/`) |
 |---|---|---|
-| Article | [SSRN Paper 7290240](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240), DOI [10.2139/ssrn.7290240](https://doi.org/10.2139/ssrn.7290240); versioned archive [10.5281/zenodo.21984038](https://doi.org/10.5281/zenodo.21984038) v3.2.3 | [10.5281/zenodo.21851173](https://doi.org/10.5281/zenodo.21851173) v2.0.2 |
-| Direct PDF | [Version 3.2.3](https://shaikidris.github.io/paper/collatz-first-passage.pdf) | [Version 2.0.2](https://shaikidris.github.io/cet/paper/collatz-endpoint-transport.pdf) |
+| Article | [SSRN Paper 7290240](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240), DOI [10.2139/ssrn.7290240](https://doi.org/10.2139/ssrn.7290240); versioned archive [10.5281/zenodo.22130385](https://doi.org/10.5281/zenodo.22130385) v3.2.4 | [10.5281/zenodo.21851173](https://doi.org/10.5281/zenodo.21851173) v2.0.2 |
+| Direct PDF | [Version 3.2.4](https://shaikidris.github.io/paper/collatz-first-passage.pdf) | [Version 2.0.2](https://shaikidris.github.io/cet/paper/collatz-endpoint-transport.pdf) |
 | Formalization | [10.5281/zenodo.21930432](https://doi.org/10.5281/zenodo.21930432) | [10.5281/zenodo.21797535](https://doi.org/10.5281/zenodo.21797535) |
 | Palomar | [PALOMAR-2026-08-26-000005 v2](https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&version=2), four selected declarations, high trust | — |
 | Source | [FirstPassageLinearTransport](https://github.com/shaikidris/FirstPassageLinearTransport) tag `lean-v3.2.0` | [CET](https://github.com/shaikidris/CET) tag `v2.0.1` |
@@ -82,11 +82,11 @@ node scripts/test_collatz_primer.js
 ### Known follow-up
 
 The root page is a landing page only. A rendered full-text HTML edition of
-the v3.2.3 manuscript (the `/cet/paper/` equivalent) is not built yet.
+the v3.2.4 manuscript (the `/cet/paper/` equivalent) is not built yet.
 
 ## Content boundary
 
-Every page is synchronized to a **published** record — a Zenodo DOI and a
+Every pushed page must be synchronized to a **published** record — a Zenodo DOI and a
 public tag. No unpublished or internal draft is a source for this site. See
 `CONTENT-PROMPT.md` for the per-paper source of truth and the update gate.
 
