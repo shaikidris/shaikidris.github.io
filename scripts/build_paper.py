@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Render the public Zenodo v2.0.2 article source to cet/paper/index.html.
+"""Render the public Zenodo v2.0.3 article source to cet/paper/index.html.
 
 Source of truth:
-  ~/research/collatz/CET-Sigma/rewrite/collatz_endpoint_transport_main.md
+  ~/research/collatz/approaches/CollatzEndpointTransport/paper/canonical/manuscript/collatz_endpoint_transport.md
 
 The manuscript is never edited here. This script only converts it and wraps it
 in the site chrome, so re-running it after a manuscript change is safe.
@@ -17,18 +17,19 @@ import sys
 from pathlib import Path
 
 SITE = Path(__file__).resolve().parent.parent
-SRC = Path.home() / "research/collatz/CET-Sigma/rewrite/collatz_endpoint_transport_main.md"
+SRC = (Path.home() / "research/collatz/approaches/CollatzEndpointTransport"
+       "/paper/canonical/manuscript/collatz_endpoint_transport.md")
 OUT = SITE / "cet" / "paper" / "index.html"
 
 TITLE = ("Quantitative Collatz Descent to Stretched-Logarithmic Scale in "
          "Natural Density, with a Lean 4 Formalization")
-DESC = ("Full text of the public Zenodo v2.0.2 article: for every fixed "
+DESC = ("Full text of the public Zenodo v2.0.3 article: for every fixed "
         "0 < delta < delta_0 = 0.251245530155874..., the shortcut Collatz "
         "orbit minimum satisfies T_min(n) <= exp((log n)^(1-delta)) on a set "
         "of natural density one, with an explicit exceptional count and a "
         "6.953 log n witness.")
 CANON = "https://shaikidris.github.io/cet/paper/"
-DOI = "10.5281/zenodo.21851173"
+DOI = "10.5281/zenodo.21982543"
 
 
 def pandoc(md: str) -> str:
@@ -73,7 +74,7 @@ TEMPLATE = """<!DOCTYPE html>
 <meta name="citation_title" content="{title}">
 <meta name="citation_author" content="Shaik, Idris Ali">
 <meta name="citation_author_orcid" content="https://orcid.org/0009-0009-9699-9712">
-<meta name="citation_publication_date" content="2026/08/08">
+<meta name="citation_publication_date" content="2026/08/17">
 <meta name="citation_doi" content="{doi}">
 <meta name="citation_abstract_html_url" content="https://shaikidris.github.io/cet/">
 <meta name="citation_fulltext_html_url" content="{canon}">
@@ -101,7 +102,7 @@ TEMPLATE = """<!DOCTYPE html>
   "headline": "{title}",
   "author": {{ "@type": "Person", "name": "Idris Ali Shaik",
                "identifier": "https://orcid.org/0009-0009-9699-9712" }},
-  "datePublished": "2026-08-08",
+  "datePublished": "2026-08-17",
   "license": "https://creativecommons.org/licenses/by/4.0/",
   "identifier": {{ "@type": "PropertyValue", "propertyID": "DOI", "value": "{doi}" }},
   "url": "{canon}",
@@ -144,7 +145,7 @@ window.MathJax = {{
 
 <div class="paperbar">
   <div class="wrap">
-    <span>Preprint · v2.0.2 · CC BY 4.0</span>
+    <span>Preprint · v2.0.3 · CC BY 4.0</span>
     <a href="collatz-endpoint-transport.pdf" data-goatcounter-click="cet-paper-download-pdf">Download PDF</a>
     <a href="https://doi.org/{doi}" rel="noopener" data-goatcounter-click="cet-paper-preprint-doi">doi:{doi}</a>
   </div>

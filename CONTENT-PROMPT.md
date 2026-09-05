@@ -75,13 +75,13 @@ Never compress this to an unqualified "no gaps."
 
 ---
 
-# Part B — `/cet/`: Quantitative Collatz Descent, v2.0.2
+# Part B — `/cet/`: Quantitative Collatz Descent, v2.0.3
 
 This page is synchronized to two public records only:
 
 1. **Article:** Zenodo record
-   [10.5281/zenodo.21851173](https://doi.org/10.5281/zenodo.21851173),
-   version 2.0.2, *Quantitative Collatz Descent to Stretched-Logarithmic
+   [10.5281/zenodo.21982543](https://doi.org/10.5281/zenodo.21982543),
+   version 2.0.3, *Quantitative Collatz Descent to Stretched-Logarithmic
    Scale in Natural Density, with a Lean 4 Formalization*.
 2. **Formal artifact:** public
    [shaikidris/CET tag v2.0.1](https://github.com/shaikidris/CET/tree/v2.0.1),
@@ -111,7 +111,7 @@ The endpoint \(\delta=\delta_0\) is not claimed.
 
 ## Public proof outline
 
-The landing page follows the six steps in §1.2 of article v2.0.2:
+The landing page follows the six steps in §1.2 of article v2.0.3:
 
 1. one block in parity coordinates;
 2. condition on the odd count;

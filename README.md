@@ -14,10 +14,10 @@ index.html                  Polylogarithmic Descent (v3.2.4) — landing page
 paper/collatz-first-passage.pdf   exact Zenodo v3.2.4 PDF
 code/index.html             theorem -> Lean declaration map (11 public theorems)
 
-cet/index.html              Quantitative Collatz Descent (v2.0.2) — landing page
-cet/paper/index.html        full v2.0.2 manuscript rendered to HTML (generated)
-cet/paper/collatz-endpoint-transport.pdf   exact Zenodo v2.0.2 PDF
-cet/code/index.html         v2.0.2 theorem -> Lean map
+cet/index.html              Quantitative Collatz Descent (v2.0.3) — landing page
+cet/paper/index.html        full v2.0.3 manuscript rendered to HTML (generated)
+cet/paper/collatz-endpoint-transport.pdf   exact Zenodo v2.0.3 PDF
+cet/code/index.html         v2.0.3 theorem -> Lean map
 
 assets/site.css             shared design system (light/dark aware)
 assets/paper.css            paper-page-only layout (sticky TOC, reading measure)
@@ -41,8 +41,8 @@ move between directories without breaking. `assets/figures.js` fetches
 
 | | Root (`/`) | Earlier (`/cet/`) |
 |---|---|---|
-| Article | [SSRN Paper 7290240](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240), DOI [10.2139/ssrn.7290240](https://doi.org/10.2139/ssrn.7290240); versioned archive [10.5281/zenodo.22130385](https://doi.org/10.5281/zenodo.22130385) v3.2.4 | [10.5281/zenodo.21851173](https://doi.org/10.5281/zenodo.21851173) v2.0.2 |
-| Direct PDF | [Version 3.2.4](https://shaikidris.github.io/paper/collatz-first-passage.pdf) | [Version 2.0.2](https://shaikidris.github.io/cet/paper/collatz-endpoint-transport.pdf) |
+| Article | [SSRN Paper 7290240](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240), DOI [10.2139/ssrn.7290240](https://doi.org/10.2139/ssrn.7290240); versioned archive [10.5281/zenodo.22130385](https://doi.org/10.5281/zenodo.22130385) v3.2.4 | [10.5281/zenodo.21982543](https://doi.org/10.5281/zenodo.21982543) v2.0.3 |
+| Direct PDF | [Version 3.2.4](https://shaikidris.github.io/paper/collatz-first-passage.pdf) | [Version 2.0.3](https://shaikidris.github.io/cet/paper/collatz-endpoint-transport.pdf) |
 | Formalization | [10.5281/zenodo.21930432](https://doi.org/10.5281/zenodo.21930432) | [10.5281/zenodo.21797535](https://doi.org/10.5281/zenodo.21797535) |
 | Palomar | [PALOMAR-2026-08-26-000005 v2](https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&version=2), four selected declarations, high trust | — |
 | Source | [FirstPassageLinearTransport](https://github.com/shaikidris/FirstPassageLinearTransport) tag `lean-v3.2.0` | [CET](https://github.com/shaikidris/CET) tag `v2.0.1` |
@@ -68,7 +68,7 @@ python3 scripts/build_paper.py        # re-renders the CET manuscript page
 ```
 
 `build_paper.py` reads
-`~/research/collatz/CET-Sigma/rewrite/collatz_endpoint_transport_main.md` and
+`~/research/collatz/approaches/CollatzEndpointTransport/paper/canonical/manuscript/collatz_endpoint_transport.md` and
 writes the CET manuscript page at `cet/paper/index.html`.
 
 Requires `pandoc` and Python 3 with Pillow.
