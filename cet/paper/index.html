@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Quantitative Collatz Descent to Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization — full text</title>
-<meta name="description" content="Full text of the public Zenodo v2.0.2 article: for every fixed 0 &lt; delta &lt; delta_0 = 0.251245530155874..., the shortcut Collatz orbit minimum satisfies T_min(n) &lt;= exp((log n)^(1-delta)) on a set of natural density one, with an explicit exceptional count and a 6.953 log n witness.">
+<meta name="description" content="Full text of the public Zenodo v2.0.3 article: for every fixed 0 &lt; delta &lt; delta_0 = 0.251245530155874..., the shortcut Collatz orbit minimum satisfies T_min(n) &lt;= exp((log n)^(1-delta)) on a set of natural density one, with an explicit exceptional count and a 6.953 log n witness.">
 <link rel="canonical" href="https://shaikidris.github.io/cet/paper/">
 
 <meta name="citation_title" content="Quantitative Collatz Descent to Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization">
 <meta name="citation_author" content="Shaik, Idris Ali">
 <meta name="citation_author_orcid" content="https://orcid.org/0009-0009-9699-9712">
-<meta name="citation_publication_date" content="2026/08/08">
-<meta name="citation_doi" content="10.5281/zenodo.21851173">
+<meta name="citation_publication_date" content="2026/08/17">
+<meta name="citation_doi" content="10.5281/zenodo.21982543">
 <meta name="citation_abstract_html_url" content="https://shaikidris.github.io/cet/">
 <meta name="citation_fulltext_html_url" content="https://shaikidris.github.io/cet/paper/">
 <meta name="citation_pdf_url" content="https://shaikidris.github.io/cet/paper/collatz-endpoint-transport.pdf">
@@ -20,7 +20,7 @@
 
 <meta property="og:type" content="article">
 <meta property="og:title" content="Quantitative Collatz Descent to Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization">
-<meta property="og:description" content="Full text of the public Zenodo v2.0.2 article: for every fixed 0 &lt; delta &lt; delta_0 = 0.251245530155874..., the shortcut Collatz orbit minimum satisfies T_min(n) &lt;= exp((log n)^(1-delta)) on a set of natural density one, with an explicit exceptional count and a 6.953 log n witness.">
+<meta property="og:description" content="Full text of the public Zenodo v2.0.3 article: for every fixed 0 &lt; delta &lt; delta_0 = 0.251245530155874..., the shortcut Collatz orbit minimum satisfies T_min(n) &lt;= exp((log n)^(1-delta)) on a set of natural density one, with an explicit exceptional count and a 6.953 log n witness.">
 <meta property="og:url" content="https://shaikidris.github.io/cet/paper/">
 <meta property="og:image" content="https://shaikidris.github.io/assets/og-card.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -38,9 +38,9 @@
   "headline": "Quantitative Collatz Descent to Stretched-Logarithmic Scale in Natural Density, with a Lean 4 Formalization",
   "author": { "@type": "Person", "name": "Idris Ali Shaik",
                "identifier": "https://orcid.org/0009-0009-9699-9712" },
-  "datePublished": "2026-08-08",
+  "datePublished": "2026-08-17",
   "license": "https://creativecommons.org/licenses/by/4.0/",
-  "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.21851173" },
+  "identifier": { "@type": "PropertyValue", "propertyID": "DOI", "value": "10.5281/zenodo.21982543" },
   "url": "https://shaikidris.github.io/cet/paper/",
   "keywords": "Collatz conjecture, almost all Collatz orbits, shortcut Collatz map, ordinary natural density, stretched-logarithmic descent, fixed-total Rényi estimate, endpoint transport, endpoint fibers, parity vectors, quantitative exceptional-set bounds, logarithmic witnessing clock, Lean 4 formalization, Mathlib",
   "isPartOf": { "@type": "WebSite", "name": "Quantitative Collatz Descent",
@@ -81,9 +81,9 @@ window.MathJax = {
 
 <div class="paperbar">
   <div class="wrap">
-    <span>Preprint · v2.0.2 · CC BY 4.0</span>
+    <span>Preprint · v2.0.3 · CC BY 4.0</span>
     <a href="collatz-endpoint-transport.pdf" data-goatcounter-click="cet-paper-download-pdf">Download PDF</a>
-    <a href="https://doi.org/10.5281/zenodo.21851173" rel="noopener" data-goatcounter-click="cet-paper-preprint-doi">doi:10.5281/zenodo.21851173</a>
+    <a href="https://doi.org/10.5281/zenodo.21982543" rel="noopener" data-goatcounter-click="cet-paper-preprint-doi">doi:10.5281/zenodo.21982543</a>
   </div>
 </div>
 
@@ -99,31 +99,33 @@ moment, parity word, endpoint fiber, quantitative descent.</p>
 <p><strong>MSC 2020:</strong> Primary 11B83; Secondary 60F10.</p>
 <section id="abstract" class="level2">
 <h2>Abstract</h2>
-<p>Let <span class="math display">\[
-T(n)=
-\begin{cases}
-n/2,&amp;n\text{ even},\\
-(3n+1)/2,&amp;n\text{ odd},
-\end{cases}
-\qquad
-T_{\min}(n)=\min_{k\geq0}T^k(n).
-\]</span> Put <span class="math inline">\(a_0=(\log_2 3)/2\)</span> and
+<p>For the shortcut Collatz map, given by <span
+class="math inline">\(T(n)=n/2\)</span> for even <span
+class="math inline">\(n\)</span> and <span
+class="math inline">\(T(n)=(3n+1)/2\)</span> for odd <span
+class="math inline">\(n\)</span>, write <span
+class="math inline">\(T_{\min}(n)=\min_{k\geq0}T^k(n)\)</span>. We prove
+that, for every <span
+class="math inline">\(0&lt;\delta&lt;\delta_0\)</span>, <span
+class="math display">\[
+T_{\min}(n)\leq \exp((\log n)^{1-\delta})
+\]</span> on a set of positive integers of natural density one, where
 <span class="math display">\[
 \delta_0=\frac{\log(1/a_0)}{\log(2/a_0)}
-=0.251245530155874\ldots.
-\]</span> For every <span
-class="math inline">\(0&lt;\delta&lt;\delta_0\)</span>, we prove that
-<span class="math display">\[
-T_{\min}(n)\leq \exp((\log n)^{1-\delta})
-\]</span> for a set of positive integers of natural density one. We also
-give a stretched-exponential bound for the exceptional count and locate
-a descent witness before <span class="math inline">\(6.953\log
-n\)</span> iterations of <span class="math inline">\(T\)</span>. The
-proof conditions a dyadic parity word on its total number of odd steps,
-applies a Rényi estimate to the resulting composition fibers when the
-number of parts is near its mean, and iterates only the endpoints of
-logarithmic-length blocks. The result is an almost-all statement and
-does not prove the Collatz conjecture.</p>
+=0.251245530155874\ldots,
+\qquad
+a_0=\frac{\log_2 3}{2}.
+\]</span> This prescribed scale is eventually smaller than every fixed
+power of <span class="math inline">\(n\)</span>, improving the scale in
+earlier fixed-power natural-density descent results. We also prove a
+stretched-exponential bound for the exceptional count and locate a
+descent witness before <span class="math inline">\(6.953\log n\)</span>
+iterations of <span class="math inline">\(T\)</span>. The proof
+conditions a dyadic parity word on its odd-step count, controls the
+resulting composition fibers by a Rényi estimate when the number of
+parts is near its mean, and iterates only logarithmic-block endpoints.
+The result is an almost-all statement and does not prove the Collatz
+conjecture.</p>
 </section>
 <section id="introduction" class="level2">
 <h2>1. Introduction</h2>
@@ -140,27 +142,30 @@ by a smaller one measures deeper certified descent while retaining
 ordinary counting density. It does not, by itself, say anything about
 every individual orbit.</p>
 <p>Throughout, <span class="math inline">\(\log\)</span> denotes the
-natural logarithm; logarithms to another base carry a subscript.</p>
-<p>For <span class="math inline">\(S\subseteq\mathbb N_{\geq1}\)</span>,
-write <span class="math display">\[
+natural logarithm; logarithms to another base carry a subscript. For
+<span class="math inline">\(S\subseteq\mathbb N_{\geq1}\)</span>, write
+<span class="math display">\[
 B_S(X)=\#\{1\leq n\leq X:n\notin S\}.
 \]</span> The set <span class="math inline">\(S\)</span> has natural
 density one when <span class="math inline">\(B_S(X)=o(X)\)</span>.
-Earlier natural-density results gave fixed-power descent. Allouche [2]
-proved <span class="math inline">\(T_{\min}(n)\leq n^\theta\)</span> for
-every fixed <span
-class="math inline">\(\theta&gt;3/2-(\log2)/(\log3)\)</span>; Korec [5]
-improved the range to <span class="math inline">\(\theta&gt;\log_4
-3\)</span>; and Inselmann [4] obtained every fixed exponent <span
-class="math inline">\(\theta&gt;0\)</span>. At a different density
-level, Tao [7] proved descent below every function tending to infinity
-in logarithmic density. Concurrent preprints of Allikvere [1] and Mazur
-[6] obtain natural-density conclusions with arbitrary diverging
-thresholds through bridges built on Tao’s framework. Their
-terminal-threshold class is more general than the theorem below. The
-threshold proved here is nevertheless eventually smaller than <span
-class="math inline">\(n^\theta\)</span> for every fixed <span
-class="math inline">\(\theta&gt;0\)</span>.</p>
+Earlier natural-density results in the fixed-power line include the
+theorem of Allouche [2], who proved <span
+class="math inline">\(T_{\min}(n)\leq n^\theta\)</span> for every fixed
+<span class="math inline">\(\theta&gt;3/2-(\log2)/(\log3)\)</span>;
+Korec [5] improved the range to <span
+class="math inline">\(\theta&gt;\log_4 3\)</span>; and Inselmann [4]
+obtained every fixed exponent <span
+class="math inline">\(\theta&gt;0\)</span>. The theorem below gives one
+prescribed threshold smaller than every fixed power, together with a
+quantitative exceptional count and an explicit logarithmic witnessing
+time.</p>
+<p>At a different density level, Tao [7] proved descent below every
+function tending to infinity in logarithmic density. Concurrent
+preprints of Allikvere [1] and Mazur [6] obtain natural-density
+conclusions with arbitrary diverging thresholds through bridges built on
+Tao’s framework. Section 1.4 compares those conclusions with the
+independent quantitative statement and endpoint-transport proof given
+here.</p>
 <p>Set <span class="math display">\[
 a_0=\frac{\log_2 3}{2},
 \qquad
@@ -206,10 +211,12 @@ T^k(n)\leq\exp((\log n)^{1-\delta}).
 obtained from the fixed parameters and finite maxima in the proof. They
 are not optimized, and no practical numerical value of <span
 class="math inline">\(X_{\delta,\sigma}\)</span> is claimed.</p>
-<p>The restriction on <span class="math inline">\(\sigma\)</span> comes
-from the shell exponent <span class="math inline">\(1-\gamma\)</span>,
-where <span class="math inline">\(\gamma=\omega\log(1/\chi)\)</span> in
-(6.17); the corresponding parameter choice is made in (7.11)–(7.12).</p>
+<p>The restriction on <span class="math inline">\(\sigma\)</span>
+records the exponent budget left after repeated endpoint pullbacks. Each
+block contracts the orbit scale while weakening the available density
+exponent, and the number of blocks must still be large enough to reach
+the prescribed stretched-logarithmic target. Section 7 balances these
+two requirements.</p>
 <p>Theorem 1.1 is an almost-all theorem. It neither proves descent for
 every initial value nor excludes exceptional cycles or divergent
 trajectories. Section 8.1 records the precise scope of the
@@ -254,8 +261,28 @@ define <span class="math display">\[
 for the complement of <span class="math inline">\(S\)</span> survives
 this operation with an asymptotically linear loss in its exponent.</p>
 </section>
+<section id="terminology" class="level3">
+<h3>1.2. Terminology</h3>
+<p>A dyadic shell is an interval <span
+class="math inline">\([2^M,2^{M+1})\)</span>; a logarithmic block
+starting there consists of <span class="math inline">\(M\)</span>
+iterations, and its endpoint is the terminal value <span
+class="math inline">\(T^M(n)\)</span>. A cohort is a set of parity words
+with a specified odd count and, when stated, a specified first odd
+position. <em>Fixed-total</em> means that the composition total <span
+class="math inline">\(N\)</span> is held fixed, while <em>central</em>
+means that its number of parts lies within <span
+class="math inline">\(\varepsilon N\)</span> of the mean <span
+class="math inline">\((N+1)/2\)</span>, for the fixed <span
+class="math inline">\(\varepsilon\)</span> in (4.6).</p>
+<p>An endpoint fiber consists of starts sharing one endpoint; in Section
+5 a fiber is <em>heavy</em> precisely when it satisfies the threshold
+inequality (5.13), and is ordinary otherwise. <em>Transport</em> refers
+to passing a quantitative density estimate from a target set to its
+pullback under the block endpoint map.</p>
+</section>
 <section id="proof-outline" class="level3">
-<h3>1.2. Proof outline</h3>
+<h3>1.3. Proof outline</h3>
 <p>The proof has six steps.</p>
 <ol type="1">
 <li><p><strong>One block in parity coordinates.</strong> Parity words of
@@ -314,22 +341,22 @@ proving a one-block transport theorem and iterating its endpoint map.
 Every estimate is stated in the form required by the next step.</p>
 </section>
 <section id="relation-to-other-density-results" class="level3">
-<h3>1.3. Relation to other density results</h3>
-<p>Relative to the results above, the proof is independent of Tao’s
-first-passage framework and uses no Diophantine approximation input. It
-trades the arbitrary diverging thresholds available through the
-concurrent bridge approaches for a prescribed stretched-logarithmic
-threshold, the counting-cutoff estimate (1.3), and the logarithmic-time
-witness (1.4). Its inputs are finite parity coding, compositions
-conditioned on their total, congruence-fiber injectivity, one Rényi
-estimate near the mean composition length, and a binomial tail
-bound.</p>
+<h3>1.4. Relation to other density results</h3>
+<p>Relative to Tao’s theorem and the two concurrent bridge results, the
+proof is independent of Tao’s first-passage framework and uses no
+Diophantine approximation input. It trades the arbitrary diverging
+thresholds available through the concurrent bridge approaches for a
+prescribed stretched-logarithmic threshold, the counting-cutoff estimate
+(1.3), and the logarithmic-time witness (1.4). Its inputs are finite
+parity coding, compositions conditioned on their total, congruence-fiber
+injectivity, one Rényi estimate near the mean composition length, and a
+binomial tail bound.</p>
 <p>The new quantitative mechanism is Theorem 5.3. Once its moment
 parameters are fixed, the pullback constants remain fixed while the
 recursively generated density exponent tends to zero.</p>
 </section>
 <section id="organization" class="level3">
-<h3>1.4. Organization</h3>
+<h3>1.5. Organization</h3>
 <p>Section 2 gives the density calculus and exact one-block coordinates.
 Sections 3 and 4 prove the Rényi estimate for compositions conditioned
 on their total and with part count near its mean. Section 5 turns that
@@ -339,29 +366,21 @@ parameters and proves Theorem 1.1. Section 8 records scope, formal
 verification supplementary to the manuscript proof, and
 declarations.</p>
 </section>
-<section id="terminology-and-recurring-notation" class="level3">
-<h3>1.5. Terminology and recurring notation</h3>
-<p>We use the following terms throughout. A dyadic shell is an interval
-<span class="math inline">\([2^M,2^{M+1})\)</span>; a logarithmic block
-starting there consists of <span class="math inline">\(M\)</span>
-iterations, and its endpoint is the terminal value <span
-class="math inline">\(T^M(n)\)</span>. A cohort is a set of parity words
-with a specified odd count and, when stated, a specified first odd
-position. <em>Fixed-total</em> means that the composition total <span
-class="math inline">\(N\)</span> is held fixed, while <em>central</em>
-means that its number of parts lies within <span
-class="math inline">\(\varepsilon N\)</span> of the mean <span
-class="math inline">\((N+1)/2\)</span>, for the fixed <span
-class="math inline">\(\varepsilon\)</span> in (4.6). An endpoint fiber
-consists of starts sharing one endpoint; in Section 5 a fiber is
-<em>heavy</em> precisely when it satisfies the threshold inequality
-(5.13), and is ordinary otherwise. <em>Transport</em> refers to passing
-a quantitative density estimate from a target set to its pullback under
-the block endpoint map.</p>
+</section>
+<section id="one-logarithmic-block" class="level2">
+<h2>2. One logarithmic block</h2>
+<p>The proof begins on one dyadic shell, where a logarithmic block has a
+fixed length. Two translations are needed before its endpoints can be
+counted. First, shell estimates must be converted into estimates for all
+initial intervals. Second, a starting integer must be replaced by its
+finite parity word and the endpoint written exactly in those
+coordinates. Lemmas 2.1–2.2 handle the density and concentration
+estimates; Propositions 2.3–2.4 and Corollary 2.5 provide the endpoint
+coordinates used in Section 3.</p>
 <p>For reference, the recurring notation is grouped by its role in the
 proof. The last column points to the defining display; symbols omitted
-from the table are local to a single argument.</p>
-<p>After <span class="math inline">\(\delta\)</span>, and also <span
+from the table are local to a single argument. After <span
+class="math inline">\(\delta\)</span>, and also <span
 class="math inline">\(\sigma\)</span> for the quantitative assertion,
 are fixed, the auxiliary parameters <span
 class="math inline">\(\theta,\varepsilon,r,\chi,\zeta,\omega\)</span>
@@ -430,18 +449,6 @@ class="math inline">\(\mathcal S_j\)</span>, recursive good sets</td>
 </tr>
 </tbody>
 </table>
-</section>
-</section>
-<section id="one-logarithmic-block" class="level2">
-<h2>2. One logarithmic block</h2>
-<p>The proof begins on one dyadic shell, where a logarithmic block has a
-fixed length. Two translations are needed before its endpoints can be
-counted. First, shell estimates must be converted into estimates for all
-initial intervals. Second, a starting integer must be replaced by its
-finite parity word and the endpoint written exactly in those
-coordinates. Lemmas 2.1–2.2 handle the density and concentration
-estimates; Propositions 2.3–2.4 and Corollary 2.5 provide the endpoint
-coordinates used in Section 3.</p>
 <section id="from-dyadic-shells-to-initial-intervals" class="level3">
 <h3>2.1. From dyadic shells to initial intervals</h3>
 <p>For <span class="math inline">\(C&gt;0\)</span> and <span

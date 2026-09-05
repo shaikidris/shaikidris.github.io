@@ -18,7 +18,7 @@ from pathlib import Path
 
 OUT = Path(__file__).resolve().parent.parent / "assets" / "figure-data.json"
 
-# Constants fixed by the public v2.0.2 article.
+# Constants fixed by the public v2.0.3 article.
 A0 = math.log2(3) / 2                      # a_0 = log_2(3)/2
 RHO = math.sqrt(3) / 2                     # heuristic one-step rate
 CLOCK = 6.953                              # literal public theorem bound
