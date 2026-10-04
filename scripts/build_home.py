@@ -22,7 +22,7 @@ SITE = Path(__file__).resolve().parent.parent
 DATA = SITE / "data" / "works.json"
 OUT = SITE / "index.html"
 BASE = "https://shaikidris.github.io/"
-REV = "20261004-hub3"
+REV = "20261004-hub4"
 
 
 def esc(s: str) -> str:
@@ -281,8 +281,6 @@ def page(d: dict) -> str:
     <div class="sechead">
       <div>
         <h2>Research</h2>
-        <p class="lede">Each row links the preprint of record, its Lean formalization and
-        Palomar entry, and — where one exists — a graduate-level explainer.</p>
       </div>
       <div class="filters" role="group" aria-label="Filter by area">
         <button type="button" class="chip-btn" data-filter="all" aria-pressed="true">All</button>{filters}
