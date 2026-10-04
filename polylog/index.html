@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density</title>
+<meta name="description" content="In ordinary natural density, almost every integer's shortcut-Collatz orbit reaches a polylogarithmic value within O(log n) steps. The companion Lean 4 formalization is mechanically verified and preserved in the Palomar Registry.">
+<link rel="canonical" href="https://shaikidris.github.io/polylog/">
+
+<!-- ============ Google Scholar / Highwire citation tags ============ -->
+<meta name="citation_title" content="Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
+<meta name="citation_author" content="Shaik, Idris Ali">
+<meta name="citation_author_orcid" content="https://orcid.org/0009-0009-9699-9712">
+<meta name="citation_publication_date" content="2026/08/17">
+<meta name="citation_online_date" content="2026/08/17">
+<meta name="citation_doi" content="10.2139/ssrn.7290240">
+<meta name="citation_abstract_html_url" content="https://shaikidris.github.io/polylog/">
+<meta name="citation_pdf_url" content="https://shaikidris.github.io/paper/collatz-first-passage.pdf">
+<meta name="citation_technical_report_institution" content="SSRN">
+<meta name="citation_technical_report_number" content="7290240">
+<meta name="citation_language" content="en">
+<meta name="citation_keywords" content="Collatz conjecture; almost all Collatz orbits; shortcut Collatz map; ordinary natural density; first-passage method; stopping map; parity vectors; polylogarithmic descent; quantitative exceptional-set bounds; logarithmic witnessing clock; Lean 4 formalization; Mathlib">
+
+<!-- ============ Dublin Core ============ -->
+<meta name="DC.title" content="Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
+<meta name="DC.creator" content="Idris Ali Shaik">
+<meta name="DC.date" content="2026-08-17">
+<meta name="DC.identifier" content="https://doi.org/10.2139/ssrn.7290240">
+<meta name="DC.type" content="Text.Preprint">
+<meta name="DC.rights" content="CC BY 4.0">
+
+<!-- ============ Open Graph / Twitter ============ -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Polylogarithmic Collatz Descent">
+<meta property="og:title" content="Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
+<meta property="og:description" content="Almost every integer reaches a polylogarithmic Collatz value within O(log n) steps, with four principal Lean declarations mechanically verified and preserved in Palomar.">
+<meta property="og:url" content="https://shaikidris.github.io/polylog/">
+<meta property="og:image" content="https://shaikidris.github.io/assets/og-card.png?v=20260827-v324">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Title card for Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
+<meta property="article:author" content="Idris Ali Shaik">
+<meta property="article:published_time" content="2026-08-17">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
+<meta name="twitter:description" content="Natural-density Collatz descent to a polylogarithmic target, with four principal Lean declarations mechanically verified and preserved in Palomar.">
+<meta name="twitter:image" content="https://shaikidris.github.io/assets/og-card.png?v=20260827-v324">
+<meta name="twitter:image:alt" content="Title card for Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density">
+
+<meta name="author" content="Idris Ali Shaik">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<!-- Bump the asset revision whenever root-page CSS or JavaScript changes.
+     GitHub Pages otherwise permits browsers to reuse those files for 10 min. -->
+<link rel="stylesheet" href="/assets/site.css?v=20260827-palomar1">
+
+<!-- ============ schema.org ============ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density",
+  "name": "Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density",
+  "author": {
+    "@type": "Person",
+    "name": "Idris Ali Shaik",
+    "identifier": "https://orcid.org/0009-0009-9699-9712"
+  },
+  "datePublished": "2026-08-17",
+  "dateModified": "2026-08-27",
+  "version": "3.2.4",
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "DOI",
+    "value": "10.2139/ssrn.7290240"
+  },
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "url": "https://shaikidris.github.io/polylog/",
+  "sameAs": [
+    "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240",
+    "https://doi.org/10.5281/zenodo.22130385",
+    "https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&version=2"
+  ],
+  "inLanguage": "en",
+  "keywords": "Collatz conjecture, almost all Collatz orbits, shortcut Collatz map, ordinary natural density, first-passage method, stopping map, parity vectors, polylogarithmic descent, quantitative exceptional-set bounds, logarithmic witnessing clock, Lean 4 formalization, Mathlib",
+  "abstract": "In ordinary natural density, almost every positive integer admits a shortcut Collatz iterate of polylogarithmic size within O(log n) steps, with every iterate up to that time at most n^(1+beta). The argument supplies an explicit critical polylogarithmic exponent, quantitative exceptional-set rates, and a logarithmic witnessing clock.",
+  "citation": {
+    "@type": "SoftwareSourceCode",
+    "name": "FirstPassageLinearTransport",
+    "codeRepository": "https://github.com/shaikidris/FirstPassageLinearTransport",
+    "programmingLanguage": "Lean 4",
+    "identifier": "https://doi.org/10.5281/zenodo.21930432"
+  },
+  "about": [
+    { "@type": "Thing", "name": "Collatz conjecture", "sameAs": "https://en.wikipedia.org/wiki/Collatz_conjecture" },
+    { "@type": "Thing", "name": "Natural density", "sameAs": "https://en.wikipedia.org/wiki/Natural_density" },
+    { "@type": "Thing", "name": "Lean (proof assistant)", "sameAs": "https://en.wikipedia.org/wiki/Lean_(proof_assistant)" }
+  ]
+}
+</script>
+
+<script>
+  (function () { var t = localStorage.getItem("theme");
+    if (t) document.documentElement.setAttribute("data-theme", t); })();
+</script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]], processEscapes: true },
+  options: { skipHtmlTags: ["script","noscript","style","textarea","pre","code"] }
+};
+</script>
+<script defer src="/assets/mathjax/tex-chtml.js"></script>
+<script defer src="/assets/collatz-primer-core.js?v=20260815-primer-fix1"></script>
+<script defer src="/assets/figures-polylog.js?v=20260827-v324"></script>
+<script data-goatcounter="https://shaikidris.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="/" title="All research">Idris Ali Shaik</a>
+    <nav>
+      <a href="#try-collatz" class="opt">Try it</a>
+      <a href="#result" class="opt">Result</a>
+      <a href="#fundamentals" class="opt">Fundamentals</a>
+      <a href="#architecture" class="opt">Architecture</a>
+      <a href="#palomar" class="opt">Verification</a>
+      <a href="/paper/collatz-first-passage.pdf" data-goatcounter-click="root-paper-nav">Paper</a>
+      <a href="/code/">Lean code</a>
+      <a href="/#research">All research</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme" title="Toggle colour theme">◐</button>
+    </nav>
+  </div>
+</header>
+<div class="version-banner" role="note"><div class="wrap">
+  This explainer was written for <b>version 3.2.4</b> of the preprint. The current record is
+  <a href="https://doi.org/10.5281/zenodo.23132901" rel="noopener" data-goatcounter-click="polylog-banner-latest">version 4.0.2</a>,
+  which strengthens the headline theorem. Statements below are those of v3.2.4.
+  <a href="/#research">All papers →</a>
+</div></div>
+
+<aside class="page-rail" id="page-rail" aria-label="On this page">
+  <p>On this page</p>
+  <nav class="section-links">
+    <a href="#overview">Overview</a>
+    <a href="#palomar">Palomar verification</a>
+    <a href="#try-collatz">Try a Collatz orbit</a>
+    <a href="#result">The result</a>
+    <a href="#fundamentals">Fundamentals</a>
+    <a href="#literature">Literature outcome</a>
+    <a href="#architecture">Proof architecture</a>
+    <a href="#proof-lab">Architecture lab</a>
+    <a href="#explore">Parameter lab</a>
+    <a href="#compression">The pivot</a>
+    <a href="#orbit">Orbit explorer</a>
+    <a href="#targets">Target scales</a>
+    <a href="#ensemble">Natural density</a>
+    <a href="#scope">What is not claimed</a>
+    <a href="#lean">Lean formalization</a>
+    <a href="#read">Read and cite</a>
+  </nav>
+</aside>
+
+<details class="section-menu">
+  <summary>Jump to a section</summary>
+  <nav class="section-links" aria-label="On this page">
+    <a href="#overview">Overview</a>
+    <a href="#palomar">Palomar verification</a>
+    <a href="#try-collatz">Try a Collatz orbit</a>
+    <a href="#result">The result</a>
+    <a href="#fundamentals">Fundamentals</a>
+    <a href="#literature">Literature outcome</a>
+    <a href="#architecture">Proof architecture</a>
+    <a href="#proof-lab">Architecture lab</a>
+    <a href="#explore">Parameter lab</a>
+    <a href="#compression">The pivot</a>
+    <a href="#orbit">Orbit explorer</a>
+    <a href="#targets">Target scales</a>
+    <a href="#ensemble">Natural density</a>
+    <a href="#scope">What is not claimed</a>
+    <a href="#lean">Lean formalization</a>
+    <a href="#read">Read and cite</a>
+  </nav>
+</details>
+
+<main id="main">
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="overview">
+  <div class="wrap"><div class="col">
+    <p class="eyebrow">Preprint · Version 3.2.4 · Palomar-registered formalization</p>
+    <h1 class="paper-title">Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density</h1>
+    <p class="tagline">
+      In ordinary natural density, almost every positive integer reaches a
+      Collatz value of polylogarithmic size within \(O(\log n)\) steps — and
+      never climbs above \(n^{1+\beta}\) before it gets there.
+    </p>
+    <div class="byline">
+      <span>Idris Ali Shaik</span>
+      <span>·</span>
+      <a href="https://orcid.org/0009-0009-9699-9712" rel="author noopener">ORCID 0009-0009-9699-9712</a>
+      <span>·</span>
+      <span>Independent researcher, Dubai</span>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href="/paper/collatz-first-passage.pdf" data-goatcounter-click="root-paper-pdf">Read the paper (PDF)</a>
+      <a class="btn" href="#try-collatz">Try a Collatz orbit</a>
+      <a class="btn" href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240" rel="noopener" data-goatcounter-click="root-preprint-ssrn">SSRN preprint</a>
+      <a class="btn" href="/code/" data-goatcounter-click="root-lean-map">Theorem → Lean map</a>
+    </div>
+
+    <aside class="palomar-headline" id="palomar" aria-labelledby="palomar-title">
+      <p class="palomar-status"><span aria-hidden="true">✓</span> Palomar Registry · Version 2 · High trust</p>
+      <h2 id="palomar-title">Four Lean declarations independently replayed and permanently preserved</h2>
+      <p>
+        Palomar mechanically checked the submitted Challenge/Solution pairs,
+        replayed the proofs with Comparator and NanoDa, and archived the exact
+        source commit with its dependencies. The registered declarations cover
+        the moving endpoint, fixed polylogarithmic specialization, same-witness
+        stretched-logarithmic descent, and quantitative exceptional count.
+      </p>
+      <p class="palomar-scope">
+        This is public machine-verification evidence, not journal peer review
+        and not a proof of the pointwise Collatz conjecture.
+      </p>
+      <a class="palomar-link" href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&amp;version=2" rel="noopener" data-goatcounter-click="root-palomar-v2">View the permanent Palomar record <span aria-hidden="true">→</span></a>
+    </aside>
+  </div></div>
+</section>
+
+<!-- ==================== BEGINNER ORBIT ==================== -->
+<section id="try-collatz" class="primer-section">
+  <div class="wrap">
+    <div class="collatz-primer reveal" id="collatz-primer">
+      <div class="primer-heading">
+        <p class="eyebrow">New to Collatz?</p>
+        <h2>Watch an orbit unfold</h2>
+        <p class="lede">
+          Choose a positive integer. At each step, halve it when it is even;
+          when it is odd, apply (3n+1). The chain below reveals the actual
+          arithmetic one step at a time.
+        </p>
+      </div>
+
+      <div class="primer-console">
+        <div class="map-toggle" role="group" aria-label="Choose the Collatz map">
+          <button type="button" class="map-option" data-primer-map="standard" data-goatcounter-click="root-primer-map-standard" aria-pressed="true">Standard map</button>
+          <button type="button" class="map-option" data-primer-map="shortcut" data-goatcounter-click="root-primer-map-shortcut" aria-pressed="false">Shortcut map used in the paper</button>
+        </div>
+
+        <div id="primer-form" class="primer-form" role="group" aria-label="Run a Collatz orbit">
+          <label for="primer-input">
+            Starting integer
+            <small>Positive integers with at most 80 digits</small>
+          </label>
+          <div class="primer-input-row">
+            <input id="primer-input" name="n" type="text" inputmode="numeric" pattern="[0-9]+" value="7" autocomplete="off" spellcheck="false">
+            <button class="btn btn-primary" id="primer-run" type="button" data-goatcounter-click="root-primer-run">Run orbit</button>
+            <button class="btn" id="primer-replay" type="button" data-goatcounter-click="root-primer-replay" disabled>Replay</button>
+          </div>
+        </div>
+
+        <div class="primer-examples" aria-label="Example starting values">
+          <span>Examples</span>
+          <button type="button" data-primer-example="7">7</button>
+          <button type="button" data-primer-example="27">27</button>
+          <button type="button" data-primer-example="97">97</button>
+        </div>
+
+        <p class="primer-map-note" id="primer-map-note">
+          Standard map: odd (nmapsto3n+1), even (nmapsto n/2).
+        </p>
+        <p class="primer-summary" id="primer-summary" aria-live="polite">
+          The example (7) will run when this panel enters view.
+        </p>
+        <div class="chain-window" id="primer-chain-window" tabindex="0" aria-label="Collatz trajectory">
+          <ol class="collatz-chain" id="primer-chain"></ol>
+        </div>
+        <p class="primer-caveat">
+          This is a finite computation for the chosen input. If the chain does
+          not reach (1) before the safety cap, the simulation stops without
+          drawing a mathematical conclusion. The paper proves an
+          <em>almost-all descent theorem</em>, not the pointwise Collatz conjecture.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== THE RESULT ==================== -->
+<section id="result">
+  <div class="wrap"><div class="col reveal">
+    <p class="eyebrow">The public theorem</p>
+    <h2>The result</h2>
+
+    <p class="lede">
+      The Collatz conjecture predicts that every orbit reaches \(1\). This
+      paper does not prove that. It proves a quantitative <em>almost-all</em>
+      statement: outside a set of density zero, orbits come down to a
+      polylogarithmic value quickly, and the descent is witnessed by an
+      explicit clock.
+    </p>
+
+    <p>
+      Throughout, \(T\) is the shortcut Collatz map, \(T(n)=n/2\) for even
+      \(n\) and \(T(n)=(3n+1)/2\) for odd \(n\). Write \(H_2\) for binary
+      entropy and put
+      \[
+      \kappa_*=1-H_2(\log_3 2),
+      \qquad
+      A_{\rm FP}=\frac{1}{2\kappa_*},
+      \qquad
+      c_*=\frac{2}{\log(4/3)}.
+      \]
+    </p>
+
+    <dl class="metric-grid">
+      <div>
+        <dt>Critical exponent</dt>
+        <dd>9.9911133419…</dd>
+        <small>\(A_{\rm FP}\), the first-passage method threshold</small>
+      </div>
+      <div>
+        <dt>Shortcut clock</dt>
+        <dd>6.9521189935…</dd>
+        <small>\(c_*\); any \(c&gt;c_*\) is admissible</small>
+      </div>
+      <div>
+        <dt>Raw clock</dt>
+        <dd>10.4281784900…</dd>
+        <small>\(3/\log(4/3)\) for the unaccelerated map</small>
+      </div>
+    </dl>
+
+    <div class="theorem">
+      <span class="label">Main theorem</span>
+      <p>
+        For every fixed \(A&gt;A_{\rm FP}\), \(c&gt;c_*\), \(\beta&gt;0\), and
+        \(0&lt;\gamma&lt;\kappa_*(A-A_{\rm FP})\), there is
+        \(C_{\rm tar}&gt;0\) such that, as \(X\to\infty\), all but
+        \(O_{A,c,\beta,\gamma}\!\left(X/(\log X)^{\gamma}\right)\) integers
+        \(n\le X\) admit an integer \(k&lt;c\log n\) with
+        \[
+        T^k(n)\le C_{\rm tar}(\log n)^A,
+        \qquad
+        \max_{0\le j\le k}T^j(n)\le n^{1+\beta}.
+        \]
+      </p>
+    </div>
+
+    <p>
+      The same witness \(k\) carries all three conclusions at once: the
+      landing, the clock, and the ceiling on every earlier iterate. A moving
+      form allows the exponent to vary with the dyadic shell and reaches the
+      critical exponent itself, at the cost of explicit \(\log\log\) factors.
+      A stretched-logarithmic companion covers the weaker target
+      \(\exp((\log n)^{1-\delta})\) for every fixed \(0&lt;\delta&lt;1\).
+    </p>
+  </div></div>
+</section>
+
+<!-- ==================== FUNDAMENTALS ==================== -->
+<section id="fundamentals">
+  <div class="wrap">
+    <div class="col reveal">
+      <p class="eyebrow">Vocabulary</p>
+      <h2>Six words the proof depends on</h2>
+      <p class="lede">
+        The argument is elementary in its ingredients but precise in its
+        language. These six terms are used in a fixed technical sense
+        throughout; everything later is assembled from them.
+      </p>
+    </div>
+
+    <div class="fundamentals-grid reveal">
+      <article class="fundamental-card">
+        <span class="concept-number">1</span>
+        <h3>Threshold and first passage</h3>
+        <figure class="concept-figure">
+          <svg viewBox="0 0 360 116" role="img" aria-labelledby="concept-first-passage-title concept-first-passage-desc">
+            <title id="concept-first-passage-title">An orbit crossing a dyadic threshold for the first time</title>
+            <desc id="concept-first-passage-desc">A descending orbit trace stays above the threshold, then crosses it at a highlighted landing.</desc>
+            <line class="concept-rule concept-dashed" x1="18" y1="79" x2="342" y2="79" />
+            <text class="concept-label" x="337" y="72" text-anchor="end">threshold 2<tspan baseline-shift="super" font-size="8">q</tspan></text>
+            <path class="concept-trace concept-draw" pathLength="1" d="M18 25 L68 40 L111 31 L158 58 L202 48 L249 88 L330 96" />
+            <circle class="concept-point concept-pulse" cx="249" cy="88" r="5" />
+            <text class="concept-label concept-good-text" x="260" y="105">first landing</text>
+          </svg>
+          <figcaption>First crossing, not merely a later visit below the line.</figcaption>
+        </figure>
+        <p>
+          A <em>threshold</em> is a dyadic value \(2^q\) the orbit tries to
+          cross from above. Its <em>first passage</em> is the first iterate at
+          or below it, and the value reached there is the <em>landing</em>.
+        </p>
+        <p class="concept-use">Used to turn a dynamical question into a counting question about where orbits first arrive.</p>
+      </article>
+
+      <article class="fundamental-card">
+        <span class="concept-number">2</span>
+        <h3>Threshold chain</h3>
+        <figure class="concept-figure">
+          <svg viewBox="0 0 360 116" role="img" aria-labelledby="concept-chain-title concept-chain-desc">
+            <title id="concept-chain-title">A decreasing chain of threshold landings</title>
+            <desc id="concept-chain-desc">Three successive passages descend through checkpoints, while a dashed diagonal represents the direct first passage from the original shell.</desc>
+            <line class="concept-rule" x1="18" y1="28" x2="118" y2="28" />
+            <line class="concept-rule" x1="118" y1="58" x2="229" y2="58" />
+            <line class="concept-rule" x1="229" y1="89" x2="342" y2="89" />
+            <path class="concept-trace concept-draw" pathLength="1" d="M26 13 L105 28 L126 39 L216 58 L238 69 L326 89" />
+            <circle class="concept-point concept-pulse delay-1" cx="105" cy="28" r="4" />
+            <circle class="concept-point concept-pulse delay-2" cx="216" cy="58" r="4" />
+            <circle class="concept-point concept-pulse delay-3" cx="326" cy="89" r="4" />
+            <path class="concept-direct" pathLength="1" d="M26 13 Q174 24 326 89" />
+            <text class="concept-label" x="21" y="106">source</text>
+            <text class="concept-label concept-accent-text" x="337" y="106" text-anchor="end">same direct passage</text>
+          </svg>
+          <figcaption>Intermediate checkpoints collapse to the source passage.</figcaption>
+        </figure>
+        <p>
+          Successive landings that start new passages are <em>checkpoints</em>;
+          together they form a decreasing <em>threshold chain</em>. The key
+          lemma says every later landing is <em>also</em> a direct first
+          passage from the original shell.
+        </p>
+        <p class="concept-use">Collapses long multi-landing histories into single passages.</p>
+      </article>
+
+      <article class="fundamental-card">
+        <span class="concept-number">3</span>
+        <h3>Parity word</h3>
+        <figure class="concept-figure">
+          <svg viewBox="0 0 360 116" role="img" aria-labelledby="concept-parity-title concept-parity-desc">
+            <title id="concept-parity-title">One residue represented by one parity word</title>
+            <desc id="concept-parity-desc">A residue modulo two to the power M points to a row of M even or odd parity bits.</desc>
+            <rect class="concept-chip" x="17" y="35" width="95" height="42" rx="7" />
+            <text class="concept-main-label" x="64" y="52" text-anchor="middle">n mod 2<tspan baseline-shift="super" font-size="9">M</tspan></text>
+            <text class="concept-label" x="64" y="68" text-anchor="middle">one residue</text>
+            <path class="concept-arrow" d="M121 56 H151" />
+            <path class="concept-arrow-head" d="M145 50 L153 56 L145 62" />
+            <g aria-label="parity word 0 1 1 0 1 0">
+              <rect class="concept-bit bit-delay-1" x="165" y="36" width="26" height="40" rx="5" /><text class="concept-bit-label" x="178" y="61">0</text>
+              <rect class="concept-bit bit-delay-2" x="195" y="36" width="26" height="40" rx="5" /><text class="concept-bit-label" x="208" y="61">1</text>
+              <rect class="concept-bit bit-delay-3" x="225" y="36" width="26" height="40" rx="5" /><text class="concept-bit-label" x="238" y="61">1</text>
+              <rect class="concept-bit bit-delay-4" x="255" y="36" width="26" height="40" rx="5" /><text class="concept-bit-label" x="268" y="61">0</text>
+              <rect class="concept-bit bit-delay-5" x="285" y="36" width="26" height="40" rx="5" /><text class="concept-bit-label" x="298" y="61">1</text>
+              <rect class="concept-bit bit-delay-6" x="315" y="36" width="26" height="40" rx="5" /><text class="concept-bit-label" x="328" y="61">0</text>
+            </g>
+            <text class="concept-label" x="253" y="96" text-anchor="middle">one word of length M</text>
+          </svg>
+          <figcaption>Exact shell enumeration, not an independence assumption.</figcaption>
+        </figure>
+        <p>
+          The first \(M\) parity bits of an orbit depend only on
+          \(n \bmod 2^M\), and every word of length \(M\) occurs
+          <em>exactly once</em> on the dyadic shell
+          \(I_M=[2^M,2^{M+1})\).
+        </p>
+        <p class="concept-use">The only probabilistic input: exact counting on a complete Boolean cube, not a stochastic model of an orbit.</p>
+      </article>
+
+      <article class="fundamental-card">
+        <span class="concept-number">4</span>
+        <h3>Certificate and timeout</h3>
+        <figure class="concept-figure">
+          <svg viewBox="0 0 360 116" role="img" aria-labelledby="concept-certificate-title concept-certificate-desc">
+            <title id="concept-certificate-title">The proof switches from a prefix certificate to a timeout</title>
+            <desc id="concept-certificate-desc">The high-rank side shows a path certified beneath an envelope; the low-rank side shows an allotted clock expiring before a crossing.</desc>
+            <text class="concept-label" x="18" y="18">high rank · certificate</text>
+            <line class="concept-divider" x1="180" y1="13" x2="180" y2="102" />
+            <path class="concept-envelope" d="M20 35 L164 62" />
+            <path class="concept-trace concept-draw" pathLength="1" d="M20 52 L50 57 L78 49 L109 69 L137 66 L164 83" />
+            <circle class="concept-small-point" cx="50" cy="57" r="2.8" /><circle class="concept-small-point" cx="78" cy="49" r="2.8" />
+            <circle class="concept-small-point" cx="109" cy="69" r="2.8" /><circle class="concept-small-point" cx="137" cy="66" r="2.8" />
+            <text class="concept-label" x="18" y="100">every prefix checked</text>
+            <text class="concept-label" x="196" y="18">low rank · timeout</text>
+            <rect class="concept-clock" x="197" y="47" width="143" height="18" rx="9" />
+            <rect class="concept-clock-fill" x="200" y="50" width="137" height="12" rx="6" />
+            <line class="concept-timeout-tick" x1="337" y1="39" x2="337" y2="73" />
+            <text class="concept-label concept-warn-text" x="337" y="91" text-anchor="end">allotted time</text>
+          </svg>
+          <figcaption>Two rank regimes, with one controlled switch.</figcaption>
+        </figure>
+        <p>
+          A <em>certificate</em> is a condition on parity data guaranteeing the
+          stated orbit bounds. At high shell ranks it controls every prefix. At
+          low ranks the proof instead uses a <em>timeout</em>: failure to cross
+          the next threshold within the allotted steps.
+        </p>
+        <p class="concept-use">The switch between these two regimes is what makes the critical exponent finite.</p>
+      </article>
+
+      <article class="fundamental-card">
+        <span class="concept-number">5</span>
+        <h3>Transport</h3>
+        <figure class="concept-figure">
+          <svg viewBox="0 0 360 116" role="img" aria-labelledby="concept-transport-title concept-transport-desc">
+            <title id="concept-transport-title">Bad target landings transported back to their sources</title>
+            <desc id="concept-transport-desc">A small highlighted target set on the right is connected backwards to the corresponding source fibers on the left.</desc>
+            <text class="concept-label" x="28" y="18">source shell</text>
+            <text class="concept-label" x="332" y="18" text-anchor="end">target set</text>
+            <rect class="concept-chip" x="17" y="27" width="69" height="70" rx="7" />
+            <rect class="concept-chip" x="289" y="27" width="54" height="70" rx="7" />
+            <g class="concept-source-dots">
+              <circle cx="33" cy="43" r="3"/><circle cx="51" cy="43" r="3"/><circle cx="69" cy="43" r="3"/>
+              <circle cx="33" cy="61" r="3"/><circle class="bad" cx="51" cy="61" r="4"/><circle cx="69" cy="61" r="3"/>
+              <circle class="bad" cx="33" cy="79" r="4"/><circle cx="51" cy="79" r="3"/><circle cx="69" cy="79" r="3"/>
+            </g>
+            <circle class="concept-target-bad concept-pulse" cx="316" cy="61" r="7" />
+            <path class="concept-flow" pathLength="1" d="M309 57 C239 28 165 31 56 58" />
+            <path class="concept-flow delay-2" pathLength="1" d="M309 65 C239 94 163 94 38 79" />
+            <path class="concept-arrow-head" d="M61 52 L51 59 L62 64" />
+            <path class="concept-arrow-head" d="M45 73 L33 79 L44 85" />
+            <text class="concept-label concept-accent-text" x="181" y="109" text-anchor="middle">pull back the bad landing fiber</text>
+          </svg>
+          <figcaption>Count at the landing, then pull the count back.</figcaption>
+        </figure>
+        <p>
+          <em>Transport</em> means counting sources in the original shell whose
+          first-passage landing lies in a specified target set — reversing the
+          iteration at the crossing while retaining the accumulated effect of
+          the additive \(+1\) terms.
+        </p>
+        <p class="concept-use">Converts a sparse set of bad landings back into a bound on bad starting values.</p>
+      </article>
+
+      <article class="fundamental-card">
+        <span class="concept-number">6</span>
+        <h3>Same-witness ceiling</h3>
+        <figure class="concept-figure">
+          <svg viewBox="0 0 360 116" role="img" aria-labelledby="concept-ceiling-title concept-ceiling-desc">
+            <title id="concept-ceiling-title">An orbit ceiling that ends at the witnessing time</title>
+            <desc id="concept-ceiling-desc">The orbit stays below a horizontal ceiling up to a highlighted witnessing time; the later path is faded because no claim is made after that witness.</desc>
+            <line class="concept-ceiling" x1="18" y1="29" x2="239" y2="29" />
+            <text class="concept-label" x="22" y="22">ceiling n<tspan baseline-shift="super" font-size="8">1+β</tspan></text>
+            <path class="concept-trace concept-draw" pathLength="1" d="M18 51 L52 41 L86 61 L120 47 L153 71 L184 58 L218 88 L239 91" />
+            <line class="concept-witness-line" x1="239" y1="23" x2="239" y2="99" />
+            <circle class="concept-point concept-pulse" cx="239" cy="91" r="5" />
+            <path class="concept-after" d="M239 91 L269 73 L299 83 L338 48" />
+            <text class="concept-label concept-good-text" x="232" y="109" text-anchor="end">witness k</text>
+            <text class="concept-label" x="336" y="109" text-anchor="end">no later claim</text>
+          </svg>
+          <figcaption>The ceiling and descent share exactly the same witness.</figcaption>
+        </figure>
+        <p>
+          A <em>witnessing time</em> is an iterate where the asserted descent
+          has occurred. The <em>same-witness orbit ceiling</em> bounds every
+          <em>earlier</em> iterate through that same time — it says nothing
+          about the orbit afterwards.
+        </p>
+        <p class="concept-use">This is the conclusion absent from the headline statements of comparable results.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== LITERATURE ==================== -->
+<section id="literature">
+  <div class="wrap">
+    <div class="col reveal">
+      <p class="eyebrow">Where this sits</p>
+      <h2>From fixed powers to a polylogarithmic scale</h2>
+      <p class="lede">
+        Almost-all Collatz results differ along several axes at once: which
+        density, which target, and whether a clock or a rate is supplied.
+        Collapsing them into a single ranking would be misleading, so the
+        table compares only the coordinates each work actually states.
+      </p>
+    </div>
+
+    <div class="tablewrap reveal">
+      <table class="literature-table">
+        <thead>
+          <tr>
+            <th>Work</th><th>Density</th><th>Target for almost all starts</th><th>Clock or quantitative feature</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="https://dml.cz/handle/10338.dmlcz/133225" rel="noopener">Korec (1994)</a></td><td>natural</td>
+            <td>\(n^\theta\), every fixed \(\theta&gt;\log_4 3\)</td>
+            <td>no clock or quantitative exception used here</td>
+          </tr>
+          <tr>
+            <td><a href="https://doi.org/10.48550/arXiv.2402.03276" rel="noopener">Inselmann (2024)</a></td><td>natural</td>
+            <td>\(n^\varepsilon\), every fixed \(\varepsilon&gt;0\)</td>
+            <td>\(2\log n/\log(4/3)\) shortcut steps</td>
+          </tr>
+          <tr>
+            <td><a href="https://doi.org/10.1017/fmp.2022.8" rel="noopener">Tao (2022)</a></td><td>logarithmic</td>
+            <td>every \(f(n)\to\infty\)</td>
+            <td>no single global clock in the headline theorem</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.proofatlas.ai/formalizations/natural-density-log-time-collatz/" rel="noopener">Mazur (2026)</a></td><td>natural, bridged from Tao</td>
+            <td>every \(f(n)\to\infty\)</td>
+            <td>\(&lt;436\log n\) unaccelerated steps</td>
+          </tr>
+          <tr>
+            <td><a href="https://doi.org/10.5281/zenodo.21499244" rel="noopener">Allikvere (2026)</a></td><td>natural, bridged from Tao</td>
+            <td>every \(f(n)\to\infty\)</td>
+            <td>\(&lt;12\log n\) unaccelerated steps</td>
+          </tr>
+          <tr>
+            <td><strong>This paper</strong></td><td>natural</td>
+            <td>\(C_{\rm tar}(\log n)^A\), every fixed \(A&gt;A_{\rm FP}\); moving critical endpoint</td>
+            <td>every shortcut constant \(&gt;c_*\); target-dependent rates; orbit-height bound through the witness</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col reveal">
+      <p class="literature-takeaway">
+        The arbitrary-threshold results of Tao, Mazur and Allikvere reach
+        <em>smaller</em> targets than this paper does. What is different here
+        is the combination: ordinary natural density, an explicit
+        polylogarithmic scale, a quantitative exceptional rate, a logarithmic
+        clock, and a bound on every iterate up to the witness. Those axes are
+        deliberately not collapsed into one ordering, and no priority or
+        strongest-result claim is made.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PROOF ARCHITECTURE ==================== -->
+<section id="architecture">
+  <div class="wrap">
+    <div class="col reveal">
+      <p class="eyebrow">The dependency spine</p>
+      <h2>Proof architecture</h2>
+      <p class="lede">
+        The proof splits sharply in two. Steps 1–2 are exact probabilistic
+        certification; steps 3–6 are deterministic Collatz transport and
+        assembly. Read the six nodes left to right, then open any one in the
+        lab below.
+      </p>
+    </div>
+
+    <nav class="architecture-map reveal" aria-label="Six-stage proof architecture">
+      <a href="#proof-step-1" data-proof-step="proof-step-1">
+        <span>1</span><strong>Enumerate</strong><small>shell → parity words</small>
+      </a>
+      <a href="#proof-step-2" data-proof-step="proof-step-2">
+        <span>2</span><strong>Certify</strong><small>atypical prefixes → thin set</small>
+      </a>
+      <a href="#proof-step-3" data-proof-step="proof-step-3">
+        <span>3</span><strong>Reverse</strong><small>landing → source count</small>
+      </a>
+      <a href="#proof-step-4" data-proof-step="proof-step-4">
+        <span>4</span><strong>Collapse</strong><small>chain → direct passage</small>
+      </a>
+      <a href="#proof-step-5" data-proof-step="proof-step-5">
+        <span>5</span><strong>Compress</strong><small>O(M) → O(√(M log M))</small>
+      </a>
+      <a href="#proof-step-6" data-proof-step="proof-step-6">
+        <span>6</span><strong>Time out</strong><small>low ranks → binomial tail</small>
+      </a>
+    </nav>
+
+    <div class="col reveal">
+      <p class="note">
+        <strong>The key design choice:</strong> steps 3 and 4 are shared by
+        both main theorems. Applying them with one fixed barrier gives the
+        stretched-logarithmic rate; applying them with shrinking barriers and
+        the low-rank timeout gives the polylogarithmic target.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ARCHITECTURE LAB ==================== -->
+<section id="proof-lab">
+  <div class="wrap"><div class="col reveal">
+    <p class="eyebrow">Guided proof lab</p>
+    <h2>Follow one proof interface at a time</h2>
+    <p class="lede">
+      Open a stage to inspect its input, its mathematical burden, and its
+      output. The output of each panel is exactly the input consumed by the
+      next one.
+    </p>
+
+    <div class="proof-lab-toolbar" aria-label="Proof-stage controls">
+      <button id="proof-prev" type="button">← Previous</button>
+      <span id="proof-lab-progress" role="status" aria-live="polite">Stage 1 of 6</span>
+      <button id="proof-next" type="button">Next →</button>
+    </div>
+
+    <ol class="steps proof-steps">
+      <li>
+        <details id="proof-step-1" data-proof-panel open>
+          <summary>Enumerate the shell exactly</summary>
+          <p class="step-interface"><span>Input: a dyadic shell \(I_M\)</span><i>→</i><span>Output: a complete Boolean cube of parity words</span></p>
+          <p>The first \(M\) parity bits of the orbit of \(n\) depend only on
+          \(n \bmod 2^M\), and the induced map is a bijection onto
+          \(\{0,1\}^M\). So the shell \([2^M,2^{M+1})\) contains exactly one
+          representative of every parity word. The exact affine iterate
+          formula then writes \(T^k(n)\) explicitly in terms of that word.</p>
+        </details>
+      </li>
+      <li>
+        <details id="proof-step-2" data-proof-panel>
+          <summary>Certify by discarding atypical prefixes</summary>
+          <p class="step-interface"><span>Input: the parity cube</span><i>→</i><span>Output: a dense set with a deterministic orbit envelope</span></p>
+          <p>Words whose partial odd-step counts deviate too far from the mean
+          are counted directly by a binary-entropy tail bound. Discarding them
+          removes an exponentially small proportion of the shell and leaves a
+          set on which the orbit obeys a two-sided envelope at
+          <em>every</em> time in the block — a pathwise bound, obtained by
+          exact counting rather than by any independence assumption.</p>
+        </details>
+      </li>
+      <li>
+        <details id="proof-step-3" data-proof-panel>
+          <summary>Reverse the iteration at the first crossing</summary>
+          <p class="step-interface"><span>Input: a set of bad landing values</span><i>→</i><span>Output: a bound on the sources that reach them</span></p>
+          <p>For a fixed passage time and landing value, reversing the map
+          bounds how many sources can arrive there. The reverse product
+          retains the accumulated effect of the additive \(+1\) terms as an
+          explicit loss term, so the estimate stays exact rather than
+          heuristic. This is what lets a sparse bad set at the target be
+          transported back to a sparse set of bad starts.</p>
+        </details>
+      </li>
+      <li>
+        <details id="proof-step-4" data-proof-panel>
+          <summary>Collapse the threshold chain</summary>
+          <p class="step-interface"><span>Input: a chain of successive landings</span><i>→</i><span>Output: one direct first passage from the source shell</span></p>
+          <p>If an orbit first drops below \(2^{30}\), and from that landing
+          later first drops below \(2^{27}\), then no earlier iterate was ever
+          below \(2^{27}\) — so the second landing is the original orbit's own
+          first passage below \(2^{27}\). Iterating this observation along the
+          whole decreasing chain means multi-stage histories never have to be
+          counted as separate events, and their reverse losses telescope.</p>
+        </details>
+      </li>
+      <li>
+        <details id="proof-step-5" data-proof-panel>
+          <summary>Compress the possible passage times</summary>
+          <p class="step-interface"><span>Input: a linear horizon of candidate times</span><i>→</i><span>Output: a set of size \(O(\sqrt{M\log M})\)</span></p>
+          <p>This is the quantitative pivot. Aggregating over every time up to
+          the horizon costs a factor linear in \(M\). Rank-dependent barriers
+          instead confine every time at which certification can first fail to
+          one interval of size \(O(\sqrt{M\log M})\). Replacing a linear
+          counting loss by a square-root loss is precisely what moves the
+          reachable target from a fixed power down to a polylogarithm.</p>
+        </details>
+      </li>
+      <li>
+        <details id="proof-step-6" data-proof-panel>
+          <summary>Time out the small ranks</summary>
+          <p class="step-interface"><span>Input: blocks below the switch rank</span><i>→</i><span>Output: the exponent margin \(\Delta_M\), hence \(A_{\rm FP}\)</span></p>
+          <p>Below the switch, positive certification is dropped. A block is
+          declared failed only if it misses its next threshold within the
+          allotted time — and such a block must have an unusually large
+          terminal odd-step count, whose exact binomial upper tail has rate
+          \(\kappa_*\log 2\). Balancing that tail against the square-root time
+          cost leaves the margin
+          \(\kappa_*L-\tfrac12\log_2 M-\log_2\log M\); its divergence is the
+          endpoint condition, and the leading power changes sign at
+          \(A\kappa_*=1/2\).</p>
+        </details>
+      </li>
+    </ol>
+  </div></div>
+</section>
+
+<!-- ==================== PARAMETER LAB ==================== -->
+<section id="explore">
+  <div class="wrap">
+    <div class="col reveal">
+      <p class="eyebrow">Graduate study lab</p>
+      <h2>Explore the theorem's quantifiers</h2>
+      <p class="lede">
+        The theorem has an order. First fix a target exponent \(A\) above the
+        critical value, a clock \(c\) above \(c_*\), and a ceiling
+        \(\beta&gt;0\); only then is an exceptional exponent \(\gamma\)
+        admissible, and only below \(\kappa_*(A-A_{\rm FP})\). Move the
+        controls to see which conclusions travel together.
+      </p>
+    </div>
+
+    <div class="lab-grid reveal">
+      <article class="lab-card" aria-labelledby="param-lab-title">
+        <h3 id="param-lab-title">1. Admissible parameters</h3>
+        <div class="control-stack">
+          <label for="lab-A">
+            Target exponent
+            <output id="lab-A-value" for="lab-A">A = 14.000</output>
+          </label>
+          <input id="lab-A" type="range" min="9.9911133419" max="30" step="0.001" value="14">
+
+          <label for="lab-c">
+            Shortcut clock
+            <output id="lab-c-value" for="lab-c">c = 8.000</output>
+          </label>
+          <input id="lab-c" type="range" min="6.9521189935" max="20" step="0.001" value="8">
+
+          <label for="lab-beta">
+            Orbit ceiling exponent
+            <output id="lab-beta-value" for="lab-beta">β = 0.25</output>
+          </label>
+          <input id="lab-beta" type="range" min="0.01" max="2" step="0.01" value="0.25">
+
+          <label for="lab-gamma">
+            Exceptional-rate exponent
+            <output id="lab-gamma-value" for="lab-gamma">γ = 0.1500</output>
+          </label>
+          <input id="lab-gamma" type="range" min="0.0001" max="1" step="0.0001" value="0.15">
+        </div>
+
+        <div class="lab-status" id="lab-status" role="status" aria-live="polite"></div>
+        <div class="formula-panel">
+          <span>Admissibility test</span>
+          <strong>0 &lt; γ &lt; κ⋆(A − A_FP)</strong>
+          <small id="lab-gamma-cap"></small>
+        </div>
+        <div class="preset-row" aria-label="Parameter presets">
+          <button type="button" data-lab-preset="comfortable" data-goatcounter-click="root-lab-preset-comfortable">Comfortable interior</button>
+          <button type="button" data-lab-preset="near-critical" data-goatcounter-click="root-lab-preset-near-critical">Near the critical exponent</button>
+          <button type="button" data-lab-preset="inadmissible" data-goatcounter-click="root-lab-preset-inadmissible">Cross the γ boundary</button>
+        </div>
+      </article>
+
+      <article class="lab-card" aria-labelledby="scale-lab-title">
+        <h3 id="scale-lab-title">2. Read the scale</h3>
+        <p class="lab-intro">
+          Model a very large input as \(n=10^{D}\). The slider moves \(D\), so
+          each step changes the <em>number of digits</em> of the starting
+          value.
+        </p>
+        <label for="lab-size">
+          Input size
+          <output id="lab-size-value" for="lab-size">n ≈ 10^1000</output>
+        </label>
+        <input id="lab-size" type="range" min="10" max="100000" step="10" value="1000">
+
+        <dl class="metric-grid">
+          <div>
+            <dt>Baseline target digits</dt>
+            <dd id="metric-target-digits">—</dd>
+            <small>digits of \((\log n)^A\); \(C_{\rm tar}\) omitted</small>
+          </div>
+          <div>
+            <dt>Witness clock</dt>
+            <dd id="metric-clock">—</dd>
+            <small>\(c\log n\) shortcut steps</small>
+          </div>
+          <div>
+            <dt>Digit ratio</dt>
+            <dd id="metric-saving">—</dd>
+            <small>target digits ÷ input digits</small>
+          </div>
+        </dl>
+        <p class="lab-intro">
+          The digit ratio tends to zero: the certified value is
+          polylogarithmic in \(n\), so it has \(O(\log\log n)\) digits against
+          the input's \(\asymp\log n\). A fixed power \(n^{\alpha}\) only ever
+          shrinks the digit count by the constant factor \(\alpha\).
+        </p>
+      </article>
+    </div>
+
+    <div class="quantifier-chain reveal" aria-label="Order of quantifiers">
+      <span>fix \(A&gt;A_{\rm FP}\)</span>
+      <i aria-hidden="true">→</i>
+      <span>fix \(c&gt;c_*\), \(\beta&gt;0\)</span>
+      <i aria-hidden="true">→</i>
+      <span>fix \(0&lt;\gamma&lt;\kappa_*(A-A_{\rm FP})\)</span>
+      <i aria-hidden="true">→</i>
+      <span>obtain \(C_{\rm tar}&gt;0\)</span>
+      <i aria-hidden="true">→</i>
+      <span>the count bound holds as \(X\to\infty\)</span>
+    </div>
+
+    <div class="col reveal">
+      <p class="note caution">
+        <strong>Boundary discipline.</strong> The controls stop at
+        \(A_{\rm FP}=9.9911133419\ldots\) and \(c_*=6.9521189935\ldots\),
+        because equality is not claimed at either. The paper proves existence
+        of \(C_{\rm tar}\) and an asymptotic onset; this calculator does not
+        invent numerical values for either one.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== THE PIVOT ==================== -->
+<section id="compression">
+  <div class="wrap"><div class="col reveal">
+    <p class="eyebrow">The quantitative pivot</p>
+    <h2>Why a square root changes the answer</h2>
+    <p>
+      Everything in the proof turns on one exchange. A direct union over every
+      moment at which certification could first fail costs a factor linear in
+      the shell rank \(M\). The time-support lemmas confine those moments to a
+      set of size \(O(\sqrt{M\log M})\) instead.
+    </p>
+    <div class="figbox">
+      <canvas id="fig-compression" aria-label="Comparison of a linear horizon of candidate passage times against the proved square-root bound"></canvas>
+    </div>
+    <p class="legend">
+      Orders only. The unspecified constant in the time-support lemmas is not
+      modelled, so the vertical scale is indicative rather than numerical.
+    </p>
+    <p>
+      The ratio \(\sqrt{M\log M}/M\to0\), so the saving grows without bound as
+      shells get larger. That is exactly the room the scalar budget needs: it
+      is what leaves the exponent margin
+      \(\kappa_*L-\tfrac12\log_2 M-\log_2\log M\) positive, and hence what
+      makes a polylogarithmic target reachable at all.
+    </p>
+  </div></div>
+</section>
+
+<!-- ==================== ORBIT EXPLORER ==================== -->
+<section id="orbit">
+  <div class="wrap"><div class="col reveal">
+    <p class="eyebrow">One number at a time</p>
+    <h2>What it looks like for a single start</h2>
+    <p>
+      Below is a genuine shortcut-Collatz orbit, drawn on a logarithmic
+      vertical axis. The dashed line is the mean-drift reference with slope
+      \(a_0-1\), not a pointwise orbit bound; green dots mark first passages,
+      each one a landing on the next dyadic threshold in the decreasing chain.
+    </p>
+    <div class="figbox">
+      <canvas id="fig-orbit" aria-label="A real shortcut-Collatz orbit with a mean-drift reference and successive first-passage landings"></canvas>
+    </div>
+    <div class="fig-controls">
+      <button type="button" id="orbit-replay" class="btn" data-goatcounter-click="root-orbit-replay">Replay the descent</button>
+    </div>
+
+    <form id="orbit-form" class="orbit-controls" autocomplete="off">
+      <label for="orbit-input">
+        Try your own starting value
+        <small>descends to \(\exp((\log n)^{0.75})\), the companion target — see the note below</small>
+      </label>
+      <input id="orbit-input" type="text" inputmode="numeric" placeholder="e.g. 987654321987" value="987654321987">
+      <button type="submit" class="btn btn-primary" data-goatcounter-click="root-orbit-run">Run it locally</button>
+    </form>
+    <div class="orbit-result" id="orbit-result" role="status" aria-live="polite"></div>
+
+    <p class="note caution">
+      <strong>A single orbit proves nothing.</strong> These runs are evaluated
+      in your browser under the same map, purely to build intuition. The
+      theorem is a statement about a set of natural density one, and no finite
+      computation is used as a premise anywhere in the proof.
+    </p>
+  </div></div>
+</section>
+
+<!-- ==================== TARGET SCALES ==================== -->
+<section id="targets">
+  <div class="wrap"><div class="col reveal">
+    <p class="eyebrow">Reading the scale</p>
+    <h2>How small is polylogarithmic?</h2>
+    <p>
+      Plotting the number of digits of each target against the number of
+      digits of \(n\) makes the hierarchy visible. Fixed powers are straight
+      lines through the origin — they always keep a constant fraction of the
+      input's digits. The polylogarithmic target flattens out completely.
+    </p>
+    <div class="figbox">
+      <canvas id="fig-targets" aria-label="Digit counts of a fixed power, a stretched-logarithmic target, and the polylogarithmic target, against the digit count of n"></canvas>
+    </div>
+    <p class="legend">
+      Landing constants are not modelled; the comparison is of growth rates.
+      The stretched-logarithmic curve uses \(\delta=0.25\).
+    </p>
+  </div></div>
+</section>
+
+<!-- ==================== NATURAL DENSITY ==================== -->
+<section id="ensemble">
+  <div class="wrap"><div class="col reveal">
+    <p class="eyebrow">"Almost all", drawn</p>
+    <h2>What a density-one statement looks like</h2>
+    <p>
+      Each line is a real starting value sampled from the dyadic shell
+      \([2^{26},2^{27})\), and its length is how many shortcut steps it
+      actually needed to reach the target. The dashed line is the reference
+      drift scale \(c_*\log n\). The theorem applies only after fixing
+      \(c&gt;c_*\), so crossings here are not identified with its exceptional
+      set.
+    </p>
+
+    <div class="note">
+      <p>
+        <strong>Which target these illustrations use, and why.</strong> The
+        principal reference scale \((\log n)^{A_{\rm FP}}\) is genuinely
+        asymptotic: it only becomes <em>smaller</em> than \(n\) once
+        \(n\gtrsim3.3\times10^{15}\). Below that crossover every orbit
+        satisfies it at \(k=0\), which would draw a descent where nothing has
+        happened. The fixed-exponent theorem itself uses \(A&gt;A_{\rm FP}\),
+        while the critical endpoint carries additional log-log factors. So
+        the finite illustrations on this page use the paper's
+        stretched-logarithmic companion \(\exp((\log n)^{1-\delta})\) with
+        \(\delta=0.25\) — a real descent at these scales.
+      </p>
+    </div>
+    <div class="figbox">
+      <canvas id="fig-ensemble" aria-label="Sampled real orbits from one dyadic shell and the number of steps each needed to reach the stretched-logarithmic companion target"></canvas>
+    </div>
+    <p class="legend">
+      A finite sample from one shell. Density one is an asymptotic statement:
+      it permits an exceptional set at every scale, and says only that its
+      proportion tends to zero.
+    </p>
+
+    <div class="tablewrap">
+      <table class="literature-table">
+        <thead>
+          <tr><th>Start</th><th>Steps to target</th><th>Reference \(c_*\log n\)</th><th>Peak height</th></tr>
+        </thead>
+        <tbody id="witness-body"></tbody>
+      </table>
+    </div>
+    <p class="legend">
+      Real values, computed from the map, against the companion target
+      \(\exp((\log n)^{0.75})\). "Peak height" is the largest iterate before
+      the witness, written as a power of the starting value — the quantity the
+      same-witness ceiling bounds by \(n^{1+\beta}\).
+    </p>
+  </div></div>
+</section>
+
+<!-- ==================== SCOPE ==================== -->
+<section id="scope">
+  <div class="wrap"><div class="col reveal">
+    <h2>What is not claimed</h2>
+    <div class="note caution">
+      <p>
+        <strong>This is an almost-all theorem, not the Collatz conjecture.</strong>
+        It does not prove descent for every starting value, does not exclude
+        nontrivial cycles or divergent trajectories, and says nothing about
+        the orbit after the selected witness. No finite computation is used as
+        a premise for any asymptotic claim.
+      </p>
+      <p>
+        Two parameter limits are explicitly <em>not</em> asserted: the pure
+        target \(C(\log n)^{A_{\rm FP}}\) at the critical exponent with a
+        bounded final multiplier, and the endpoint \(\delta=1\) in the
+        stretched-logarithmic companion. \(A_{\rm FP}\) is a threshold of this
+        argument, not a constant known to be intrinsic to the Collatz map.
+      </p>
+    </div>
+  </div></div>
+</section>
+
+<!-- ==================== LEAN ==================== -->
+<section id="lean">
+  <div class="wrap"><div class="col reveal">
+    <p class="eyebrow">Machine-checked</p>
+    <h2>Formalization</h2>
+    <p>
+      The written proof is self-contained. A separate Lean 4 development
+      kernel-checks the canonical route to the principal exported theorem,
+      including the shell exceptional ratio, the moving landing, the
+      logarithmic clock, and the same-witness orbit ceiling.
+    </p>
+    <p>
+      The canonical library builds with no <code>sorry</code>, no
+      <code>admit</code>, no project axiom, and no missing module; the
+      public-root axiom reports contain only Lean's three standard axioms
+      <code>propext</code>, <code>Classical.choice</code>, and
+      <code>Quot.sound</code>. Some combined quantitative statements in the
+      manuscript are assembled from separately checked components rather than
+      exposed as single wrapper theorems — that declaration-level boundary is
+      stated explicitly on the map page.
+    </p>
+    <p>
+      Palomar Registry version 2 independently verifies four selected public
+      declarations from this theorem chain, permits only Lean's standard
+      axioms, records a high-trust result, and preserves the exact submitted
+      source and dependency graph.
+    </p>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&amp;version=2" rel="noopener" data-goatcounter-click="root-lean-palomar">Palomar verification record</a>
+      <a class="btn" href="/code/">See the theorem → Lean map</a>
+      <a class="btn" href="https://doi.org/10.5281/zenodo.21930432" rel="noopener" data-goatcounter-click="root-software-doi">Software DOI</a>
+      <a class="btn" href="https://github.com/shaikidris/FirstPassageLinearTransport/tree/lean-v3.2.0" rel="noopener" data-goatcounter-click="root-lean-source">Browse the source</a>
+    </div>
+  </div></div>
+</section>
+
+<!-- ==================== READ AND CITE ==================== -->
+<section id="read">
+  <div class="wrap"><div class="col reveal">
+    <h2>Read and cite</h2>
+    <div class="tablewrap">
+      <table>
+        <tbody>
+          <tr>
+            <td><b>SSRN preprint</b></td>
+            <td><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7290240" rel="noopener">Paper 7290240</a> · DOI <a href="https://doi.org/10.2139/ssrn.7290240" rel="noopener">10.2139/ssrn.7290240</a></td>
+          </tr>
+          <tr>
+            <td><b>Direct full text</b></td>
+            <td><a href="https://shaikidris.github.io/paper/collatz-first-passage.pdf">PDF</a> · Version 3.2.4</td>
+          </tr>
+          <tr>
+            <td><b>Versioned archive</b></td>
+            <td><a href="https://doi.org/10.5281/zenodo.22130385" rel="noopener">10.5281/zenodo.22130385</a> · v3.2.4 · CC BY 4.0</td>
+          </tr>
+          <tr>
+            <td><b>Formalization</b></td>
+            <td><a href="https://doi.org/10.5281/zenodo.21930432" rel="noopener">10.5281/zenodo.21930432</a> · Apache 2.0</td>
+          </tr>
+          <tr>
+            <td><b>Palomar verification</b></td>
+            <td><a href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&amp;version=2" rel="noopener">PALOMAR-2026-08-26-000005 v2</a> · four declarations · high trust</td>
+          </tr>
+          <tr>
+            <td><b>Source</b></td>
+            <td><a href="https://github.com/shaikidris/FirstPassageLinearTransport/tree/lean-v3.2.0" rel="noopener">shaikidris/FirstPassageLinearTransport</a>, tag <code>lean-v3.2.0</code></td>
+          </tr>
+          <tr>
+            <td><b>Commit</b></td>
+            <td><code>ef3410843bf58d69f771f5ba2c0571d54b54da59</code></td>
+          </tr>
+          <tr>
+            <td><b>Toolchain</b></td>
+            <td>Lean <code>4.15.0</code> · Mathlib <code>9837ca9</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      The author's earlier and logically independent
+      <a href="/cet/">stretched-logarithmic endpoint-transport paper</a>
+      proves a restricted-range result by a different mechanism. No result
+      from it is used as a premise here.
+    </p>
+  </div></div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p style="margin:0">
+      © 2026 Idris Ali Shaik · Article under
+      <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a>,
+      Lean development under
+      <a href="https://www.apache.org/licenses/LICENSE-2.0" rel="license noopener">Apache 2.0</a> ·
+      <a href="/code/">Lean map</a> · <a href="/">all research</a>
+    </p>
+    <p style="margin:.45rem 0 0;font-size:.85rem">
+      Privacy-friendly, cookieless page and interaction counts are collected
+      with <a href="https://www.goatcounter.com/help/privacy" rel="noopener">GoatCounter</a>;
+      no form values are sent.
+    </p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var btn = document.getElementById("theme-toggle");
+    btn && btn.addEventListener("click", function () {
+      var root = document.documentElement, cur = root.getAttribute("data-theme");
+      if (!cur) cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      var next = cur === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+  })();
+</script>
+</body>
+</html>
