@@ -22,7 +22,7 @@ SITE = Path(__file__).resolve().parent.parent
 DATA = SITE / "data" / "works.json"
 OUT = SITE / "index.html"
 BASE = "https://shaikidris.github.io/"
-REV = "20261004-hub2"
+REV = "20261004-hub3"
 
 
 def esc(s: str) -> str:
@@ -256,7 +256,10 @@ def page(d: dict) -> str:
     <h1>{esc(a['name'])}</h1>
     <p class="tagline">
       {esc(a['affiliation'])} working in quantitative number theory and combinatorics.
-      Open papers and selected Lean&nbsp;4 results registered on <strong>Palomar</strong>.
+      Progress on the <strong>Collatz conjecture</strong> and proved cases of
+      <strong>Gallai’s path-decomposition conjecture</strong>, alongside arithmetic graph spectra.
+      Full Lean&nbsp;4 formalization projects submitted to <strong>Palomar</strong>;
+      each registered entry specifies the declarations it verifies.
     </p>
     <div class="actions">
       <a class="btn btn-primary" href="#research">Browse the research</a>
