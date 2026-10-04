@@ -1,0 +1,110 @@
+{
+  "_comment": "Curated source for the home-page research table. Every DOI, version and Palomar id here must be a published public record. Run `python3 scripts/build_home.py --check` to compare against the live Zenodo and Palomar APIs before rebuilding.",
+  "author": {
+    "name": "Idris Ali Shaik",
+    "orcid": "0009-0009-9699-9712",
+    "github": "shaikidris",
+    "affiliation": "Independent researcher"
+  },
+  "areas": [
+    {
+      "id": "collatz",
+      "name": "Collatz dynamics",
+      "blurb": "Quantitative almost-all theorems for the Collatz map in ordinary natural density."
+    },
+    {
+      "id": "gallai",
+      "name": "Path decompositions",
+      "blurb": "Cases of Gallai's conjecture that every connected graph on n vertices splits into at most ⌈n/2⌉ paths."
+    },
+    {
+      "id": "spectra",
+      "name": "Arithmetic graph spectra",
+      "blurb": "Adjacency spectra of graphs built from multiplication by primes."
+    }
+  ],
+  "works": [
+    {
+      "id": "polylog",
+      "area": "collatz",
+      "title": "Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density",
+      "summary": "For any f(n) → ∞, almost every n in natural density reaches an iterate below (log n)^A_FP · f(n) after c* log n + O(√(log n log log n)) shortcut steps, with an explicit exponent A_FP ≈ 9.9911.",
+      "msc": ["11B83", "37P99", "60G40"],
+      "preprint": {"doi": "10.5281/zenodo.23132901", "concept": "10.5281/zenodo.21931193", "version": "4.0.2", "date": "2026-10-04"},
+      "also": [{"label": "SSRN", "url": "https://doi.org/10.2139/ssrn.7290240"}],
+      "software": {"doi": "10.5281/zenodo.23043600", "version": "palomar-v4"},
+      "repos": ["FirstPassageLinearTransport", "FirstPassageLinearTransport-Palomar"],
+      "palomar": {"id": "PALOMAR-2026-08-26-000005", "version": 4, "declarations": 4, "trust": "high"},
+      "explainer": {"url": "/polylog/", "covers": "3.2.4", "label": "Interactive explainer", "features": "orbit primer, parameter lab, architecture walkthrough"},
+      "lean_map": "/code/"
+    },
+    {
+      "id": "cet",
+      "also": [{"label": "SSRN", "url": "https://doi.org/10.2139/ssrn.7341398"}],
+      "area": "collatz",
+      "title": "Quantitative Endpoint Transport for the Collatz Map with a Natural-Density Descent Application",
+      "summary": "A reusable arbitrary-target endpoint-transport theorem, with exponent asymptotically linear in the input density exponent, giving natural-density descent to exp((log n)^(1−δ)) for every δ < 0.25124….",
+      "msc": ["11B83", "37P99", "60F10"],
+      "preprint": {"doi": "10.5281/zenodo.22544006", "concept": "10.5281/zenodo.21825993", "version": "2.2.0", "date": "2026-09-06"},
+      "software": {"doi": "10.5281/zenodo.22544010", "version": "2.2.0"},
+      "repos": ["CET", "CollatzEndpointTransport-Palomar"],
+      "palomar": {"id": "PALOMAR-2026-08-27-000018", "version": 3, "declarations": 1, "trust": "high"},
+      "explainer": {"url": "/cet/", "covers": "2.0.3", "label": "Interactive explainer", "features": "full HTML paper, orbit figures, theorem → Lean map"},
+      "lean_map": "/cet/code/"
+    },
+    {
+      "id": "positive-density",
+      "also": [{"label": "SSRN", "url": "https://doi.org/10.2139/ssrn.7497758"}],
+      "area": "collatz",
+      "title": "Positive density of Collatz convergence at every rate above 3/log(4/3)",
+      "summary": "A positive proportion of integers reach 1 within c log x ordinary Collatz steps for every fixed c > 3/log(4/3), with one lower density bound independent of c.",
+      "msc": ["11B83", "37P99"],
+      "preprint": {"doi": "10.5281/zenodo.22871622", "concept": "10.5281/zenodo.22871621", "version": "1.0.0", "date": "2026-09-21"},
+      "repos": ["CollatzConvergencePositiveDensity"],
+      "palomar": {"id": "PALOMAR-2026-09-23-000002", "version": 1, "declarations": 18, "trust": "high"}
+    },
+    {
+      "id": "gallai-two",
+      "area": "gallai",
+      "title": "Gallai's conjecture with two exceptional even vertices",
+      "summary": "Extends the endpoint form of Gallai's conjecture to two designated even vertices that need not be adjacent, when every other even vertex has at most three even neighbours.",
+      "msc": ["05C38", "05C70"],
+      "preprint": {"doi": "10.5281/zenodo.23134427", "concept": "10.5281/zenodo.23134426", "version": "1.0.0", "date": "2026-10-04"},
+      "repos": ["gallai-two-exception"],
+      "palomar": {"id": "PALOMAR-2026-10-04-000006", "version": 1, "declarations": 4, "trust": "high"}
+    },
+    {
+      "id": "gallai-bowtie",
+      "also": [{"label": "SSRN", "url": "https://doi.org/10.2139/ssrn.7453518"}],
+      "area": "gallai",
+      "title": "Gallai's Path Decomposition Conjecture for Graphs with Small Bowtie Boundaries",
+      "summary": "Graphs whose even-degree subgraph has a whole-bowtie component with at most four external neighbours admit ⌈|V|/2⌉ path decompositions; a computer-assisted proof with finite reconstruction certificates.",
+      "msc": ["05C38", "05C70"],
+      "preprint": {"doi": "10.5281/zenodo.22754815", "concept": "10.5281/zenodo.22754814", "version": "0.8", "date": "2026-09-14"},
+      "software": {"doi": "10.5281/zenodo.22733632", "version": "0.1.0"},
+      "repos": ["gallai-bowtie-removal"],
+      "palomar": {"id": "PALOMAR-2026-09-14-000005", "version": 1, "declarations": 6, "trust": "high"}
+    },
+    {
+      "id": "prime-star",
+      "also": [{"label": "SSRN", "url": "https://doi.org/10.2139/ssrn.7364645"}],
+      "area": "spectra",
+      "title": "Prime-Star Localization and Second-Order Spectra of Finite Divisibility Cover Graphs",
+      "summary": "For the graph joining n to np on [1, X], the top adjacency eigenvalue satisfies λ₁² = π(X) + 4 Σ_{p≤X} 1/(p−1) + o(1), via a large-prime star forest whose first-order perturbation vanishes.",
+      "msc": ["05C50", "11N05"],
+      "preprint": {"doi": "10.5281/zenodo.22163492", "concept": "10.5281/zenodo.22145761", "version": "1.1", "date": "2026-08-29"},
+      "repos": ["prime-star-spectra-formalization"],
+      "palomar": {"id": "PALOMAR-2026-08-29-000017", "version": 2, "declarations": 3, "trust": "high"}
+    },
+    {
+      "id": "prime-cover-band",
+      "area": "spectra",
+      "title": "Prescribed Eigenvalues in Power Bands of Finite Prime-Cover Graphs",
+      "summary": "Prescribed-rank eigenvalue estimates in growing power bands, including an every-centre paper theorem for 21/61 < θ < 1/2. The Palomar formalization covers selected density-one estimates for 0 < θ < 1/2.",
+      "preprint": {"doi": "10.2139/ssrn.7441718", "platform": "SSRN", "version": "2026-09-19", "date": "2026-09-19"},
+      "msc": ["05C50", "11N05"],
+      "repos": ["prime-cover-power-band-spectra-palomar"],
+      "palomar": {"id": "PALOMAR-2026-09-10-000004", "version": 1, "declarations": 2, "trust": "high"}
+    }
+  ]
+}

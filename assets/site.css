@@ -1032,3 +1032,12 @@ mjx-container[display="true"] { margin: 1.4rem 0 !important; padding-block: .2re
   body { background: #fff; color: #000; font-size: 10pt; }
   a { color: #000; }
 }
+
+/* ---------- version banner (explainers that lag the current record) ---------- */
+.version-banner {
+  background: var(--warn-soft); border-bottom: 1px solid color-mix(in srgb, var(--warn) 30%, transparent);
+  font-family: var(--sans); font-size: .8125rem; line-height: 1.55; color: var(--ink-soft);
+}
+.version-banner .wrap { padding-block: .6rem; }
+.version-banner b { color: var(--warn); }
+.version-banner a { white-space: nowrap; }
