@@ -22,7 +22,7 @@ SITE = Path(__file__).resolve().parent.parent
 DATA = SITE / "data" / "works.json"
 OUT = SITE / "index.html"
 BASE = "https://shaikidris.github.io/"
-REV = "20261004-hub1"
+REV = "20261004-hub2"
 
 
 def esc(s: str) -> str:
@@ -256,12 +256,11 @@ def page(d: dict) -> str:
     <h1>{esc(a['name'])}</h1>
     <p class="tagline">
       {esc(a['affiliation'])} working in quantitative number theory and combinatorics.
-      Every result below is <strong>formalized in Lean&nbsp;4</strong> and registered on the
-      <strong>Palomar</strong> registry of machine-checked mathematics; {n_pre} have open preprints.
+      Open papers and selected Lean&nbsp;4 results registered on <strong>Palomar</strong>.
     </p>
     <div class="actions">
       <a class="btn btn-primary" href="#research">Browse the research</a>
-      <a class="btn" href="{orcid}" rel="noopener me">ORCID {esc(a['orcid'])}</a>
+      <a class="btn" href="{orcid}" rel="noopener me">ORCID</a>
       <a class="btn" href="https://github.com/{esc(a['github'])}" rel="noopener me">GitHub</a>
       <a class="btn" href="{zenodo}" rel="noopener">All records on Zenodo</a>
     </div>

@@ -11,28 +11,34 @@
 
 /* ---------- hero ---------- */
 
-.hub-hero h1 { max-width: none; margin-bottom: 1rem; }
-.hub-hero .tagline { max-width: 52ch; }
+.hub .hub-hero { padding-block: 1.5rem 1.25rem; }
+.hub-hero .eyebrow { margin-bottom: .45rem; }
+.hub-hero h1 { max-width: none; font-size: clamp(1.7rem, 3vw, 2.2rem); margin-bottom: .5rem; }
+.hub-hero .tagline { max-width: 80ch; font-size: 1rem; margin-bottom: .8rem; }
+.hub-hero .actions { gap: .45rem .9rem; align-items: center; }
+.hub-hero .actions .btn { padding: .35rem .7rem; font-size: .8rem; }
+.hub .research { padding-top: 1.25rem; }
+.hub .sechead { margin-bottom: .85rem; }
+.hub .sechead h2 { margin-bottom: .35rem; }
+.hub .sechead .lede { font-size: .9rem; }
 .stats {
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 0; margin: 2.75rem 0 0; padding: 0;
-  border: 1px solid var(--rule); border-radius: var(--radius);
-  background: var(--paper-raised); overflow: hidden;
+  display: flex; flex-wrap: wrap;
+  gap: .4rem 1.25rem; margin: .85rem 0 0; padding: 0;
 }
-.stats > div { padding: 1rem 1.2rem; border-left: 1px solid var(--rule); }
+.stats > div { display: flex; flex-direction: row-reverse; align-items: baseline; gap: .35rem; }
 .stats > div:first-child { border-left: 0; }
 .stats dt {
   font-family: var(--sans); font-size: .7rem; font-weight: 650; letter-spacing: .06em;
-  text-transform: uppercase; color: var(--ink-faint); margin-bottom: .2rem;
+  color: var(--ink-faint); margin: 0;
 }
 .stats dd {
-  margin: 0; font-size: 1.85rem; line-height: 1.15; font-weight: 600;
+  margin: 0; font-size: 1rem; line-height: 1.15; font-weight: 600;
   font-variant-numeric: tabular-nums; color: var(--ink);
 }
 @media (max-width: 40rem) {
-  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats { gap: .4rem .9rem; }
   .stats > div:nth-child(3) { border-left: 0; }
-  .stats > div:nth-child(n+3) { border-top: 1px solid var(--rule); }
+  .stats > div:nth-child(n+3) { border-top: 0; }
 }
 
 /* ---------- section heads + filters ---------- */
