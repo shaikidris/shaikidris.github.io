@@ -264,6 +264,7 @@ def page(d: dict) -> str:
     <div class="actions">
       <a class="btn btn-primary" href="#research">Browse the research</a>
       <a class="btn" href="{orcid}" rel="noopener me">ORCID</a>
+      <a class="btn" href="https://www.linkedin.com/in/shaikidris/" rel="noopener me">LinkedIn</a>
       <a class="btn" href="https://github.com/{esc(a['github'])}" rel="noopener me">GitHub</a>
       <a class="btn" href="{zenodo}" rel="noopener">All records on Zenodo</a>
     </div>
