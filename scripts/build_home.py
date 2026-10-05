@@ -22,7 +22,7 @@ SITE = Path(__file__).resolve().parent.parent
 DATA = SITE / "data" / "works.json"
 OUT = SITE / "index.html"
 BASE = "https://shaikidris.github.io/"
-REV = "20261004-hub4"
+REV = "20261005-hub1"
 
 
 def esc(s: str) -> str:
@@ -71,7 +71,7 @@ def row(w: dict, owner: str) -> str:
     decl = pal["declarations"]
     formal = (f'<a class="palomar" href="{palomar_url(pal)}" rel="noopener" '
               f'data-goatcounter-click="hub-palomar-{w["id"]}">'
-              f'<span class="pid">{esc(pal["id"].replace("PALOMAR-", ""))}</span>'
+              f'<span class="pid">View on Palomar · {esc(pal["id"].replace("PALOMAR-", ""))}</span>'
               f'<span class="pv">v{pal["version"]}</span></a>'
               f'<span class="trust">{esc(pal["trust"])} trust · {decl} declaration{"s" if decl != 1 else ""}</span>'
               f'<span class="sub repos">{repos}</span>{sw_html}')
@@ -182,8 +182,8 @@ def page(d: dict) -> str:
     filters = "".join(
         f'<button type="button" class="chip-btn" data-filter="{esc(x["id"])}" aria-pressed="false">{esc(x["name"])}</button>'
         for x in d["areas"])
-    desc = (f"{a['name']}: {n_pre} open preprints in quantitative number theory and graph theory — "
-            f"Collatz dynamics in natural density, Gallai path decompositions, and arithmetic graph spectra — "
+    desc = (f"{a['name']}: {n_pre} open preprints in number theory, combinatorics and algebra — "
+            f"Collatz dynamics, Gallai path decompositions, arithmetic graph spectra and Weyl algebras — "
             f"with selected results formalized in Lean 4 and registered on Palomar.")
     orcid = f"https://orcid.org/{a['orcid']}"
     zenodo = ("https://zenodo.org/search?q=" +
@@ -257,7 +257,8 @@ def page(d: dict) -> str:
     <p class="tagline">
       {esc(a['affiliation'])} working in quantitative number theory and combinatorics.
       Progress on the <strong>Collatz conjecture</strong> and proved cases of
-      <strong>Gallai’s path-decomposition conjecture</strong>, alongside arithmetic graph spectra.
+      <strong>Gallai’s path-decomposition conjecture</strong> and the
+      <strong>rank-one Dixmier conjecture</strong>, alongside arithmetic graph spectra.
       Full Lean&nbsp;4 formalization projects submitted to <strong>Palomar</strong>;
       each registered entry specifies the declarations it verifies.
     </p>
@@ -265,6 +266,7 @@ def page(d: dict) -> str:
       <a class="btn btn-primary" href="#research">Browse the research</a>
       <a class="btn" href="{orcid}" rel="noopener me">ORCID</a>
       <a class="btn" href="https://www.linkedin.com/in/shaikidris/" rel="noopener me">LinkedIn</a>
+      <a class="btn" href="https://palomar-registry.org/" rel="noopener">Palomar registry</a>
       <a class="btn" href="https://github.com/{esc(a['github'])}" rel="noopener me">GitHub</a>
       <a class="btn" href="{zenodo}" rel="noopener">All records on Zenodo</a>
     </div>
@@ -321,7 +323,8 @@ def page(d: dict) -> str:
       <p><strong>Scope.</strong> The Collatz results are almost-all statements in natural density, or
       positive-density statements; none proves the Collatz conjecture or excludes exceptional cycles or
       divergent orbits. The path-decomposition results settle specific cases; Gallai's conjecture in
-      general remains open.</p>
+      general remains open. The Dixmier result covers mass at most six in the stated grading;
+      the general Dixmier conjecture remains open.</p>
     </div>
     <p><a href="https://palomar-registry.org/about" rel="noopener">About the Palomar registry →</a></p>
   </div>
