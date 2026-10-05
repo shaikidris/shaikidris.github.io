@@ -8,6 +8,11 @@
   },
   "areas": [
     {
+      "id": "algebra",
+      "name": "Weyl algebras",
+      "blurb": "The rank-one Dixmier conjecture under a bound on homogeneous mass."
+    },
+    {
       "id": "collatz",
       "name": "Collatz dynamics",
       "blurb": "Quantitative almost-all theorems for the Collatz map in ordinary natural density."
@@ -24,6 +29,15 @@
     }
   ],
   "works": [
+    {
+      "id": "dixmier-mass-six",
+      "area": "algebra",
+      "title": "The rank-one Dixmier conjecture for elements of mass at most six",
+      "summary": "Over any characteristic-zero field, P and Q in the first Weyl algebra with QP − PQ = 1 generate the algebra when P has at most six nonzero homogeneous components for deg X = 1 and deg Y = −1. No degree, order or mass bound is imposed on Q.",
+      "msc": ["16S32", "16W20", "16W50"],
+      "repos": ["DixmierMassSix-Palomar"],
+      "palomar": {"id": "PALOMAR-2026-10-05-000006", "version": 2, "declarations": 1, "trust": "high"}
+    },
     {
       "id": "polylog",
       "area": "collatz",
@@ -69,7 +83,7 @@
       "title": "Gallai's conjecture with two exceptional even vertices",
       "summary": "Extends the endpoint form of Gallai's conjecture to two designated even vertices that need not be adjacent, when every other even vertex has at most three even neighbours.",
       "msc": ["05C38", "05C70"],
-      "preprint": {"doi": "10.5281/zenodo.23134427", "concept": "10.5281/zenodo.23134426", "version": "1.0.0", "date": "2026-10-04"},
+      "preprint": {"doi": "10.5281/zenodo.23141299", "concept": "10.5281/zenodo.23134426", "version": "1.1.0", "date": "2026-10-04"},
       "repos": ["gallai-two-exception"],
       "palomar": {"id": "PALOMAR-2026-10-04-000006", "version": 1, "declarations": 4, "trust": "high"}
     },
