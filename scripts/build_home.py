@@ -22,7 +22,7 @@ SITE = Path(__file__).resolve().parent.parent
 DATA = SITE / "data" / "works.json"
 OUT = SITE / "index.html"
 BASE = "https://shaikidris.github.io/"
-REV = "20261005-hub1"
+REV = "20261008-hub1"
 
 
 def esc(s: str) -> str:

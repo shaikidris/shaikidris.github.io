@@ -31,6 +31,8 @@
   "works": [
     {
       "id": "dixmier-mass-six",
+      "preprint": {"doi": "10.5281/zenodo.23161793", "concept": "10.5281/zenodo.23161792", "version": "1.10.6", "date": "2026-10-06"},
+      "also": [{"label": "SSRN", "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7568758"}],
       "area": "algebra",
       "title": "The rank-one Dixmier conjecture for elements of mass at most six",
       "summary": "Over any characteristic-zero field, P and Q in the first Weyl algebra with QP − PQ = 1 generate the algebra when P has at most six nonzero homogeneous components for deg X = 1 and deg Y = −1. No degree, order or mass bound is imposed on Q.",
