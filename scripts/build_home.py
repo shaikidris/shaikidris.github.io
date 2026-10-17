@@ -22,7 +22,7 @@ SITE = Path(__file__).resolve().parent.parent
 DATA = SITE / "data" / "works.json"
 OUT = SITE / "index.html"
 BASE = "https://shaikidris.github.io/"
-REV = "20261008-hub1"
+REV = "20261017-hub1"
 
 
 def esc(s: str) -> str:
@@ -45,7 +45,7 @@ def repo_url(name: str, owner: str) -> str:
 
 def row(w: dict, owner: str) -> str:
     pre = w.get("preprint")
-    pal = w["palomar"]
+    pal = w.get("palomar")
     title = esc(w["title"])
     title_html = (f'<a href="{doi_url(pre["doi"])}" rel="noopener" '
                   f'data-goatcounter-click="hub-title-{w["id"]}">{title}</a>') if pre else title
@@ -55,11 +55,12 @@ def row(w: dict, owner: str) -> str:
         extra = "".join(
             f' · <a href="{esc(a["url"])}" rel="noopener">{esc(a["label"])}</a>'
             for a in w.get("also", []))
+        license_label = ' · CC BY 4.0' if pre.get('license', 'CC BY 4.0') else ''
         preprint = (f'<span class="ver">v{esc(pre["version"])}</span>'
                     f'<span class="date">{esc(pre["date"])}</span>'
                     f'<a class="doi" href="{doi_url(pre["doi"])}" rel="noopener" '
                     f'data-goatcounter-click="hub-doi-{w["id"]}">{esc(pre["doi"])}</a>'
-                    f'<span class="sub">{esc(pre.get("platform", "Zenodo"))} · CC BY 4.0{extra}</span>')
+                    f'<span class="sub">{esc(pre.get("platform", "Zenodo"))}{license_label}{extra}</span>')
     else:
         preprint = '<span class="none">Not yet released</span>'
 
@@ -68,13 +69,14 @@ def row(w: dict, owner: str) -> str:
     sw = w.get("software")
     sw_html = (f'<span class="sub">Lean archive <a href="{doi_url(sw["doi"])}" rel="noopener">'
                f'{esc(sw["doi"].split("zenodo.")[-1])}</a></span>') if sw else ""
-    decl = pal["declarations"]
+    decl = pal["declarations"] if pal else 0
     formal = (f'<a class="palomar" href="{palomar_url(pal)}" rel="noopener" '
               f'data-goatcounter-click="hub-palomar-{w["id"]}">'
               f'<span class="pid">View on Palomar · {esc(pal["id"].replace("PALOMAR-", ""))}</span>'
               f'<span class="pv">v{pal["version"]}</span></a>'
               f'<span class="trust">{esc(pal["trust"])} trust · {decl} declaration{"s" if decl != 1 else ""}</span>'
-              f'<span class="sub repos">{repos}</span>{sw_html}')
+              f'<span class="sub repos">{repos}</span>{sw_html}') if pal else (
+                  f'<span class="sub">{esc(w.get("formal_note", "No registered formalization linked."))}</span>')
 
     ex = w.get("explainer")
     if ex:
@@ -157,8 +159,9 @@ def jsonld(d: dict) -> str:
         if w.get("preprint"):
             p = w["preprint"]
             item.update({"identifier": {"@type": "PropertyValue", "propertyID": "DOI", "value": p["doi"]},
-                         "url": doi_url(p["doi"]), "datePublished": p["date"], "version": p["version"],
-                         "license": "https://creativecommons.org/licenses/by/4.0/"})
+                         "url": doi_url(p["doi"]), "datePublished": p["date"], "version": p["version"]})
+            if p.get("license", "CC BY 4.0"):
+                item["license"] = "https://creativecommons.org/licenses/by/4.0/"
         else:
             item["url"] = palomar_url(w["palomar"])
         parts.append({"@type": "ListItem", "position": i, "item": item})
@@ -176,14 +179,13 @@ def page(d: dict) -> str:
     a = d["author"]
     works = d["works"]
     n_pre = sum(1 for w in works if w.get("preprint"))
-    n_pal = len(works)
-    n_decl = sum(w["palomar"]["declarations"] for w in works)
+    n_pal = sum(1 for w in works if w.get("palomar"))
+    n_decl = sum(w.get("palomar", {}).get("declarations", 0) for w in works)
     n_ex = sum(1 for w in works if w.get("explainer"))
     filters = "".join(
         f'<button type="button" class="chip-btn" data-filter="{esc(x["id"])}" aria-pressed="false">{esc(x["name"])}</button>'
         for x in d["areas"])
-    desc = (f"{a['name']}: {n_pre} open preprints in number theory, combinatorics and algebra — "
-            f"Collatz dynamics, Gallai path decompositions, arithmetic graph spectra and Weyl algebras — "
+    desc = (f"{a['name']}: {n_pre} open preprints in number theory, graph theory, algebra and complexity — "
             f"with selected results formalized in Lean 4 and registered on Palomar.")
     orcid = f"https://orcid.org/{a['orcid']}"
     zenodo = ("https://zenodo.org/search?q=" +
@@ -255,10 +257,11 @@ def page(d: dict) -> str:
     <p class="eyebrow">Mathematics · Formal verification</p>
     <h1>{esc(a['name'])}</h1>
     <p class="tagline">
-      {esc(a['affiliation'])} working in quantitative number theory and combinatorics.
+      {esc(a['affiliation'])} working in number theory, graph theory, algebra and complexity.
       Progress on the <strong>Collatz conjecture</strong> and proved cases of
       <strong>Gallai’s path-decomposition conjecture</strong> and the
-      <strong>rank-one Dixmier conjecture</strong>, alongside arithmetic graph spectra.
+      <strong>rank-one Dixmier conjecture</strong>, with spectral bounds and counterexamples
+      to exact color-critical two-eigenvalue conjectures.
       Full Lean&nbsp;4 formalization projects submitted to <strong>Palomar</strong>;
       each registered entry specifies the declarations it verifies.
     </p>
@@ -335,8 +338,7 @@ def page(d: dict) -> str:
 <footer>
   <div class="wrap">
     <p style="margin:0">
-      © 2026 {esc(a['name'])} · Preprints under
-      <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a>;
+      © 2026 {esc(a['name'])} · Licences are specified by each linked record;
       Lean code under the licence of each repository ·
       <a href="{orcid}" rel="noopener me">ORCID</a> ·
       <a href="https://github.com/{esc(a['github'])}" rel="noopener me">GitHub</a>
@@ -388,7 +390,7 @@ def check(d: dict) -> int:
     drift = 0
     orcid = d["author"]["orcid"]
     known_pre = {w["preprint"]["concept"] for w in d["works"] if w.get("preprint", {}).get("concept")}
-    known_pal = {w["palomar"]["id"] for w in d["works"]}
+    known_pal = {w["palomar"]["id"] for w in d["works"] if w.get("palomar")}
 
     for w in d["works"]:
         pre = w.get("preprint")
@@ -402,7 +404,9 @@ def check(d: dict) -> int:
             ex = w.get("explainer")
             if ex and ex.get("covers") != v:
                 print(f"[explainer] {w['id']}: {ex['url']} written for v{ex['covers']}, latest v{v} (banner should say so)")
-        pal = w["palomar"]
+        pal = w.get("palomar")
+        if not pal:
+            continue
         rec = get(f"https://data.palomar-registry.org/versions/{pal['id']}.json")
         top = max((x["version"] for x in rec["entries"] if x.get("status") == "registered"), default=0)
         if top and top != pal["version"]:

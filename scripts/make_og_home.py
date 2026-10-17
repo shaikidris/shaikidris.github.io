@@ -33,8 +33,8 @@ def main() -> None:
     works = d["works"]
     stats = [
         (str(sum(1 for w in works if w.get("preprint"))), "open preprints"),
-        (str(len(works)), "Palomar entries"),
-        (str(sum(w["palomar"]["declarations"] for w in works)), "verified declarations"),
+        (str(sum(1 for w in works if w.get("palomar"))), "Palomar entries"),
+        (str(sum(w.get("palomar", {}).get("declarations", 0) for w in works)), "verified declarations"),
     ]
 
     img = Image.new("RGB", (W * S, H * S), PAPER)
@@ -45,16 +45,18 @@ def main() -> None:
     dr.text((pad, 62 * S), "MATHEMATICS  ·  FORMAL VERIFICATION", font=font(SANS_B, 17), fill=ACCENT)
     dr.text((pad, 104 * S), d["author"]["name"], font=font(SERIF_B, 64), fill=INK)
     y = 196 * S
-    for line in ["Quantitative number theory and combinatorics,",
+    for line in ["Number theory, graph theory, algebra and complexity,",
                  "with selected results formalized in Lean 4."]:
         dr.text((pad, y), line, font=font(SERIF, 30), fill=SOFT)
         y += 42 * S
 
     # area tags
     x, y = pad, 316 * S
-    tag = font(SANS_B, 16)
+    tag = font(SANS_B, 13)
     for a in d["areas"]:
         tw = dr.textlength(a["name"], font=tag)
+        if x + tw + 28 * S > (W - 72) * S:
+            x, y = pad, y + 44 * S
         dr.rounded_rectangle([x, y, x + tw + 28 * S, y + 36 * S], radius=18 * S, fill=(236, 233, 251))
         dr.text((x + 14 * S, y + 9 * S), a["name"], font=tag, fill=ACCENT)
         x += tw + 40 * S
