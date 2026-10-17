@@ -7,6 +7,8 @@
     "affiliation": "Independent researcher"
   },
   "areas": [
+    {"id": "spectral", "name": "Spectral graph theory", "blurb": "Localized eigenvalue bounds, forbidden subgraphs and exact counterexamples."},
+    {"id": "complexity", "name": "Algorithms and complexity", "blurb": "Exact reachable sets and fault detection in priority controllers."},
     {
       "id": "algebra",
       "name": "Weyl algebras",
@@ -29,6 +31,41 @@
     }
   ],
   "works": [
+    {
+      "id": "kkp-asymptotic",
+      "area": "spectral",
+      "title": "A sharp asymptotic spectral bound for forbidden subgraphs",
+      "summary": "For fixed F with chromatic number r+1 ≥ 3, every sufficiently large F-free graph satisfies F₂(A) ≤ 2(1−1/r)m − (2(1−1/r)−1)Δ(G) + εm. The graphs may be disconnected; a companion theorem identifies F₂ with the first two ordered eigenvalue squares in this range.",
+      "msc": ["05C50", "05C35"],
+      "repos": ["kkp-asymptotic-spectral-bound"],
+      "palomar": {"id": "PALOMAR-2026-10-17-000005", "version": 1, "declarations": 2, "trust": "high"}
+    },
+    {
+      "id": "kkp-counterexamples",
+      "area": "spectral",
+      "title": "Connected counterexamples to the exact color-critical two-eigenvalue bound",
+      "summary": "Joining K(s,s,s) to K₄ by one bridge gives connected (K₅ minus an edge)-free graphs with arbitrarily many edges whose first two ordered eigenvalue squares sum to more than 4m/3. This refutes KKP Conjecture 1.16 and Li–Liu–Zhang Conjecture 5.4.",
+      "msc": ["05C50", "05C35"],
+      "repos": ["kkp-connected-spectral-counterexamples"],
+      "palomar": {"id": "PALOMAR-2026-10-16-000012", "version": 1, "declarations": 2, "trust": "high"}
+    },
+    {
+      "id": "kkp-localized",
+      "area": "spectral",
+      "title": "Localized two-eigenvalue bound for finite noncomplete graphs",
+      "summary": "For every finite noncomplete simple graph on at least two vertices, λ₁² + λ₂² ≤ Σₑ 2(1−1/c(e)), where c(e) is the largest clique containing edge e. The formalization uses the checked BN spectral lift, with attribution to its source.",
+      "msc": ["05C50", "05C35"],
+      "repos": ["kkp-localized-spectral-bound"],
+      "palomar": {"id": "PALOMAR-2026-10-15-000015", "version": 1, "declarations": 1, "trust": "high"}
+    },
+    {
+      "id": "priority-fault-detection",
+      "area": "complexity",
+      "title": "Polynomial Fault Detection Without Bounded Width: Exact Reachable Sets in Priority Controllers",
+      "summary": "An exact description of reachable eligible sets gives polynomial bridge-fault detection in generalized c432 priority controllers, including a family of linear treewidth. The paper also proves complexity and representation bounds; its fault-model extensions are outside the earlier Lean formalization.",
+      "preprint": {"doi": "10.5281/zenodo.23400057", "concept": "10.5281/zenodo.23400056", "version": "1.0", "date": "2026-10-15", "license": null},
+      "formal_note": "The manuscript describes an earlier Lean formalization. No Palomar entry is linked for this paper."
+    },
     {
       "id": "dixmier-mass-six",
       "preprint": {"doi": "10.5281/zenodo.23161793", "concept": "10.5281/zenodo.23161792", "version": "1.10.6", "date": "2026-10-06"},
