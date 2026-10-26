@@ -22,7 +22,7 @@ SITE = Path(__file__).resolve().parent.parent
 DATA = SITE / "data" / "works.json"
 OUT = SITE / "index.html"
 BASE = "https://shaikidris.github.io/"
-REV = "20261017-hub1"
+REV = "20261026-hub1"
 
 
 def esc(s: str) -> str:
@@ -31,6 +31,18 @@ def esc(s: str) -> str:
 
 def doi_url(doi: str) -> str:
     return "https://doi.org/" + doi
+
+
+def preprint_url(p: dict) -> str:
+    return doi_url(p["doi"]) if p.get("doi") else p["url"]
+
+
+def palomar_records(w: dict) -> list[dict]:
+    return ([w["palomar"]] if w.get("palomar") else []) + w.get("palomar_entries", [])
+
+
+def preprint_count(works: list[dict]) -> int:
+    return len({preprint_url(w["preprint"]) for w in works if w.get("preprint")})
 
 
 def palomar_url(p: dict) -> str:
@@ -45,9 +57,9 @@ def repo_url(name: str, owner: str) -> str:
 
 def row(w: dict, owner: str) -> str:
     pre = w.get("preprint")
-    pal = w.get("palomar")
+    pals = palomar_records(w)
     title = esc(w["title"])
-    title_html = (f'<a href="{doi_url(pre["doi"])}" rel="noopener" '
+    title_html = (f'<a href="{esc(preprint_url(pre))}" rel="noopener" '
                   f'data-goatcounter-click="hub-title-{w["id"]}">{title}</a>') if pre else title
     msc = "".join(f'<span class="chip">{esc(m)}</span>' for m in w.get("msc", []))
 
@@ -58,8 +70,8 @@ def row(w: dict, owner: str) -> str:
         license_label = ' · CC BY 4.0' if pre.get('license', 'CC BY 4.0') else ''
         preprint = (f'<span class="ver">v{esc(pre["version"])}</span>'
                     f'<span class="date">{esc(pre["date"])}</span>'
-                    f'<a class="doi" href="{doi_url(pre["doi"])}" rel="noopener" '
-                    f'data-goatcounter-click="hub-doi-{w["id"]}">{esc(pre["doi"])}</a>'
+                    f'<a class="doi" href="{esc(preprint_url(pre))}" rel="noopener" '
+                    f'data-goatcounter-click="hub-doi-{w["id"]}">{esc(pre.get("doi", pre.get("label", "Read preprint")))}</a>'
                     f'<span class="sub">{esc(pre.get("platform", "Zenodo"))}{license_label}{extra}</span>')
     else:
         preprint = '<span class="none">Not yet released</span>'
@@ -69,14 +81,19 @@ def row(w: dict, owner: str) -> str:
     sw = w.get("software")
     sw_html = (f'<span class="sub">Lean archive <a href="{doi_url(sw["doi"])}" rel="noopener">'
                f'{esc(sw["doi"].split("zenodo.")[-1])}</a></span>') if sw else ""
-    decl = pal["declarations"] if pal else 0
-    formal = (f'<a class="palomar" href="{palomar_url(pal)}" rel="noopener" '
+    formal_parts = []
+    for pal in pals:
+        decl = pal["declarations"]
+        formal_parts.append((f'<span class="sub">{esc(pal.get("title", ""))}</span>' if pal.get("title") else '') +
+              (f'<a class="palomar" href="{palomar_url(pal)}" rel="noopener" '
               f'data-goatcounter-click="hub-palomar-{w["id"]}">'
               f'<span class="pid">View on Palomar · {esc(pal["id"].replace("PALOMAR-", ""))}</span>'
               f'<span class="pv">v{pal["version"]}</span></a>'
-              f'<span class="trust">{esc(pal["trust"])} trust · {decl} declaration{"s" if decl != 1 else ""}</span>'
-              f'<span class="sub repos">{repos}</span>{sw_html}') if pal else (
-                  f'<span class="sub">{esc(w.get("formal_note", "No registered formalization linked."))}</span>')
+              f'<span class="trust">{esc(pal["trust"])} trust · {decl} declaration{"s" if decl != 1 else ""}</span>'))
+    formal = ''.join(formal_parts) if pals else f'<span class="sub">{esc(w.get("formal_note", "No registered formalization linked."))}</span>'
+    if len(pals) > 1:
+        formal = f'<details><summary>{len(pals)} Palomar records · {sum(p["declarations"] for p in pals)} theorem listings</summary>{formal}</details>'
+    formal += f'<span class="sub repos">{repos}</span>{sw_html}'
 
     ex = w.get("explainer")
     if ex:
@@ -158,8 +175,9 @@ def jsonld(d: dict) -> str:
                 "author": {"@type": "Person", "name": a["name"]}}
         if w.get("preprint"):
             p = w["preprint"]
-            item.update({"identifier": {"@type": "PropertyValue", "propertyID": "DOI", "value": p["doi"]},
-                         "url": doi_url(p["doi"]), "datePublished": p["date"], "version": p["version"]})
+            item.update({"url": preprint_url(p), "datePublished": p["date"], "version": p["version"]})
+            if p.get("doi"):
+                item["identifier"] = {"@type": "PropertyValue", "propertyID": "DOI", "value": p["doi"]}
             if p.get("license", "CC BY 4.0"):
                 item["license"] = "https://creativecommons.org/licenses/by/4.0/"
         else:
@@ -178,9 +196,9 @@ def jsonld(d: dict) -> str:
 def page(d: dict) -> str:
     a = d["author"]
     works = d["works"]
-    n_pre = sum(1 for w in works if w.get("preprint"))
-    n_pal = sum(1 for w in works if w.get("palomar"))
-    n_decl = sum(w.get("palomar", {}).get("declarations", 0) for w in works)
+    n_pre = preprint_count(works)
+    n_pal = sum(len(palomar_records(w)) for w in works)
+    n_decl = sum(p["declarations"] for w in works for p in palomar_records(w))
     n_ex = sum(1 for w in works if w.get("explainer"))
     filters = "".join(
         f'<button type="button" class="chip-btn" data-filter="{esc(x["id"])}" aria-pressed="false">{esc(x["name"])}</button>'
@@ -276,7 +294,7 @@ def page(d: dict) -> str:
     <dl class="stats">
       <div><dt>Open preprints</dt><dd>{n_pre}</dd></div>
       <div><dt>Palomar entries</dt><dd>{n_pal}</dd></div>
-      <div><dt>Registered declarations</dt><dd>{n_decl}</dd></div>
+      <div><dt>Registered theorem listings</dt><dd>{n_decl}</dd></div>
       <div><dt>Interactive explainers</dt><dd>{n_ex}</dd></div>
     </dl>
   </div>
@@ -294,7 +312,8 @@ def page(d: dict) -> str:
     </div>
     {table(d)}
     <p class="tablenote">Versions and dates are those of the latest public record. Titles link to the
-    paper DOI; Zenodo records also list earlier versions. SSRN dates identify the public revision.</p>
+    paper record; Zenodo records also list earlier versions. SSRN dates identify the public revision.
+    A shared preprint is counted once; theorem listings are counted per registry entry.</p>
   </div>
 </section>
 
@@ -390,11 +409,11 @@ def check(d: dict) -> int:
     drift = 0
     orcid = d["author"]["orcid"]
     known_pre = {w["preprint"]["concept"] for w in d["works"] if w.get("preprint", {}).get("concept")}
-    known_pal = {w["palomar"]["id"] for w in d["works"] if w.get("palomar")}
+    known_pal = {p["id"] for w in d["works"] for p in palomar_records(w)}
 
     for w in d["works"]:
         pre = w.get("preprint")
-        if pre and pre["doi"].startswith("10.5281/zenodo."):
+        if pre and pre.get("doi", "").startswith("10.5281/zenodo."):
             rid = pre["doi"].split("zenodo.")[-1]
             latest = get(f"https://zenodo.org/api/records/{rid}/versions/latest")
             v = str(latest["metadata"].get("version", "")).lstrip("vV")
@@ -404,14 +423,12 @@ def check(d: dict) -> int:
             ex = w.get("explainer")
             if ex and ex.get("covers") != v:
                 print(f"[explainer] {w['id']}: {ex['url']} written for v{ex['covers']}, latest v{v} (banner should say so)")
-        pal = w.get("palomar")
-        if not pal:
-            continue
-        rec = get(f"https://data.palomar-registry.org/versions/{pal['id']}.json")
-        top = max((x["version"] for x in rec["entries"] if x.get("status") == "registered"), default=0)
-        if top and top != pal["version"]:
-            drift += 1
-            print(f"[palomar] {w['id']}: works.json v{pal['version']} -> registry v{top}")
+        for pal in palomar_records(w):
+            rec = get(f"https://data.palomar-registry.org/versions/{pal['id']}.json")
+            top = max((x["version"] for x in rec["entries"] if x.get("status") == "registered"), default=0)
+            if top and top != pal["version"]:
+                drift += 1
+                print(f"[palomar] {w['id']}: works.json v{pal['version']} -> registry v{top}")
 
     q = urllib.parse.urlencode({"q": f'creators.orcid:"{orcid}"', "size": 25})
     for r in get(f"https://zenodo.org/api/records?{q}")["hits"]["hits"]:
