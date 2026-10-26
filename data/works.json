@@ -33,6 +33,7 @@
   "works": [
     {
       "id": "kkp-asymptotic",
+      "preprint": {"url": "https://hexagonmath.org/2610.00305v1", "label": "hexagon:2610.00305v1", "platform": "Hexagon", "version": "1", "date": "2026-10-17"},
       "area": "spectral",
       "title": "A sharp asymptotic spectral bound for forbidden subgraphs",
       "summary": "For fixed F with chromatic number r+1 ≥ 3, every sufficiently large F-free graph satisfies F₂(A) ≤ 2(1−1/r)m − (2(1−1/r)−1)Δ(G) + εm. The graphs may be disconnected; a companion theorem identifies F₂ with the first two ordered eigenvalue squares in this range.",
@@ -42,6 +43,7 @@
     },
     {
       "id": "kkp-counterexamples",
+      "preprint": {"url": "https://hexagonmath.org/2610.00305v1", "label": "hexagon:2610.00305v1", "platform": "Hexagon", "version": "1", "date": "2026-10-17"},
       "area": "spectral",
       "title": "Connected counterexamples to the exact color-critical two-eigenvalue bound",
       "summary": "Joining K(s,s,s) to K₄ by one bridge gives connected (K₅ minus an edge)-free graphs with arbitrarily many edges whose first two ordered eigenvalue squares sum to more than 4m/3. This refutes KKP Conjecture 1.16 and Li–Liu–Zhang Conjecture 5.4.",
@@ -51,6 +53,7 @@
     },
     {
       "id": "kkp-localized",
+      "preprint": {"url": "https://hexagonmath.org/2610.00305v1", "label": "hexagon:2610.00305v1", "platform": "Hexagon", "version": "1", "date": "2026-10-17"},
       "area": "spectral",
       "title": "Localized two-eigenvalue bound for finite noncomplete graphs",
       "summary": "For every finite noncomplete simple graph on at least two vertices, λ₁² + λ₂² ≤ Σₑ 2(1−1/c(e)), where c(e) is the largest clique containing edge e. The formalization uses the checked BN spectral lift, with attribution to its source.",
@@ -62,14 +65,25 @@
       "id": "priority-fault-detection",
       "area": "complexity",
       "title": "Polynomial Fault Detection Without Bounded Width: Exact Reachable Sets in Priority Controllers",
-      "summary": "An exact description of reachable eligible sets gives polynomial bridge-fault detection in generalized c432 priority controllers, including a family of linear treewidth. The paper also proves complexity and representation bounds; its fault-model extensions are outside the earlier Lean formalization.",
-      "preprint": {"doi": "10.5281/zenodo.23400057", "concept": "10.5281/zenodo.23400056", "version": "1.0", "date": "2026-10-15", "license": null},
-      "formal_note": "The manuscript describes an earlier Lean formalization. No Palomar entry is linked for this paper."
+      "summary": "Exact reachable eligible sets give polynomial bridge-fault detection in generalized c432 priority controllers, including a family of linear treewidth. Eight Palomar records cover selected fault-image, algorithmic, enumeration, resolution and lower-bound results; each entry specifies its formal scope.",
+      "preprint": {"doi": "10.5281/zenodo.23589156", "concept": "10.5281/zenodo.23400056", "version": "1.1", "date": "2026-10-23", "license": null},
+      "also": [{"label": "Hexagon", "url": "https://hexagonmath.org/2610.00503v1"}],
+      "repos": ["priority-controller-phase1"],
+      "palomar_entries": [
+        {"id": "PALOMAR-2026-10-19-000010", "version": 1, "title": "Exact fault images in priority controllers", "declarations": 6, "trust": "high"},
+        {"id": "PALOMAR-2026-10-19-000014", "version": 1, "title": "Guarded detection and constrained eligible-set extensions", "declarations": 6, "trust": "high"},
+        {"id": "PALOMAR-2026-10-19-000016", "version": 2, "title": "Canonical streaming enumeration of eligible detections", "declarations": 8, "trust": "high"},
+        {"id": "PALOMAR-2026-10-20-000013", "version": 1, "title": "Forest detection and attained healthy-zero maximum weight", "declarations": 3, "trust": "high"},
+        {"id": "PALOMAR-2026-10-20-000015", "version": 1, "title": "Dual-Horn models and vertex covers in priority controllers", "declarations": 7, "trust": "high"},
+        {"id": "PALOMAR-2026-10-21-000014", "version": 1, "title": "Bounded conjunction and proper-basis algorithms", "declarations": 11, "trust": "high"},
+        {"id": "PALOMAR-2026-10-21-000016", "version": 1, "title": "Ordinary resolution for native encodings and observation wrappers", "declarations": 9, "trust": "high"},
+        {"id": "PALOMAR-2026-10-22-000011", "version": 1, "title": "Critical recovery, query lower bounds and binary-native width", "declarations": 18, "trust": "high"}
+      ]
     },
     {
       "id": "dixmier-mass-six",
       "preprint": {"doi": "10.5281/zenodo.23161793", "concept": "10.5281/zenodo.23161792", "version": "1.10.6", "date": "2026-10-06"},
-      "also": [{"label": "SSRN", "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7568758"}],
+      "also": [{"label": "SSRN", "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7568758"}, {"label": "Hexagon", "url": "https://hexagonmath.org/2610.00273v1"}],
       "area": "algebra",
       "title": "The rank-one Dixmier conjecture for elements of mass at most six",
       "summary": "Over any characteristic-zero field, P and Q in the first Weyl algebra with QP − PQ = 1 generate the algebra when P has at most six nonzero homogeneous components for deg X = 1 and deg Y = −1. No degree, order or mass bound is imposed on Q.",

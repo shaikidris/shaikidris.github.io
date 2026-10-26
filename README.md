@@ -64,6 +64,12 @@ as journal peer review or verification of every manuscript specialization.
 
 ## Updating the research hub
 
+Each work may have a single `palomar` record or a `palomar_entries` list for
+several formalization packages. Grouped records appear in an expandable panel.
+Preprints accept either a DOI or a public `url` with a platform and label.
+Shared preprint URLs count once in the totals; theorem listings count per
+registry entry and do not assert uniqueness across packages.
+
 When a new preprint, Zenodo version or Palomar version is published:
 
 ```sh

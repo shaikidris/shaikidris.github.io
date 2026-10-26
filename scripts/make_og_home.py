@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
+from build_home import palomar_records, preprint_count
 
 SITE = Path(__file__).resolve().parent.parent
 DATA = SITE / "data" / "works.json"
@@ -32,9 +33,9 @@ def main() -> None:
     d = json.loads(DATA.read_text(encoding="utf-8"))
     works = d["works"]
     stats = [
-        (str(sum(1 for w in works if w.get("preprint"))), "open preprints"),
-        (str(sum(1 for w in works if w.get("palomar"))), "Palomar entries"),
-        (str(sum(w.get("palomar", {}).get("declarations", 0) for w in works)), "verified declarations"),
+        (str(preprint_count(works)), "open preprints"),
+        (str(sum(len(palomar_records(w)) for w in works)), "Palomar entries"),
+        (str(sum(p["declarations"] for w in works for p in palomar_records(w))), "theorem listings"),
     ]
 
     img = Image.new("RGB", (W * S, H * S), PAPER)
