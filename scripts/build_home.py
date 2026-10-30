@@ -22,7 +22,7 @@ SITE = Path(__file__).resolve().parent.parent
 DATA = SITE / "data" / "works.json"
 OUT = SITE / "index.html"
 BASE = "https://shaikidris.github.io/"
-REV = "20261030-hub1"
+REV = "20261030-hub2"
 
 
 def esc(s: str) -> str:
@@ -84,9 +84,10 @@ def row(w: dict, owner: str) -> str:
                     f'<span class="sub">{esc(pre.get("platform", "Zenodo"))}{license_label}{extra}</span>')
         if hx and pre.get("platform") != "Hexagon":
             hx_version = f' · v{esc(hx["version"])}' if hx.get("version") else ''
+            hx_date = f'<span class="date">{esc(hx["date"])}</span>' if hx.get("date") else ''
             preprint = (f'<a class="btn btn-sm" href="{esc(hx["url"])}" '
                         f'data-goatcounter-click="hub-hexagon-{w["id"]}">Read on Hexagon{hx_version}</a>'
-                        f'<span class="sub">Alternate record</span>' + preprint)
+                        + hx_date + '<details><summary>Alternate archives</summary>' + preprint + '</details>')
     else:
         preprint = '<span class="none">Not yet released</span>'
 
@@ -199,6 +200,16 @@ def jsonld(d: dict) -> str:
                 item["license"] = "https://creativecommons.org/licenses/by/4.0/"
         else:
             item["url"] = palomar_url(w["palomar"])
+        hx = hexagon_record(w)
+        if hx:
+            item["url"] = hx["url"]
+            item["sameAs"] = list(dict.fromkeys([preprint_url(w["preprint"])] + [x["url"] for x in w.get("also", []) if x["url"] != hx["url"]]))
+            item["identifier"] = {"@type": "PropertyValue", "propertyID": "Hexagon", "value": hx["url"].rsplit('/', 1)[-1]}
+            if hx.get("version"):
+                item["version"] = hx["version"]
+            if hx.get("date"):
+                item["datePublished"] = hx["date"]
+            item["license"] = "https://creativecommons.org/licenses/by/4.0/"
         parts.append({"@type": "ListItem", "position": i, "item": item})
     doc = {"@context": "https://schema.org", "@type": "ProfilePage", "url": BASE,
            "name": f"{a['name']} — Mathematics research",
@@ -299,6 +310,11 @@ def page(d: dict) -> str:
       to exact color-critical two-eigenvalue conjectures.
       Full Lean&nbsp;4 formalization projects submitted to <strong>Palomar</strong>;
       each registered entry specifies the declarations it verifies.
+    </p>
+    <p class="professional-note">
+      Outside mathematics, I work in engineering leadership at Zeta, with a background in
+      distributed data systems, cloud infrastructure and Apache open-source software.
+      <a href="https://www.linkedin.com/in/shaikidris/" rel="noopener me">Professional profile →</a>
     </p>
     <div class="actions">
       <a class="btn btn-primary" href="#research">Browse the research</a>

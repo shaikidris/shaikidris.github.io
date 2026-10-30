@@ -15,6 +15,9 @@
 .hub-hero .eyebrow { margin-bottom: .45rem; }
 .hub-hero h1 { max-width: none; font-size: clamp(1.7rem, 3vw, 2.2rem); margin-bottom: .5rem; }
 .hub-hero .tagline { max-width: 80ch; font-size: 1rem; margin-bottom: .8rem; }
+.hub-hero .professional-note {
+  max-width: 85ch; margin: 0 0 .8rem; font: .875rem/1.5 var(--sans); color: var(--ink-soft);
+}
 .hub-hero .actions { gap: .45rem .9rem; align-items: center; }
 .hub-hero .actions .btn { padding: .35rem .7rem; font-size: .8rem; }
 .hub .research { padding-top: 1.25rem; }

@@ -63,6 +63,7 @@
     },
     {
       "id": "priority-fault-detection",
+      "hexagon": {"url": "https://hexagonmath.org/2610.00503v1", "version": "1", "date": "2026-10-23"},
       "area": "complexity",
       "title": "Polynomial Fault Detection Without Bounded Width: Exact Reachable Sets in Priority Controllers",
       "summary": "Exact reachable eligible sets give polynomial bridge-fault detection in generalized c432 priority controllers, including a family of linear treewidth. Eight Palomar records cover selected fault-image, algorithmic, enumeration, resolution and lower-bound results; each entry specifies its formal scope.",
@@ -82,6 +83,7 @@
     },
     {
       "id": "dixmier-mass-six",
+      "hexagon": {"url": "https://hexagonmath.org/2610.00273v1", "version": "1", "date": "2026-10-15"},
       "preprint": {"doi": "10.5281/zenodo.23161793", "concept": "10.5281/zenodo.23161792", "version": "1.10.6", "date": "2026-10-06"},
       "also": [{"label": "SSRN", "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7568758"}, {"label": "Hexagon", "url": "https://hexagonmath.org/2610.00273v1"}],
       "area": "algebra",
