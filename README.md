@@ -69,6 +69,9 @@ several formalization packages. Grouped records appear in an expandable panel.
 Preprints accept either a DOI or a public `url` with a platform and label.
 Shared preprint URLs count once in the totals; theorem listings count per
 registry entry and do not assert uniqueness across packages.
+An optional `hexagon` record makes Hexagon the title and reading link while
+retaining the independently versioned `preprint` archive and alternate records.
+Palomar records may supply a `source_url` pinned to the registered commit.
 
 When a new preprint, Zenodo version or Palomar version is published:
 

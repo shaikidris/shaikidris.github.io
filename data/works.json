@@ -93,6 +93,7 @@
     },
     {
       "id": "polylog",
+      "hexagon": {"url": "https://hexagonmath.org/2610.00299v1", "version": "1", "date": "2026-10-17"},
       "area": "collatz",
       "title": "Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density",
       "summary": "For any f(n) → ∞, almost every n in natural density reaches an iterate below (log n)^A_FP · f(n) after c* log n + O(√(log n log log n)) shortcut steps, with an explicit exponent A_FP ≈ 9.9911.",
@@ -101,7 +102,7 @@
       "also": [{"label": "SSRN", "url": "https://doi.org/10.2139/ssrn.7290240"}],
       "software": {"doi": "10.5281/zenodo.23043600", "version": "palomar-v4"},
       "repos": ["FirstPassageLinearTransport", "FirstPassageLinearTransport-Palomar"],
-      "palomar": {"id": "PALOMAR-2026-08-26-000005", "version": 4, "declarations": 4, "trust": "high"},
+      "palomar": {"id": "PALOMAR-2026-08-26-000005", "version": 4, "declarations": 4, "trust": "high", "source_url": "https://github.com/shaikidris/FirstPassageLinearTransport-Palomar/tree/39a6ba1940a1523e7491e32889f61afd235bb8df"},
       "explainer": {"url": "/polylog/", "covers": "3.2.4", "label": "Interactive explainer", "features": "orbit primer, parameter lab, architecture walkthrough"},
       "lean_map": "/code/"
     },
@@ -121,6 +122,7 @@
     },
     {
       "id": "positive-density",
+      "hexagon": {"url": "https://hexagonmath.org/2610.00523v1", "version": "1", "date": "2026-10-26"},
       "also": [{"label": "SSRN", "url": "https://doi.org/10.2139/ssrn.7497758"}],
       "area": "collatz",
       "title": "Positive density of Collatz convergence at every rate above 3/log(4/3)",
@@ -132,6 +134,7 @@
     },
     {
       "id": "gallai-two",
+      "hexagon": {"url": "https://hexagonmath.org/2610.00286v1", "version": "1", "date": "2026-10-16"},
       "area": "gallai",
       "title": "Gallai's conjecture with two exceptional even vertices",
       "summary": "Extends the endpoint form of Gallai's conjecture to two designated even vertices that need not be adjacent, when every other even vertex has at most three even neighbours.",
@@ -154,6 +157,7 @@
     },
     {
       "id": "prime-star",
+      "hexagon": {"url": "https://hexagonmath.org/2610.00349v1", "version": "1", "date": "2026-10-20"},
       "also": [{"label": "SSRN", "url": "https://doi.org/10.2139/ssrn.7364645"}],
       "area": "spectra",
       "title": "Prime-Star Localization and Second-Order Spectra of Finite Divisibility Cover Graphs",
@@ -165,6 +169,7 @@
     },
     {
       "id": "prime-cover-band",
+      "hexagon": {"url": "https://hexagonmath.org/2610.00358v1", "version": "1", "date": "2026-10-20"},
       "area": "spectra",
       "title": "Prescribed Eigenvalues in Power Bands of Finite Prime-Cover Graphs",
       "summary": "Prescribed-rank eigenvalue estimates in growing power bands, including an every-centre paper theorem for 21/61 < θ < 1/2. The Palomar formalization covers selected density-one estimates for 0 < θ < 1/2.",

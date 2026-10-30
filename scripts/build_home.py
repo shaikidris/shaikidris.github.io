@@ -22,7 +22,7 @@ SITE = Path(__file__).resolve().parent.parent
 DATA = SITE / "data" / "works.json"
 OUT = SITE / "index.html"
 BASE = "https://shaikidris.github.io/"
-REV = "20261026-hub1"
+REV = "20261030-hub1"
 
 
 def esc(s: str) -> str:
@@ -45,6 +45,14 @@ def preprint_count(works: list[dict]) -> int:
     return len({preprint_url(w["preprint"]) for w in works if w.get("preprint")})
 
 
+def hexagon_record(w: dict) -> dict | None:
+    if w.get("hexagon"):
+        return w["hexagon"]
+    if w.get("preprint", {}).get("platform") == "Hexagon":
+        return w["preprint"]
+    return next((a for a in w.get("also", []) if a["label"] == "Hexagon"), None)
+
+
 def palomar_url(p: dict) -> str:
     return f"https://palomar-registry.org/entry?id={p['id']}&version={p['version']}"
 
@@ -57,22 +65,28 @@ def repo_url(name: str, owner: str) -> str:
 
 def row(w: dict, owner: str) -> str:
     pre = w.get("preprint")
+    hx = hexagon_record(w)
     pals = palomar_records(w)
     title = esc(w["title"])
-    title_html = (f'<a href="{esc(preprint_url(pre))}" rel="noopener" '
+    title_html = (f'<a href="{esc(hx["url"] if hx else preprint_url(pre))}" rel="noopener" '
                   f'data-goatcounter-click="hub-title-{w["id"]}">{title}</a>') if pre else title
     msc = "".join(f'<span class="chip">{esc(m)}</span>' for m in w.get("msc", []))
 
     if pre:
         extra = "".join(
             f' · <a href="{esc(a["url"])}" rel="noopener">{esc(a["label"])}</a>'
-            for a in w.get("also", []))
+            for a in w.get("also", []) if a["label"] != "Hexagon")
         license_label = ' · CC BY 4.0' if pre.get('license', 'CC BY 4.0') else ''
         preprint = (f'<span class="ver">v{esc(pre["version"])}</span>'
                     f'<span class="date">{esc(pre["date"])}</span>'
                     f'<a class="doi" href="{esc(preprint_url(pre))}" rel="noopener" '
                     f'data-goatcounter-click="hub-doi-{w["id"]}">{esc(pre.get("doi", pre.get("label", "Read preprint")))}</a>'
                     f'<span class="sub">{esc(pre.get("platform", "Zenodo"))}{license_label}{extra}</span>')
+        if hx and pre.get("platform") != "Hexagon":
+            hx_version = f' · v{esc(hx["version"])}' if hx.get("version") else ''
+            preprint = (f'<a class="btn btn-sm" href="{esc(hx["url"])}" '
+                        f'data-goatcounter-click="hub-hexagon-{w["id"]}">Read on Hexagon{hx_version}</a>'
+                        f'<span class="sub">Alternate record</span>' + preprint)
     else:
         preprint = '<span class="none">Not yet released</span>'
 
@@ -89,7 +103,8 @@ def row(w: dict, owner: str) -> str:
               f'data-goatcounter-click="hub-palomar-{w["id"]}">'
               f'<span class="pid">View on Palomar · {esc(pal["id"].replace("PALOMAR-", ""))}</span>'
               f'<span class="pv">v{pal["version"]}</span></a>'
-              f'<span class="trust">{esc(pal["trust"])} trust · {decl} declaration{"s" if decl != 1 else ""}</span>'))
+              f'<span class="trust">{esc(pal["trust"])} trust · {decl} declaration{"s" if decl != 1 else ""}</span>') +
+              (f'<a class="sub" href="{esc(pal["source_url"])}" rel="noopener">Registered source snapshot</a>' if pal.get("source_url") else ''))
     formal = ''.join(formal_parts) if pals else f'<span class="sub">{esc(w.get("formal_note", "No registered formalization linked."))}</span>'
     if len(pals) > 1:
         formal = f'<details><summary>{len(pals)} Palomar records · {sum(p["declarations"] for p in pals)} theorem listings</summary>{formal}</details>'
@@ -173,6 +188,8 @@ def jsonld(d: dict) -> str:
     for i, w in enumerate(d["works"], 1):
         item = {"@type": "ScholarlyArticle", "name": w["title"], "abstract": w["summary"],
                 "author": {"@type": "Person", "name": a["name"]}}
+        if hexagon_record(w):
+            item["sameAs"] = hexagon_record(w)["url"]
         if w.get("preprint"):
             p = w["preprint"]
             item.update({"url": preprint_url(p), "datePublished": p["date"], "version": p["version"]})
@@ -288,6 +305,7 @@ def page(d: dict) -> str:
       <a class="btn" href="{orcid}" rel="noopener me">ORCID</a>
       <a class="btn" href="https://www.linkedin.com/in/shaikidris/" rel="noopener me">LinkedIn</a>
       <a class="btn" href="https://palomar-registry.org/" rel="noopener">Palomar registry</a>
+      <a class="btn" href="https://hexagonmath.org/search?q=idris+ali+shaik" rel="noopener">Papers on Hexagon</a>
       <a class="btn" href="https://github.com/{esc(a['github'])}" rel="noopener me">GitHub</a>
       <a class="btn" href="{zenodo}" rel="noopener">All records on Zenodo</a>
     </div>
