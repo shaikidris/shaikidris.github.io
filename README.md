@@ -64,6 +64,11 @@ as journal peer review or verification of every manuscript specialization.
 
 ## Updating the research hub
 
+Homepage rebuilds also generate `sitemap.xml` from canonical reading pages
+and their local citation PDFs. Validate with `python3 scripts/build_sitemap.py
+--check`. [SEO.md](SEO.md) documents metadata, Search Console verification,
+URL changes and the static-hosting boundary.
+
 Each work may have a single `palomar` record or a `palomar_entries` list for
 several formalization packages. Grouped records appear in an expandable panel.
 Preprints accept either a DOI or a public `url` with a platform and label.

@@ -22,7 +22,7 @@ SITE = Path(__file__).resolve().parent.parent
 DATA = SITE / "data" / "works.json"
 OUT = SITE / "index.html"
 BASE = "https://shaikidris.github.io/"
-REV = "20261030-hub2"
+REV = "20261116-seo1"
 
 
 def esc(s: str) -> str:
@@ -182,13 +182,13 @@ def explainer_cards(d: dict) -> str:
 
 def jsonld(d: dict) -> str:
     a = d["author"]
-    person = {"@type": "Person", "name": a["name"],
+    person = {"@type": "Person", "@id": BASE + "#author", "name": a["name"], "url": BASE,
               "identifier": f"https://orcid.org/{a['orcid']}",
-              "sameAs": [f"https://orcid.org/{a['orcid']}", f"https://github.com/{a['github']}"]}
+              "sameAs": [f"https://orcid.org/{a['orcid']}", f"https://github.com/{a['github']}", a['linkedin']]}
     parts = []
     for i, w in enumerate(d["works"], 1):
         item = {"@type": "ScholarlyArticle", "name": w["title"], "abstract": w["summary"],
-                "author": {"@type": "Person", "name": a["name"]}}
+                "author": {"@type": "Person", "@id": person['@id'], "name": a["name"]}}
         if hexagon_record(w):
             item["sameAs"] = hexagon_record(w)["url"]
         if w.get("preprint"):
@@ -203,7 +203,8 @@ def jsonld(d: dict) -> str:
         hx = hexagon_record(w)
         if hx:
             item["url"] = hx["url"]
-            item["sameAs"] = list(dict.fromkeys([preprint_url(w["preprint"])] + [x["url"] for x in w.get("also", []) if x["url"] != hx["url"]]))
+            alternates = [preprint_url(w["preprint"])] + [x["url"] for x in w.get("also", [])]
+            item["sameAs"] = list(dict.fromkeys(url for url in alternates if url != hx["url"]))
             item["identifier"] = {"@type": "PropertyValue", "propertyID": "Hexagon", "value": hx["url"].rsplit('/', 1)[-1]}
             if hx.get("version"):
                 item["version"] = hx["version"]
@@ -257,10 +258,12 @@ def page(d: dict) -> str:
 <meta property="og:image" content="{BASE}assets/og-home.png?v={REV}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{esc(a['name'])} — mathematics research and formal verification">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{esc(a['name'])} — Mathematics research">
 <meta name="twitter:description" content="{esc(desc)}">
 <meta name="twitter:image" content="{BASE}assets/og-home.png?v={REV}">
+<meta name="twitter:image:alt" content="{esc(a['name'])} — mathematics research and formal verification">
 
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css?v={REV}">
@@ -314,12 +317,12 @@ def page(d: dict) -> str:
     <p class="professional-note">
       Outside mathematics, I work in engineering leadership at Zeta, with a background in
       distributed data systems, cloud infrastructure and Apache open-source software.
-      <a href="https://www.linkedin.com/in/shaikidris/" rel="noopener me">Professional profile →</a>
+      <a href="{esc(a['linkedin'])}" rel="noopener me">Professional profile →</a>
     </p>
     <div class="actions">
       <a class="btn btn-primary" href="#research">Browse the research</a>
       <a class="btn" href="{orcid}" rel="noopener me">ORCID</a>
-      <a class="btn" href="https://www.linkedin.com/in/shaikidris/" rel="noopener me">LinkedIn</a>
+      <a class="btn" href="{esc(a['linkedin'])}" rel="noopener me">LinkedIn</a>
       <a class="btn" href="https://palomar-registry.org/" rel="noopener">Palomar registry</a>
       <a class="btn" href="https://hexagonmath.org/search?q=idris+ali+shaik" rel="noopener">Papers on Hexagon</a>
       <a class="btn" href="https://github.com/{esc(a['github'])}" rel="noopener me">GitHub</a>
@@ -484,6 +487,8 @@ def main() -> None:
     if "--check" in sys.argv:
         sys.exit(check(d))
     OUT.write_text("\n".join(line.rstrip() for line in page(d).splitlines()) + "\n", encoding="utf-8")
+    from build_sitemap import write_sitemap
+    write_sitemap(SITE, BASE)
     print(f"wrote {OUT} ({OUT.stat().st_size:,} bytes, {len(d['works'])} works)")
 
 
