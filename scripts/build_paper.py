@@ -1,239 +1,206 @@
 #!/usr/bin/env python3
-"""Render the public Zenodo v2.0.3 article source to cet/paper/index.html.
+"""Build current Collatz reading pages from checked-in published sources.
 
-Source of truth:
-  ~/research/collatz/approaches/CollatzEndpointTransport/paper/canonical/manuscript/collatz_endpoint_transport.md
-
-The manuscript is never edited here. This script only converts it and wraps it
-in the site chrome, so re-running it after a manuscript change is safe.
+Run after updating data/works.json, content/, and the public manuscript files.
+Requires Pandoc; --pandoc can name an explicit executable. No private manuscript
+or moving repository checkout is read by this generator.
 """
-
 from __future__ import annotations
 
+import argparse
+import hashlib
 import html
+import json
+from pathlib import Path
 import re
 import subprocess
-import sys
-from pathlib import Path
+
+from build_home import BASE, DATA, hexagon_record, palomar_url, preprint_url
 
 SITE = Path(__file__).resolve().parent.parent
-SRC = (Path.home() / "research/collatz/approaches/CollatzEndpointTransport"
-       "/paper/canonical/manuscript/collatz_endpoint_transport.md")
-OUT = SITE / "cet" / "paper" / "index.html"
-
-TITLE = ("Quantitative Collatz Descent to Stretched-Logarithmic Scale in "
-         "Natural Density, with a Lean 4 Formalization")
-DESC = ("Full text of the public Zenodo v2.0.3 article: for every fixed "
-        "0 < delta < delta_0 = 0.251245530155874..., the shortcut Collatz "
-        "orbit minimum satisfies T_min(n) <= exp((log n)^(1-delta)) on a set "
-        "of natural density one, with an explicit exceptional count and a "
-        "6.953 log n witness.")
-CANON = "https://shaikidris.github.io/cet/paper/"
-DOI = "10.5281/zenodo.21982543"
 
 
-def pandoc(md: str) -> str:
-    """Markdown -> HTML fragment, leaving TeX delimiters intact for MathJax."""
-    proc = subprocess.run(
-        ["pandoc", "--from", "markdown+tex_math_dollars+tex_math_single_backslash"
-                            "+pipe_tables+fenced_divs+raw_html+header_attributes",
-         "--to", "html5", "--mathjax", "--no-highlight", "--section-divs"],
-        input=md, capture_output=True, text=True,
-    )
-    if proc.returncode != 0:
-        sys.exit(f"pandoc failed:\n{proc.stderr}")
-    return proc.stdout
+def esc(value):
+    return html.escape(str(value), quote=True)
 
 
-def build_toc(body: str) -> str:
-    """Build a two-level table of contents from h2/h3 with ids."""
-    items = re.findall(r'<h([23])[^>]*id="([^"]+)"[^>]*>(.*?)</h[23]>', body, re.S)
-    if not items:
-        return ""
-    out = ['<nav class="toc" aria-label="Table of contents"><h5>Contents</h5><ul>']
-    for level, hid, text in items:
-        text = re.sub(r"<[^>]+>", "", text).strip()
-        text = re.sub(r"\\\((.*?)\\\)", r"\1", text)
-        if len(text) > 78:
-            text = text[:75] + "…"
-        cls = "lvl3" if level == "3" else "lvl2"
-        out.append(f'<li class="{cls}"><a href="#{hid}">{html.escape(text)}</a></li>')
-    out.append("</ul></nav>")
-    return "".join(out)
+def paper_body(source, pandoc):
+    # The common page chrome supplies the title. Preserve the published text.
+    source = re.sub(r"\A#\s+[^\n]+\n", "", source, count=1)
+    return subprocess.run(
+        [pandoc, "--from", "markdown+tex_math_dollars+tex_math_single_backslash"
+         "+pipe_tables+fenced_divs+raw_html+header_attributes", "--to", "html5",
+         "--mathjax", "--section-divs"],
+        input=source, text=True, capture_output=True, check=True,
+    ).stdout
 
 
-TEMPLATE = """<!DOCTYPE html>
+def record_links(w):
+    primary = w.get("primary") or hexagon_record(w)
+    links = []
+    if primary:
+        platform = primary.get("platform", "Hexagon")
+        links.append((primary["url"], f"Read on {platform}"))
+    links += [(w["reading"]["paper_html"], "Full text"),
+              (w["reading"]["pdf"], f"PDF · manuscript v{w['preprint']['version']}"),
+              (w["lean_map"], "Lean declarations"),
+              (palomar_url(w["palomar"]), f"Palomar v{w['palomar']['version']}")]
+    return '<div class="actions">' + ''.join(
+        f'<a class="btn{" btn-primary" if i == 0 else ""}" href="{esc(url)}">{esc(label)}</a>'
+        for i, (url, label) in enumerate(links)) + '</div>'
+
+
+def frame(w, route, body, author, *, full_text=False, code=False):
+    pre, reading = w["preprint"], w["reading"]
+    primary = w.get("primary") or hexagon_record(w)
+    title = w["title"] + (" — full text" if full_text else " — Lean declarations" if code else "")
+    canonical = BASE.rstrip('/') + route
+    abstract = reading["description"]
+    article = {
+        "@context": "https://schema.org", "@type": "ScholarlyArticle",
+        "headline": w["title"], "url": canonical, "version": pre["version"],
+        "datePublished": pre["date"], "abstract": abstract, "inLanguage": "en",
+        "author": {"@type": "Person", "@id": BASE + "#author", "name": author["name"],
+                   "url": BASE, "identifier": "https://orcid.org/" + author["orcid"]},
+        "identifier": {"@type": "PropertyValue", "propertyID": "DOI", "value": pre["doi"]},
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "sameAs": list(dict.fromkeys([preprint_url(pre)] + ([primary["url"]] if primary else []))),
+        "citation": {"@type": "SoftwareSourceCode", "name": w["palomar"]["id"],
+                     "url": palomar_url(w["palomar"]),
+                     "codeRepository": w["palomar"]["source_url"], "programmingLanguage": "Lean 4"},
+    }
+    citation = '' if code else f'''<meta name="citation_title" content="{esc(w['title'])}">
+<meta name="citation_author" content="Shaik, Idris Ali">
+<meta name="citation_author_orcid" content="https://orcid.org/{author['orcid']}">
+<meta name="citation_publication_date" content="{pre['date'].replace('-', '/')}">
+<meta name="citation_doi" content="{pre['doi']}">
+<meta name="citation_abstract_html_url" content="{BASE.rstrip('/') + w['explainer']['url']}">
+<meta name="citation_fulltext_html_url" content="{BASE.rstrip('/') + reading['paper_html']}">
+<meta name="citation_pdf_url" content="{BASE.rstrip('/') + reading['pdf']}">
+<meta name="citation_language" content="en">'''
+    return f'''<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title} — full text</title>
-<meta name="description" content="{desc}">
-<link rel="canonical" href="{canon}">
-
-<meta name="citation_title" content="{title}">
-<meta name="citation_author" content="Shaik, Idris Ali">
-<meta name="citation_author_orcid" content="https://orcid.org/0009-0009-9699-9712">
-<meta name="citation_publication_date" content="2026/08/17">
-<meta name="citation_doi" content="{doi}">
-<meta name="citation_abstract_html_url" content="https://shaikidris.github.io/cet/">
-<meta name="citation_fulltext_html_url" content="{canon}">
-<meta name="citation_pdf_url" content="https://shaikidris.github.io/cet/paper/collatz-endpoint-transport.pdf">
-<meta name="citation_language" content="en">
-<meta name="citation_keywords" content="Collatz conjecture; almost all Collatz orbits; shortcut Collatz map; ordinary natural density; stretched-logarithmic descent; fixed-total Rényi estimate; endpoint transport; endpoint fibers; parity vectors; quantitative exceptional-set bounds; logarithmic witnessing clock; Lean 4 formalization; Mathlib">
-
+<!-- Generated by scripts/build_paper.py; edit data/works.json and content/. -->
+<title>{esc(title)}</title>
+<meta name="description" content="{esc(abstract)}">
+<link rel="canonical" href="{canonical}">
+{citation}
+<meta name="author" content="{esc(author['name'])}">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta property="og:type" content="article">
-<meta property="og:title" content="{title}">
-<meta property="og:description" content="{desc}">
-<meta property="og:url" content="{canon}">
-<meta property="og:image" content="https://shaikidris.github.io/assets/og-card.png">
+<meta property="og:title" content="{esc(title)}">
+<meta property="og:description" content="{esc(abstract)}">
+<meta property="og:url" content="{canonical}">
+<meta property="og:image" content="{BASE}assets/og-home.png">
+<meta property="og:image:alt" content="Mathematics research by Idris Ali Shaik">
 <meta name="twitter:card" content="summary_large_image">
-
-<meta name="author" content="Idris Ali Shaik">
-<meta name="robots" content="index, follow, max-snippet:-1">
+<meta name="twitter:title" content="{esc(title)}">
+<meta name="twitter:description" content="{esc(abstract)}">
+<meta name="twitter:image" content="{BASE}assets/og-home.png">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/site.css">
-<link rel="stylesheet" href="/assets/paper.css">
-
-<script type="application/ld+json">
-{{
-  "@context": "https://schema.org",
-  "@type": "ScholarlyArticle",
-  "headline": "{title}",
-  "author": {{ "@type": "Person", "name": "Idris Ali Shaik",
-               "identifier": "https://orcid.org/0009-0009-9699-9712" }},
-  "datePublished": "2026-08-17",
-  "license": "https://creativecommons.org/licenses/by/4.0/",
-  "identifier": {{ "@type": "PropertyValue", "propertyID": "DOI", "value": "{doi}" }},
-  "url": "{canon}",
-  "keywords": "Collatz conjecture, almost all Collatz orbits, shortcut Collatz map, ordinary natural density, stretched-logarithmic descent, fixed-total Rényi estimate, endpoint transport, endpoint fibers, parity vectors, quantitative exceptional-set bounds, logarithmic witnessing clock, Lean 4 formalization, Mathlib",
-  "isPartOf": {{ "@type": "WebSite", "name": "Quantitative Collatz Descent",
-                 "url": "https://shaikidris.github.io/cet/" }}
-}}
-</script>
-
+<link rel="stylesheet" href="/assets/reading.css">
+<script type="application/ld+json">{json.dumps(article, ensure_ascii=False, indent=2)}</script>
 <script>
-  (function () {{ var t = localStorage.getItem("theme");
-    if (t) document.documentElement.setAttribute("data-theme", t); }})();
-</script>
-<script>
-window.MathJax = {{
-  tex: {{ inlineMath: [["\\\\(", "\\\\)"]], displayMath: [["\\\\[", "\\\\]"]],
-          processEscapes: true, tags: "none" }},
-  options: {{ skipHtmlTags: ["script","noscript","style","textarea","pre","code"] }},
-  chtml: {{ scale: 0.97 }}
-}};
+(function() {{ var t=localStorage.getItem('theme'); if(t) document.documentElement.setAttribute('data-theme',t); }})();
+window.MathJax = {{tex: {{inlineMath: [["\\\\(","\\\\)"]], displayMath: [["\\\\[","\\\\]"]], processEscapes: true}},
+options: {{skipHtmlTags: ["script","noscript","style","textarea","pre","code"]}}}};
 </script>
 <script defer src="/assets/mathjax/tex-chtml.js"></script>
-<script data-goatcounter="https://shaikidris.goatcounter.com/count"
-        async src="https://gc.zgo.at/count.js"></script>
+<script defer src="/assets/collatz-primer-core.js"></script>
+<script defer src="/assets/figures-polylog.js"></script>
+<script data-goatcounter="https://shaikidris.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
-<body class="paperpage">
-<a class="skip" href="#doc">Skip to the paper</a>
-
-<header class="masthead">
-  <div class="wrap">
-    <a class="brand" href="/cet/">Quantitative Collatz Descent</a>
-    <nav>
-      <a href="/cet/">Overview</a>
-      <a href="./" aria-current="page">Paper</a>
-      <a href="/cet/code/">Lean code</a>
-      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme">◐</button>
-    </nav>
-  </div>
-</header>
-
-<div class="paperbar">
-  <div class="wrap">
-    <span>Preprint · v2.0.3 · CC BY 4.0</span>
-    <a href="collatz-endpoint-transport.pdf" data-goatcounter-click="cet-paper-download-pdf">Download PDF</a>
-    <a href="https://doi.org/{doi}" rel="noopener" data-goatcounter-click="cet-paper-preprint-doi">doi:{doi}</a>
-  </div>
-</div>
-
-<div class="paperlayout wrap">
-{toc}
-  <article id="doc" class="doc">
-    {body}
-  </article>
-</div>
-
-<footer>
-  <div class="wrap">
-    <p style="margin:0">
-      © 2026 Idris Ali Shaik · licensed
-      <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a> ·
-      <a href="/cet/">site overview</a> ·
-      <a href="/cet/code/">theorem → Lean map</a>
-      <br>An almost-all result in natural density; not a proof of the Collatz conjecture.
-    </p>
-    <p style="margin:.45rem 0 0;font-size:.85rem">
-      Privacy-friendly, cookieless page and interaction counts are collected
-      with <a href="https://www.goatcounter.com/help/privacy" rel="noopener">GoatCounter</a>;
-      no form values are sent.
-    </p>
-  </div>
-</footer>
-
-<script>
-  (function () {{
-    var btn = document.getElementById("theme-toggle");
-    btn && btn.addEventListener("click", function () {{
-      var root = document.documentElement, cur = root.getAttribute("data-theme");
-      if (!cur) cur = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      var next = cur === "dark" ? "light" : "dark";
-      root.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-    }});
-    // highlight the section currently in view
-    var links = [].slice.call(document.querySelectorAll(".toc a"));
-    var map = {{}};
-    links.forEach(function (a) {{
-      var el = document.getElementById(a.getAttribute("href").slice(1));
-      if (el) map[a.getAttribute("href").slice(1)] = a;
-    }});
-    if ("IntersectionObserver" in window) {{
-      var io = new IntersectionObserver(function (es) {{
-        es.forEach(function (e) {{
-          var a = map[e.target.id];
-          if (a && e.isIntersecting) {{
-            links.forEach(function (l) {{ l.classList.remove("active"); }});
-            a.classList.add("active");
-            a.scrollIntoView({{ block: "nearest" }});
-          }}
-        }});
-      }}, {{ rootMargin: "0px 0px -80% 0px" }});
-      Object.keys(map).forEach(function (id) {{
-        var el = document.getElementById(id);
-        if (el) io.observe(el);
-      }});
-    }}
-  }})();
-</script>
-</body>
-</html>
-"""
+<body class="current-reading">
+<a class="skip" href="#main">Skip to content</a>
+<header class="masthead"><div class="wrap">
+<a class="brand" href="/">Idris Ali Shaik</a>
+<nav><a href="{w['explainer']['url']}">Overview</a><a href="{reading['paper_html']}">Paper</a>
+<a href="{w['lean_map']}">Lean code</a><a href="/#research" class="opt">All research</a>
+<button class="theme-toggle" id="theme-toggle" aria-label="Toggle colour theme">◐</button></nav>
+</div></header>
+<main id="main">
+<section class="hero" id="overview"><div class="wrap"><div class="col">
+<p class="eyebrow">Manuscript v{pre['version']} · {pre['date']}{' · Hexagon v' + esc(primary['version']) if primary and primary.get('platform', 'Hexagon') == 'Hexagon' else ''}</p>
+<h1 class="paper-title">{esc(w['title'])}</h1>
+<p class="byline">Idris Ali Shaik · Independent researcher · <a href="https://orcid.org/{author['orcid']}">ORCID</a> · <a href="{esc(author['linkedin'])}">LinkedIn</a></p>
+{record_links(w)}
+</div></div></section>
+{body}
+<section id="read"><div class="wrap"><div class="col">
+<h2>Paper, code and citation</h2>
+<p>{esc(abstract)}</p>
+{record_links(w)}
+<p>Versioned manuscript: <a href="{preprint_url(pre)}">{pre['doi']}</a> · v{pre['version']}.<br>
+Lean software archive: <a href="https://doi.org/{w['software']['doi']}">{w['software']['doi']}</a>.<br>
+<a href="{reading['archive']}">Earlier interactive exposition · v{reading['archive_version']}</a>.</p>
+<pre><code>@misc{{shaik_{w['id'].replace('-', '_')},
+  author = {{Shaik, Idris Ali}},
+  title = {{{esc(w['title'])}}},
+  year = {{2026}},
+  version = {{{pre['version']}}},
+  doi = {{{pre['doi']}}},
+  url = {{{esc(primary['url'] if primary else preprint_url(pre))}}}
+}}</code></pre>
+<p>The paper describes the author's use of OpenAI Codex. The author reviewed the AI-assisted material and takes responsibility for the manuscript.</p>
+</div></div></section>
+</main>
+<footer><div class="wrap"><p>© 2026 Idris Ali Shaik · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a> · <a href="/#research">All research</a></p>
+<p>Privacy-friendly page counts: <a href="https://www.goatcounter.com/help/privacy">GoatCounter</a>. Orbit computations run in your browser.</p></div></footer>
+<script>document.getElementById('theme-toggle').addEventListener('click',function() {{
+var dark=getComputedStyle(document.documentElement).getPropertyValue('--paper').trim()==='#131316';
+var next=document.documentElement.getAttribute('data-theme')==='dark'||(!document.documentElement.hasAttribute('data-theme')&&dark)?'light':'dark';
+document.documentElement.setAttribute('data-theme',next);localStorage.setItem('theme',next);}});</script>
+</body></html>
+'''
 
 
-def main() -> None:
-    if not SRC.exists():
-        sys.exit(f"manuscript not found: {SRC}")
-    md = SRC.read_text()
+def render_all(pandoc):
+    data = json.loads(DATA.read_text())
+    outputs = {}
+    for w in data['works']:
+        if not w.get('reading'):
+            continue
+        r = w['reading']
+        source = SITE / r['source']
+        pdf = SITE / r['pdf'].lstrip('/')
+        for file, checksum in [(source, r['source_sha256']), (pdf, r['pdf_sha256'])]:
+            if hashlib.sha256(file.read_bytes()).hexdigest() != checksum:
+                raise ValueError(f'Published artifact checksum mismatch: {file}')
+        md = source.read_text()
+        if md.splitlines()[0] != '# ' + w['title']:
+            raise ValueError(f'Published title mismatch: {source}')
+        if w['explainer']['covers'] != w['preprint']['version'] or r['manuscript_version'] != w['preprint']['version']:
+            raise ValueError(f'Explainer version mismatch: {w["id"]}')
+        landing = (SITE / 'content' / (w['id'] + '.html')).read_text()
+        landing += (SITE / 'content' / 'orbit-primer.html').read_text()
+        outputs[SITE / w['explainer']['url'].strip('/') / 'index.html'] = frame(w, w['explainer']['url'], landing, data['author'])
+        body = '<section><div class="wrap"><article class="col doc">' + paper_body(md, pandoc) + '</article></div></section>'
+        outputs[SITE / r['paper_html'].strip('/') / 'index.html'] = frame(w, r['paper_html'], body, data['author'], full_text=True)
+        body = (SITE / 'content' / (w['id'] + '-code.html')).read_text()
+        outputs[SITE / w['lean_map'].strip('/') / 'index.html'] = frame(w, w['lean_map'], body, data['author'], code=True)
+    return outputs
 
-    # Drop the H1 and the front-matter block; the site chrome supplies them.
-    md = re.sub(r"\A#\s+.*?\n", "", md, count=1)
 
-    body = pandoc(md)
-    toc = build_toc(body)
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--pandoc', default='pandoc', help='Pandoc executable (default: pandoc on PATH)')
+    parser.add_argument('--check', action='store_true', help='compare generated output without writing')
+    args = parser.parse_args()
+    for path, text in render_all(args.pandoc).items():
+        if args.check:
+            if not path.exists() or path.read_text() != text:
+                parser.exit(1, f'Stale reading page: {path}\n')
+        else:
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(text)
+            print('Wrote', path.relative_to(SITE))
+    if args.check:
+        print('Reading pages match the published sources, PDF hashes and current records.')
 
-    OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(TEMPLATE.format(
-        title=html.escape(TITLE), desc=html.escape(DESC),
-        canon=CANON, doi=DOI, body=body, toc=toc))
 
-    n_sections = len(re.findall(r"<h2", body))
-    print(f"wrote {OUT}  ({OUT.stat().st_size:,} bytes, {n_sections} sections)")
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

@@ -1,0 +1,39 @@
+<section id="result"><div class="wrap"><div class="col">
+<h2>Almost all orbits, with a prescribed target and height bound</h2>
+<p class="lede">How far does a typical Collatz orbit fall, how long does it take, and how high can it climb first? This paper answers all three questions together in ordinary natural density.</p>
+<p>Write \(T(n)=n/2\) for even \(n\), and \(T(n)=(3n+1)/2\) for odd \(n\). The standard map \(\operatorname{Col}\) uses \(3n+1\) at odd inputs instead. A shortcut odd step combines two standard steps, so the same landing value can have different times in the two maps.</p>
+<div class="theorem">
+<h3>Theorem 1.1 · manuscript v4.0.2</h3>
+<p>Choose any positive functions \(U(n),R(n)\to\infty\), as slowly as desired. For a set of starting integers of natural density one, there are nonnegative integers \(k,\ell\) with</p>
+\[T^k(n)=\operatorname{Col}^{\ell}(n)&lt;(\log n)^{A_{\rm FP}}U(n),\]
+\[|k-c_*\log n|+|\ell-\tfrac32c_*\log n|\le K\sqrt{\log n\,\log\log n},\]
+\[\max_{0\le j\le k}T^j(n)\le nR(n),\qquad
+\max_{0\le i\le\ell}\operatorname{Col}^{i}(n)\le nR(n).\]
+<p>Here \(A_{\rm FP}\approx9.9911\), \(c_*=2/\log(4/3)\approx6.9521\), and \(K\) depends on the chosen functions. The conclusions hold for sufficiently large members of that density-one set; neither function needs to be monotone.</p>
+</div>
+<p>The target multiplier \(U\) and height multiplier \(R\) can be chosen independently. Taking both to be the same function \(f\) gives the statement in the abstract: descent below \((\log n)^{A_{\rm FP}}f(n)\), with both preceding orbits bounded by \(nf(n)\).</p>
+<p>“Natural density one” means that the proportion of successful starts among \(1,\ldots,X\) tends to one as \(X\to\infty\). It allows an exceptional set; it does not resolve any particular exceptional orbit.</p>
+<h3>A fixed exponent gives an explicit exceptional rate</h3>
+<p>For every fixed \(A&gt;A_{\rm FP}\), Corollary 1.2 sets</p>
+\[q=\frac{A}{2A_{\rm FP}}-\frac12&gt;0.\]
+<p>All but at most \(C_A X/(\log X)^q\) integers up to sufficiently large \(X\) satisfy the joint conclusions with target \((\log n)^A\), the same centered clocks, and both orbit heights at most \(n(\log n)^q\). For example, \(A=2A_{\rm FP}\) gives \(q=1/2\).</p>
+<p>The order of this joint exceptional count is sharp because of the height requirement (Proposition 7.1). It is not a lower bound for failure to descend when no height bound is required.</p>
+</div></div></section>
+<section id="architecture"><div class="wrap"><div class="col">
+<h2>Why the proof follows first passages</h2>
+<p>The multipliers of the shortcut map are approximately \(1/2\) and \(3/2\). Giving the two parities equal weight suggests a mean logarithmic decrease of \(\tfrac12\log(4/3)\), whose reciprocal is \(c_*\). This explains the leading clock, but a drift heuristic alone cannot be restarted after each descent: the landing values need not be uniformly distributed.</p>
+<ol>
+<li><strong>Encode finite parity words exactly.</strong> Each word determines an affine iterate on its residue class, including the additive Collatz terms.</li>
+<li><strong>Follow first passages through a decreasing threshold chain.</strong> Later bad passages are counted among the original starting integers, keeping the arithmetic dependence between stages.</li>
+<li><strong>Compress the possible cumulative times.</strong> In a dyadic shell \([2^M,2^{M+1})\), only \(O(\sqrt{M\log M})\) passage times need to be counted at each threshold.</li>
+<li><strong>Use a finite survival estimate.</strong> This supplies the additional saving that permits the critical exponent with arbitrary divergent multipliers.</li>
+</ol>
+<p>The constants come from \(p_*=\log_3 2\), the binary entropy \(H_2\), and \(\kappa_*=1-H_2(p_*)\), with \(A_{\rm FP}=1/(2\kappa_*)\). The written proof and the formalization give the precise estimates behind these steps.</p>
+<p>A fixed multiple of \((\log n)^{A_{\rm FP}}\) is outside Theorem 1.1: the multiplier must tend to infinity. The paper does not prove the pointwise Collatz conjecture.</p>
+</div></div></section>
+<section id="lean"><div class="wrap"><div class="col">
+<h2>Formalization and public records</h2>
+<p><a href="https://hexagonmath.org/2610.00299v1">Hexagon 2610.00299v1</a> publishes manuscript v4.0.2. The versioned Zenodo manuscript is <a href="https://doi.org/10.5281/zenodo.23132901">10.5281/zenodo.23132901</a>; the Hexagon record links <a href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-26-000005&amp;version=4">Palomar version 4</a>.</p>
+<p>The registry verifies four selected Lean declarations at commit <a href="https://github.com/shaikidris/FirstPassageLinearTransport-Palomar/tree/39a6ba1940a1523e7491e32889f61afd235bb8df"><code>39a6ba1940a1523e7491e32889f61afd235bb8df</code></a>. They concern arbitrary multipliers, the fixed-exponent common landing and clocks, a joint height-forced lower bound, and a stretched-logarithmic specialization. <a href="/code/">The declaration map</a> links the exact registered interface.</p>
+<p>Paper and registry versions are separate identities. The registration's provenance names the SSRN work and the v4.0.0 archive; the later Hexagon paper explicitly links this v4 registration. Its selected declarations specify the mechanical verification scope.</p>
+</div></div></section>

@@ -68,7 +68,7 @@ def row(w: dict, owner: str) -> str:
     hx = hexagon_record(w)
     pals = palomar_records(w)
     title = esc(w["title"])
-    title_html = (f'<a href="{esc(hx["url"] if hx else preprint_url(pre))}" rel="noopener" '
+    title_html = (f'<a href="{esc(w["primary"]["url"] if w.get("primary") else hx["url"] if hx else preprint_url(pre))}" rel="noopener" '
                   f'data-goatcounter-click="hub-title-{w["id"]}">{title}</a>') if pre else title
     msc = "".join(f'<span class="chip">{esc(m)}</span>' for m in w.get("msc", []))
 
@@ -88,6 +88,11 @@ def row(w: dict, owner: str) -> str:
             preprint = (f'<a class="btn btn-sm" href="{esc(hx["url"])}" '
                         f'data-goatcounter-click="hub-hexagon-{w["id"]}">Read on Hexagon{hx_version}</a>'
                         + hx_date + '<details><summary>Alternate archives</summary>' + preprint + '</details>')
+        if w.get("primary"):
+            primary = w["primary"]
+            preprint = (f'<a class="btn btn-sm" href="{esc(primary["url"])}" '
+                        f'data-goatcounter-click="hub-primary-{w["id"]}">Read on {esc(primary["platform"])}</a>'
+                        + '<details><summary>Versioned archive</summary>' + preprint + '</details>')
     else:
         preprint = '<span class="none">Not yet released</span>'
 
@@ -175,7 +180,7 @@ def explainer_cards(d: dict) -> str:
         <span class="eyebrow-sm">{esc(next(a['name'] for a in d['areas'] if a['id'] == w['area']))}</span>
         <b>{esc(w['title'])}</b>
         <span>{esc(ex['features'][0].upper() + ex['features'][1:])}.</span>
-        <span class="covers">Written for v{esc(ex['covers'])} · current record v{esc(pre.get('version', '—'))}</span>
+        <span class="covers">Manuscript v{esc(ex['covers'])}</span>
       </a>""")
     return "".join(cards)
 
@@ -211,6 +216,11 @@ def jsonld(d: dict) -> str:
             if hx.get("date"):
                 item["datePublished"] = hx["date"]
             item["license"] = "https://creativecommons.org/licenses/by/4.0/"
+        if w.get("primary"):
+            primary_url = w["primary"]["url"]
+            alternates = [preprint_url(w["preprint"])] + [x["url"] for x in w.get("also", [])]
+            item["url"] = primary_url
+            item["sameAs"] = list(dict.fromkeys(url for url in alternates if url != primary_url))
         parts.append({"@type": "ListItem", "position": i, "item": item})
     doc = {"@context": "https://schema.org", "@type": "ProfilePage", "url": BASE,
            "name": f"{a['name']} — Mathematics research",

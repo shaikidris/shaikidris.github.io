@@ -1,0 +1,57 @@
+<section id="try-collatz" class="primer-section">
+  <div class="wrap">
+    <div class="collatz-primer reveal" id="collatz-primer">
+      <div class="primer-heading">
+        <p class="eyebrow">New to Collatz?</p>
+        <h2>Watch an orbit unfold</h2>
+        <p class="lede">
+          Choose a positive integer. At each step, halve it when it is even;
+          when it is odd, apply (3n+1). The chain below reveals the actual
+          arithmetic one step at a time.
+        </p>
+      </div>
+
+      <div class="primer-console">
+        <div class="map-toggle" role="group" aria-label="Choose the Collatz map">
+          <button type="button" class="map-option" data-primer-map="standard" data-goatcounter-click="root-primer-map-standard" aria-pressed="true">Standard map</button>
+          <button type="button" class="map-option" data-primer-map="shortcut" data-goatcounter-click="root-primer-map-shortcut" aria-pressed="false">Shortcut map used in the paper</button>
+        </div>
+
+        <div id="primer-form" class="primer-form" role="group" aria-label="Run a Collatz orbit">
+          <label for="primer-input">
+            Starting integer
+            <small>Positive integers with at most 80 digits</small>
+          </label>
+          <div class="primer-input-row">
+            <input id="primer-input" name="n" type="text" inputmode="numeric" pattern="[0-9]+" value="7" autocomplete="off" spellcheck="false">
+            <button class="btn btn-primary" id="primer-run" type="button" data-goatcounter-click="root-primer-run">Run orbit</button>
+            <button class="btn" id="primer-replay" type="button" data-goatcounter-click="root-primer-replay" disabled>Replay</button>
+          </div>
+        </div>
+
+        <div class="primer-examples" aria-label="Example starting values">
+          <span>Examples</span>
+          <button type="button" data-primer-example="7">7</button>
+          <button type="button" data-primer-example="27">27</button>
+          <button type="button" data-primer-example="97">97</button>
+        </div>
+
+        <p class="primer-map-note" id="primer-map-note">
+          Standard map: odd n → 3n+1; even n → n/2.
+        </p>
+        <p class="primer-summary" id="primer-summary" aria-live="polite">
+          The example 7 will run when this panel enters view.
+        </p>
+        <div class="chain-window" id="primer-chain-window" tabindex="0" aria-label="Collatz trajectory">
+          <ol class="collatz-chain" id="primer-chain"></ol>
+        </div>
+        <p class="primer-caveat">
+          This is a finite computation for the chosen input. If the chain does
+          not reach 1 before the safety cap, the simulation stops without
+          drawing a mathematical conclusion. The paper proves an
+          <em>almost-all descent theorem</em>, not the pointwise Collatz conjecture.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

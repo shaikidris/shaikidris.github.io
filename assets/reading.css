@@ -1,0 +1,20 @@
+/* Current paper routes use the shared type, colours and orbit primer. */
+.current-reading { --measure: 43rem; }
+.current-reading .hero { padding-block: 2rem; }
+.current-reading .paper-title { font-size: clamp(1.7rem, 4vw, 2.6rem); line-height: 1.18; }
+.current-reading .byline { display: block; }
+.current-reading main section { padding-block: 2.25rem; }
+.current-reading .actions { flex-wrap: wrap; }
+.current-reading .theorem { padding: 1.1rem 1.3rem; background: var(--paper-sunk); border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; }
+.current-reading .theorem h3 { margin-top: 0; }
+.current-reading mjx-container[display="true"] { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+.current-reading pre { max-width: 100%; overflow-x: auto; }
+.current-reading .declarations dt { margin-top: 1.4rem; overflow-wrap: anywhere; }
+.current-reading .declarations dd { margin: .4rem 0 1rem; }
+.current-reading .doc table { display: block; max-width: 100%; overflow-x: auto; }
+.current-reading .doc h2, .current-reading .doc h3 { scroll-margin-top: 5rem; }
+.current-reading .collatz-primer { opacity: 1; transform: none; }
+@media (max-width: 34rem) {
+  .current-reading .masthead .wrap { gap: .5rem; }
+  .current-reading .masthead nav { gap: .6rem; }
+}

@@ -1,3 +1,5 @@
+> Historical design brief for the versioned interactive archives. Current reading pages use published sources in `data/papers/`, metadata in `data/works.json`, and `scripts/build_paper.py`. See `README.md` before updating a public route.
+
 # Content source of truth
 
 The site hosts **two independent papers**. Each page is synchronized to its own

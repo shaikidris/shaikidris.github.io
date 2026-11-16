@@ -96,32 +96,127 @@
     },
     {
       "id": "polylog",
-      "hexagon": {"url": "https://hexagonmath.org/2610.00299v1", "version": "1", "date": "2026-10-17"},
+      "hexagon": {
+        "url": "https://hexagonmath.org/2610.00299v1",
+        "version": "1",
+        "date": "2026-10-17"
+      },
       "area": "collatz",
       "title": "Polylogarithmic Descent for Almost All Collatz Orbits in Natural Density",
       "summary": "For any f(n) → ∞, almost every n in natural density reaches an iterate below (log n)^A_FP · f(n) after c* log n + O(√(log n log log n)) shortcut steps, with an explicit exponent A_FP ≈ 9.9911.",
-      "msc": ["11B83", "37P99", "60G40"],
-      "preprint": {"doi": "10.5281/zenodo.23132901", "concept": "10.5281/zenodo.21931193", "version": "4.0.2", "date": "2026-10-04"},
-      "also": [{"label": "SSRN", "url": "https://doi.org/10.2139/ssrn.7290240"}],
-      "software": {"doi": "10.5281/zenodo.23043600", "version": "palomar-v4"},
-      "repos": ["FirstPassageLinearTransport", "FirstPassageLinearTransport-Palomar"],
-      "palomar": {"id": "PALOMAR-2026-08-26-000005", "version": 4, "declarations": 4, "trust": "high", "source_url": "https://github.com/shaikidris/FirstPassageLinearTransport-Palomar/tree/39a6ba1940a1523e7491e32889f61afd235bb8df"},
-      "explainer": {"url": "/polylog/", "covers": "3.2.4", "label": "Interactive explainer", "features": "orbit primer, parameter lab, architecture walkthrough"},
-      "lean_map": "/code/"
+      "msc": [
+        "11B83",
+        "37P99",
+        "60G40"
+      ],
+      "preprint": {
+        "doi": "10.5281/zenodo.23132901",
+        "concept": "10.5281/zenodo.21931193",
+        "version": "4.0.2",
+        "date": "2026-10-04"
+      },
+      "also": [
+        {
+          "label": "SSRN",
+          "url": "https://doi.org/10.2139/ssrn.7290240"
+        }
+      ],
+      "software": {
+        "doi": "10.5281/zenodo.23043600",
+        "version": "palomar-v4"
+      },
+      "repos": [
+        "FirstPassageLinearTransport",
+        "FirstPassageLinearTransport-Palomar"
+      ],
+      "palomar": {
+        "id": "PALOMAR-2026-08-26-000005",
+        "version": 4,
+        "declarations": 4,
+        "trust": "high",
+        "source_url": "https://github.com/shaikidris/FirstPassageLinearTransport-Palomar/tree/39a6ba1940a1523e7491e32889f61afd235bb8df"
+      },
+      "explainer": {
+        "url": "/polylog/",
+        "covers": "4.0.2",
+        "label": "Graduate explainer",
+        "features": "current theorem, full HTML paper, orbit primer and registered Lean declarations"
+      },
+      "lean_map": "/code/",
+      "reading": {
+        "manuscript_version": "4.0.2",
+        "paper_html": "/polylog/paper/",
+        "pdf": "/paper/collatz-first-passage.pdf",
+        "source": "data/papers/polylog-v4.0.2.md",
+        "source_sha256": "4aa0855feb2531a5b0478d66542f6340b6040dc7a6783b2cfb72e0f98c3e5888",
+        "pdf_sha256": "906d902012d456b3f84a793011e8f72b393a01dcbe4b7a4a4ae37f6960924827",
+        "source_url": "https://zenodo.org/api/records/23132901/files/collatz_first_passage_natural_density.md/content",
+        "archive": "/archive/polylog-v3.2.4/",
+        "archive_version": "3.2.4",
+        "description": "Critical polylogarithmic Collatz descent in natural density with arbitrary divergent target and height multipliers, centered clocks for both Collatz maps, and selected Lean declarations registered in Palomar v4."
+      }
     },
     {
       "id": "cet",
-      "also": [{"label": "SSRN", "url": "https://doi.org/10.2139/ssrn.7341398"}],
+      "also": [
+        {
+          "label": "SSRN",
+          "url": "https://doi.org/10.2139/ssrn.7341398"
+        }
+      ],
       "area": "collatz",
       "title": "Quantitative Endpoint Transport for the Collatz Map with a Natural-Density Descent Application",
       "summary": "A reusable arbitrary-target endpoint-transport theorem, with exponent asymptotically linear in the input density exponent, giving natural-density descent to exp((log n)^(1−δ)) for every δ < 0.25124….",
-      "msc": ["11B83", "37P99", "60F10"],
-      "preprint": {"doi": "10.5281/zenodo.22544006", "concept": "10.5281/zenodo.21825993", "version": "2.2.0", "date": "2026-09-06"},
-      "software": {"doi": "10.5281/zenodo.22544010", "version": "2.2.0"},
-      "repos": ["CET", "CollatzEndpointTransport-Palomar"],
-      "palomar": {"id": "PALOMAR-2026-08-27-000018", "version": 3, "declarations": 1, "trust": "high"},
-      "explainer": {"url": "/cet/", "covers": "2.0.3", "label": "Interactive explainer", "features": "full HTML paper, orbit figures, theorem → Lean map"},
-      "lean_map": "/cet/code/"
+      "msc": [
+        "11B83",
+        "37P99",
+        "60F10"
+      ],
+      "preprint": {
+        "doi": "10.5281/zenodo.22544006",
+        "concept": "10.5281/zenodo.21825993",
+        "version": "2.2.0",
+        "date": "2026-09-06"
+      },
+      "software": {
+        "doi": "10.5281/zenodo.22544010",
+        "version": "2.2.0"
+      },
+      "repos": [
+        "CET",
+        "CollatzEndpointTransport-Palomar"
+      ],
+      "palomar": {
+        "id": "PALOMAR-2026-08-27-000018",
+        "version": 3,
+        "declarations": 1,
+        "trust": "high",
+        "source_url": "https://github.com/shaikidris/CollatzEndpointTransport-Palomar/tree/9505e8fd59f2b49a2dad269436766319c57b4012"
+      },
+      "explainer": {
+        "url": "/cet/",
+        "covers": "2.2.0",
+        "label": "Graduate explainer",
+        "features": "current theorem, full HTML paper, orbit primer and registered Lean declarations"
+      },
+      "lean_map": "/cet/code/",
+      "reading": {
+        "manuscript_version": "2.2.0",
+        "paper_html": "/cet/paper/",
+        "pdf": "/cet/paper/collatz-endpoint-transport.pdf",
+        "source": "data/papers/cet-v2.2.0.md",
+        "source_sha256": "c6509212afeed97bcb0cbb2094ed4d8b623b566a66d65f5e5459e04543c5f042",
+        "pdf_sha256": "ded8d331b68f1ecde63b82d8ca1ce9a43fbe96a07dd391d7cfb53e3f2d67a305",
+        "source_url": "https://zenodo.org/api/records/22544006/files/collatz_endpoint_transport_preprint_v2.2.0_source.zip/content",
+        "archive": "/archive/cet-v2.0.3/",
+        "archive_version": "2.0.3",
+        "description": "An arbitrary-target Collatz endpoint-transport theorem with a refined prefactor, and a quantitative natural-density descent application for every delta below 0.251245530155874.",
+        "source_member": "collatz_endpoint_transport.md"
+      },
+      "primary": {
+        "platform": "SSRN",
+        "url": "https://doi.org/10.2139/ssrn.7341398"
+      }
     },
     {
       "id": "positive-density",

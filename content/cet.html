@@ -1,0 +1,40 @@
+<section id="result"><div class="wrap"><div class="col">
+<h2>Transport an exceptional-set estimate through a Collatz endpoint</h2>
+<p class="lede">A typical Collatz orbit contracts over one logarithmic block. Repeating that observation requires controlling the arithmetically generated landing values. This paper isolates that problem as a reusable theorem about arbitrary target sets.</p>
+<p>Use the shortcut map \(T(n)=n/2\) for even \(n\), and \(T(n)=(3n+1)/2\) for odd \(n\). Its block-endpoint map is</p>
+\[F(n)=T^{\lfloor\log_2 n\rfloor}(n).\]
+<p>Call a target set \(S\) \((C,D)\)-dense when the count of positive integers outside \(S\) up to \(X\) is at most \(CX^{1-D}\), in the range specified in the paper. The pullback consists of starts whose endpoint belongs to \(S\).</p>
+<div class="theorem">
+<h3>Theorem 5.3 · arbitrary-target endpoint transport</h3>
+<p>For fixed admissible parameters, small positive \(D\), and any \((C,D)\)-dense target, the pullback has density parameters of the form</p>
+\[(C,D)\longmapsto
+\left(K(1+C^{\theta/(1+\theta)})D^{-\theta/(2(1+\theta))},\ \chi D\right).\]
+<p>Here \(1/2&lt;\theta&lt;1\), \(0&lt;\chi&lt;a_0\theta/(1+\theta)\), and \(a_0=(\log_2 3)/2\). After the auxiliary parameters are fixed, the constant \(K\) and the admissible cutoff for \(D\) are independent of \(C,D,S\) and later iterations.</p>
+</div>
+<p>The output density exponent is asymptotically linear in the input exponent. Version 2.2.0 also improves the prefactor: its dependence on \(C\) is sublinear, and its dependence on \(D^{-1}\) is the explicit power displayed above. These details matter when the operator is applied repeatedly.</p>
+<h3>The natural-density descent application</h3>
+<p>Put</p>
+\[\delta_0=\frac{\log(1/a_0)}{\log(2/a_0)}=0.251245530155874\ldots,
+\qquad c_*=\frac2{\log(4/3)}.\]
+<p>For every fixed \(0&lt;\delta&lt;\delta_0\), every \(0&lt;\sigma&lt;1-\delta/\delta_0\), and every \(c&gt;c_*\), Theorem 1.1 bounds the number of starts \(n\le X\) with no witness satisfying</p>
+\[k&lt;c\log n,\qquad T^k(n)\le\exp((\log n)^{1-\delta})\]
+<p>by \(5X\exp(-a_{\delta,\sigma,c}(\log X)^\sigma)\), for all sufficiently large \(X\). In particular, those witnesses exist on a set of natural density one. The choice \(c=6.953\) is admissible.</p>
+<p>The endpoint \(\delta=\delta_0\) is not included. The result is asymptotic, permits exceptional orbits, and does not establish the Collatz conjecture.</p>
+</div></div></section>
+<section id="architecture"><div class="wrap"><div class="col">
+<h2>From endpoint fibers to repeated descent</h2>
+<ol>
+<li><strong>Parity coordinates.</strong> A finite parity word gives an exact affine expression for the block endpoint.</li>
+<li><strong>Fixed-total compositions.</strong> These coordinates organize how many starting values can reach a given endpoint.</li>
+<li><strong>A Rényi moment estimate.</strong> The estimate controls concentration in the endpoint fibers.</li>
+<li><strong>Hölder's inequality.</strong> Combining the fiber estimate with the mass of an arbitrary bad target gives the transport theorem.</li>
+<li><strong>Endpoint-only iteration.</strong> The operator can now be applied repeatedly without assuming uniform landing values; balancing contraction against density loss gives the stated \(\delta\)-range.</li>
+</ol>
+<p>The later <a href="/polylog/">polylogarithmic-descent paper</a> uses an independent first-passage proof and reaches a smaller target. CET remains a separate operator theorem for arbitrary targets; its role is broader than the particular stretched-logarithmic application.</p>
+</div></div></section>
+<section id="lean"><div class="wrap"><div class="col">
+<h2>Paper and formalization</h2>
+<p><a href="https://doi.org/10.2139/ssrn.7341398">Read the paper on SSRN</a>. The pinned manuscript and local PDF on this site are <a href="https://doi.org/10.5281/zenodo.22544006">Zenodo v2.2.0</a>, titled <em>Quantitative Endpoint Transport for the Collatz Map with a Natural-Density Descent Application</em>.</p>
+<p><a href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-27-000018&amp;version=3">Palomar version 3</a> registers the refined arbitrary-target transport declaration at <a href="https://github.com/shaikidris/CollatzEndpointTransport-Palomar/tree/9505e8fd59f2b49a2dad269436766319c57b4012"><code>9505e8fd59f2b49a2dad269436766319c57b4012</code></a>. It verifies that selected operator statement, rather than every strengthened application in the manuscript. <a href="/cet/code/">The Lean map</a> records this scope and the earlier formalization separately.</p>
+<p>The published v2.2.0 text predates the v3 registration and describes its submission as a revision in preparation. Its text is reproduced unchanged in the full-text edition; the links here give the registered record.</p>
+</div></div></section>
