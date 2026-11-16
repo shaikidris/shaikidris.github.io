@@ -317,12 +317,15 @@ def page(d: dict) -> str:
     <h1>{esc(a['name'])}</h1>
     <p class="tagline">
       {esc(a['affiliation'])} working in number theory, graph theory, algebra and complexity.
-      Progress on the <strong>Collatz conjecture</strong> and proved cases of
+      My first <strong>breakthrough</strong> was quantitative <strong>Collatz descent</strong>
+      from first principles, proving almost-all results in ordinary natural density.
+      Subsequent <strong>breakthroughs</strong> include proved cases of
       <strong>Gallai’s path-decomposition conjecture</strong> and the
-      <strong>rank-one Dixmier conjecture</strong>, with spectral bounds and counterexamples
-      to exact color-critical two-eigenvalue conjectures.
-      Full Lean&nbsp;4 formalization projects submitted to <strong>Palomar</strong>;
-      each registered entry specifies the declarations it verifies.
+      <strong>rank-one Dixmier conjecture</strong> for elements of mass at most six.
+      I also study spectral graph bounds, construct counterexamples to exact color-critical
+      two-eigenvalue conjectures, and develop polynomial fault-detection algorithms.
+      My research combines mathematical proofs with Lean&nbsp;4 formalization;
+      selected results are registered in <strong>Palomar</strong>.
     </p>
     <p class="professional-note">
       Outside mathematics, I work in engineering leadership at Zeta, with a background in
